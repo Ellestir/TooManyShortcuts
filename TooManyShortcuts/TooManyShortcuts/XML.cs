@@ -8,5 +8,9 @@ namespace TooManyShortcuts
 {
     class XML
     {
+        public void Test
+        {
+
+        }
     }
 }
