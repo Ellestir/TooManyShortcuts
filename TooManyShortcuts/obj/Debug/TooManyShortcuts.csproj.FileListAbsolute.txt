@@ -1,0 +1,51 @@
+D:\Dokumente\SharpDevelop Projects\TooManyShortcuts\TooManyShortcuts\bin\Debug\TooManyShortcuts.exe.config
+D:\Dokumente\SharpDevelop Projects\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.Edit.resources
+D:\Dokumente\SharpDevelop Projects\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.Main.resources
+D:\Dokumente\SharpDevelop Projects\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.ShortCutList.resources
+D:\Dokumente\SharpDevelop Projects\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.csproj.GenerateResource.Cache
+D:\Dokumente\SharpDevelop Projects\TooManyShortcuts\TooManyShortcuts\bin\Debug\TooManyShortcuts.exe
+D:\Dokumente\SharpDevelop Projects\TooManyShortcuts\TooManyShortcuts\bin\Debug\TooManyShortcuts.pdb
+D:\Dokumente\SharpDevelop Projects\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.exe
+D:\Dokumente\SharpDevelop Projects\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.pdb
+D:\Dokumente\SharpDevelop Projects\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.ShorthandWindow.resources
+D:\Dokumente\SharpDevelop Projects\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.csprojResolveAssemblyReference.cache
+D:\Dokumente\SharpDevelop Projects\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.Properties.Resources.resources
+C:\Users\Louis.Mehring\Documents\Visual Studio 2015\Projects\TooManyShortcuts\TooManyShortcuts\bin\Debug\TooManyShortcuts.exe.config
+C:\Users\Louis.Mehring\Documents\Visual Studio 2015\Projects\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.exe
+C:\Users\Louis.Mehring\Documents\Visual Studio 2015\Projects\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.pdb
+C:\Users\Louis.Mehring\Documents\Visual Studio 2015\Projects\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.csprojResolveAssemblyReference.cache
+C:\Users\Louis.Mehring\Documents\Visual Studio 2015\Projects\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.Edit.resources
+C:\Users\Louis.Mehring\Documents\Visual Studio 2015\Projects\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.Main.resources
+C:\Users\Louis.Mehring\Documents\Visual Studio 2015\Projects\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.Properties.Resources.resources
+C:\Users\Louis.Mehring\Documents\Visual Studio 2015\Projects\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.ShortCutList.resources
+C:\Users\Louis.Mehring\Documents\Visual Studio 2015\Projects\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.ShorthandWindow.resources
+C:\Users\Louis.Mehring\Documents\Visual Studio 2015\Projects\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.csproj.GenerateResource.Cache
+C:\Users\Louis.Mehring\Documents\Visual Studio 2015\Projects\TooManyShortcuts\TooManyShortcuts\bin\Debug\TooManyShortcuts.exe
+C:\Users\Louis.Mehring\Documents\Visual Studio 2015\Projects\TooManyShortcuts\TooManyShortcuts\bin\Debug\TooManyShortcuts.pdb
+T:\RoboCopy Backup\USB\Documents\Documents\Schule\Stadt Frankfurt\Werner von Siemens Schule\Eick\Projekt\TooManyShortcuts\TooManyShortcuts\bin\Debug\TooManyShortcuts.exe.config
+T:\RoboCopy Backup\USB\Documents\Documents\Schule\Stadt Frankfurt\Werner von Siemens Schule\Eick\Projekt\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.exe
+T:\RoboCopy Backup\USB\Documents\Documents\Schule\Stadt Frankfurt\Werner von Siemens Schule\Eick\Projekt\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.pdb
+F:\Documents\Documents\Schule\Stadt Frankfurt\Werner von Siemens Schule\Eick\Projekt\TooManyShortcuts\TooManyShortcuts\bin\Debug\TooManyShortcuts.exe.config
+F:\Documents\Documents\Schule\Stadt Frankfurt\Werner von Siemens Schule\Eick\Projekt\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.exe
+F:\Documents\Documents\Schule\Stadt Frankfurt\Werner von Siemens Schule\Eick\Projekt\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.pdb
+F:\Documents\Documents\Schule\Stadt Frankfurt\Werner von Siemens Schule\Eick\Projekt\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.csprojResolveAssemblyReference.cache
+F:\Documents\Documents\Schule\Stadt Frankfurt\Werner von Siemens Schule\Eick\Projekt\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.Edit.resources
+F:\Documents\Documents\Schule\Stadt Frankfurt\Werner von Siemens Schule\Eick\Projekt\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.Main.resources
+F:\Documents\Documents\Schule\Stadt Frankfurt\Werner von Siemens Schule\Eick\Projekt\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.Properties.Resources.resources
+F:\Documents\Documents\Schule\Stadt Frankfurt\Werner von Siemens Schule\Eick\Projekt\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.ShortCutList.resources
+F:\Documents\Documents\Schule\Stadt Frankfurt\Werner von Siemens Schule\Eick\Projekt\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.ShorthandWindow.resources
+F:\Documents\Documents\Schule\Stadt Frankfurt\Werner von Siemens Schule\Eick\Projekt\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.csproj.GenerateResource.Cache
+F:\Documents\Documents\Schule\Stadt Frankfurt\Werner von Siemens Schule\Eick\Projekt\TooManyShortcuts\TooManyShortcuts\bin\Debug\TooManyShortcuts.exe
+F:\Documents\Documents\Schule\Stadt Frankfurt\Werner von Siemens Schule\Eick\Projekt\TooManyShortcuts\TooManyShortcuts\bin\Debug\TooManyShortcuts.pdb
+U:\Source\TooManyShortcuts\bin\Debug\TooManyShortcuts.exe.config
+U:\Source\TooManyShortcuts\obj\Debug\TooManyShortcuts.exe
+U:\Source\TooManyShortcuts\obj\Debug\TooManyShortcuts.pdb
+U:\Source\TooManyShortcuts\bin\Debug\TooManyShortcuts.exe
+U:\Source\TooManyShortcuts\bin\Debug\TooManyShortcuts.pdb
+U:\Source\TooManyShortcuts\obj\Debug\TooManyShortcuts.csprojResolveAssemblyReference.cache
+U:\Source\TooManyShortcuts\obj\Debug\TooManyShortcuts.Edit.resources
+U:\Source\TooManyShortcuts\obj\Debug\TooManyShortcuts.Main.resources
+U:\Source\TooManyShortcuts\obj\Debug\TooManyShortcuts.Properties.Resources.resources
+U:\Source\TooManyShortcuts\obj\Debug\TooManyShortcuts.ShortCutList.resources
+U:\Source\TooManyShortcuts\obj\Debug\TooManyShortcuts.ShorthandWindow.resources
+U:\Source\TooManyShortcuts\obj\Debug\TooManyShortcuts.csproj.GenerateResource.Cache
