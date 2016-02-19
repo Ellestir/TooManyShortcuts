@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<ShortcutList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="SCM_schema.xsd">
+  <Shortcuts>
+    <shortcut>
+      <shorthand>FFX</shorthand>
+      <keycombo>strg+F+X</keycombo>
+      <path>C:\Program Files (x86)\Mozilla Firefox\Firefox.exe</path>
+    </shortcut>
+  </Shortcuts>
+</ShortcutList>
