@@ -13,7 +13,8 @@ using System.Windows.Forms;
 namespace TooManyShortcuts
 {
     public partial class Main : Form
-    {
+    {   
+        // Inition 
         int _loadedpanel = 0;
         Edit edtform = new Edit();
         ShortCutList sclForm = new ShortCutList();
