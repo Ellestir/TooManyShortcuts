@@ -48,6 +48,8 @@ namespace TooManyShortcuts
 
         private void Main_Load(object sender, EventArgs e)
         {
+            Functions.StartAtWindowsStartUp(true); //Verändern auf Objekte!
+
             TestTheme();
           
             string[] startparameters = Environment.GetCommandLineArgs();

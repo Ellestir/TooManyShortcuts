@@ -58,10 +58,13 @@ namespace TooManyShortcuts
             else if (e.Modifier.ToString() == "Alt") { Mod = "ALT"; } // --
             else if (e.Modifier.ToString() == "Shift") { Mod = "SHIFT"; } // --
 
+
+            //Falls STRG und Leertaste gedrückt werden wird das ShorthandWindow aufgerufen
             if (Mod == "STRG" && e.Key.ToString() == "Space")
             {
                 ShorthandWindow shw = new ShorthandWindow();
                 CreatePopUpForm(shw);
+                
             }
             foreach (DataRow row in ShortCutList.ShortCutTable.Rows)
             { // Durchsuche die Erste Dimension (Alle Items ohne Subitem) 
@@ -82,6 +85,7 @@ namespace TooManyShortcuts
             if (forminwork == false)
             {
                 f.Show();
+                f.Focus();  
                 forminwork = true;
             }
 
@@ -148,6 +152,11 @@ namespace TooManyShortcuts
 
         }
        
+
+        /// <summary>
+        /// Setzt den Autostart des Programms fest bzw ändert ihn 
+        /// </summary>
+        /// <param name="objchecked">Eine gecheckte Textbox etc. Lediglich false oder true Mitgabe</param>
         public static void StartAtWindowsStartUp(bool objchecked)
         {
             RegistryKey rkPath = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
@@ -157,7 +166,10 @@ namespace TooManyShortcuts
 
 
 
-
+        /// <summary>
+        /// Drag Drop Methode Teil 1
+        /// </summary>
+        /// <param name="e"></param>
         public static void FileDragEnter(DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -167,7 +179,10 @@ namespace TooManyShortcuts
         }
 
 
-
+        /// <summary>
+        /// Drag Drop Methode Teil 2. 
+        /// </summary>
+        /// <param name="e"></param>
         public static void FileDragDrop(DragEventArgs e)
         {
             string[] FileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);

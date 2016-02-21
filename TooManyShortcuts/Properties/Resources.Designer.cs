@@ -63,16 +63,6 @@ namespace TooManyShortcuts.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _1453304458_FireFox {
-            get {
-                object obj = ResourceManager.GetObject("1453304458_FireFox", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Fotor0120103349 {
             get {
                 object obj = ResourceManager.GetObject("Fotor0120103349", resourceCulture);
