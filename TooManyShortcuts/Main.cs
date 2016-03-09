@@ -27,19 +27,19 @@ namespace TooManyShortcuts
 
             
             InitializeComponent();
-            lblOverview.Click +=  new System.EventHandler(ColorMenuControls);
-            lblSettings.Click += new System.EventHandler(ColorMenuControls);
+            fbtnOverview.Click +=  new System.EventHandler(ColorMenuControls);
+            fbtnSettings.Click += new System.EventHandler(ColorMenuControls);
             lblHelp.Click += new System.EventHandler(ColorMenuControls);
 
             
 
-            lblOverview.MouseMove += new System.Windows.Forms.MouseEventHandler(JustMakeItGray);
-            lblSettings.MouseMove += new System.Windows.Forms.MouseEventHandler(JustMakeItGray);
+            fbtnOverview.MouseMove += new System.Windows.Forms.MouseEventHandler(JustMakeItGray);
+            fbtnSettings.MouseMove += new System.Windows.Forms.MouseEventHandler(JustMakeItGray);
             lblHelp.MouseMove += new System.Windows.Forms.MouseEventHandler(JustMakeItGray);
 
 
-            lblOverview.MouseLeave += new System.EventHandler(MakeItNormalAgain);
-            lblSettings.MouseLeave += new System.EventHandler(MakeItNormalAgain);
+            fbtnOverview.MouseLeave += new System.EventHandler(MakeItNormalAgain);
+            fbtnSettings.MouseLeave += new System.EventHandler(MakeItNormalAgain);
             lblHelp.MouseLeave += new System.EventHandler(MakeItNormalAgain);
         }
       
@@ -48,9 +48,13 @@ namespace TooManyShortcuts
 
         private void Main_Load(object sender, EventArgs e)
         {
-            Functions.StartAtWindowsStartUp(true); //Verändern auf Objekte!
+        	Functions.IntalizeKeyPressEvent(); 
+        	
+        	
+        	
+        	//Functions.StartAtWindowsStartUp(true); //Verändern auf Objekte!
 
-            TestTheme();
+           
           
             string[] startparameters = Environment.GetCommandLineArgs();
             
@@ -59,8 +63,7 @@ namespace TooManyShortcuts
           
             fbtnOverview_Click(sender, e);
 
-            // this.MaximizeBox = false;
-            //this.FormBorderStyle = FormBorderStyle.Fixed3D;
+            
            
 
         }
@@ -72,32 +75,19 @@ namespace TooManyShortcuts
 
 
 
-            lblOverview.ImageList = imgListMenu; // Definition ImgList
-            lblOverview.ImageAlign = ContentAlignment.MiddleLeft;
-            lblOverview.ImageKey = "Home";
-            lblOverview.TextAlign = ContentAlignment.MiddleCenter;
-            lblOverview.Text = "Home";
+            fbtnOverview.ImageList = imgListMenu; // Definition ImgList
+            fbtnOverview.ImageAlign = ContentAlignment.MiddleLeft;
+            fbtnOverview.ImageKey = "Home";
+            fbtnOverview.TextAlign = ContentAlignment.MiddleCenter;
+            fbtnOverview.Text = "Home";
            
-            lblSettings.Text = "          Create/ Edit Shortcuts";
-            //fbtnEdit.ImageList = imgListMenu;
-            //fbtnEdit.ImageKey = "Tools";
+            fbtnSettings.Text = "          Create/ Edit Shortcuts";
+        
         }
 
 
-        /// <summary>
-        /// TestMethode ThemeChange
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void TestTheme()
-        {
-            this.BackgroundImageLayout = ImageLayout.Stretch;
-            //this.BackgroundImage = Image.FromFile("C:\\temp\\Test.jpg"); 
-            // Schelcht programmiert
-            pnlLoad.BackColor = this.BackColor = Color.FromArgb(59, 60, 62);
-        }
-
-
+   
+     
 
         private void fbtnOverview_Click(object sender, EventArgs e)
         {
@@ -182,5 +172,16 @@ namespace TooManyShortcuts
      
 
 
+        // Weitermachen
+        void MainKeyDown(object sender, KeyEventArgs e)
+        {
+        	if (e.KeyCode == Keys.F5) {CleanPanel(1,sclForm);}
+        }
+        
+       
+        
+        
+        
+        
     }
 }

@@ -32,7 +32,18 @@ namespace TooManyShortcuts
         static KeyMods KeyMod = new KeyMods();
         public static string DDFileName = ""; // DragDropFileName 
         public static string DDPath; //DragDropPath
-        //Registert den Hotkey 
+public static KeyboardHook hook = new KeyboardHook(); 
+            
+       
+        /// <summary>
+        /// Notwendig um Shortcuts registrieren zu können!
+        /// </summary>
+        public static void IntalizeKeyPressEvent(){
+        	hook.KeyPressed +=
+                  new EventHandler<KeyPressedEventArgs>(hook_KeyPressed);
+        }
+        
+        
         public static void RegisterHotKey(string completeshortcut)
         {
             if (completeshortcut.Split('+')[0] == "STRG ") KeyMod = KeyMods.Control;
@@ -42,14 +53,16 @@ namespace TooManyShortcuts
             string tempstr = completeshortcut.Split('+')[1];
             tempstr = tempstr.Substring(1, tempstr.Length - 1);
             Application.DoEvents();
+			
 
-
-            KeyboardHook hook = new KeyboardHook();
-            hook.KeyPressed +=
-                 new EventHandler<KeyPressedEventArgs>(hook_KeyPressed);
+           
+           
             hook.RegisterHotKey(KeyMod, (Keys)Enum.Parse(typeof(Keys), tempstr));
+            
         }
-
+       
+        
+			
         //Hotkeyausführung: Falls der Hotkey gedrückt wird müssen einige Zeichen umgewandelt werden 
         static void hook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
@@ -70,7 +83,7 @@ namespace TooManyShortcuts
             { // Durchsuche die Erste Dimension (Alle Items ohne Subitem) 
                 ListViewItem item = new ListViewItem();
 
-                if (Mod + " + " + e.Key.ToString() == row["Shortcut"].ToString())
+                if (Mod + " + " + e.Key.ToString() == row["Shortcuts"].ToString())
                 { //Ist das 3 Subitem (gespeicherte Tastenkombi) mit der Tastenkombination gleich {
                     StartProcess(row);
 

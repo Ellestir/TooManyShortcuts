@@ -19,9 +19,9 @@ namespace TooManyShortcuts
         public static string[,] ShortcutList = new string[6, 5]; // StringListe der Shortcuts 
         ImportIcon ico = new ImportIcon(); // Verknüopfung zu Toms KLasse zum Auslesen der Icons
         public int sclFormWidth = 0;
-        string XMLPath = Application.StartupPath + "\\Config.xml";
+        string XMLPath = Application.StartupPath + "\\Settings\\Config.xml";
         string ProgramIconPath = Application.StartupPath + "\\Icons\\Programs";
-
+	
 
         public ShortCutList()
         {
@@ -39,11 +39,7 @@ namespace TooManyShortcuts
 
         private void Main_Load(object sender, EventArgs e)
         {
-            // Themeänderungen
-            txtSearch.BackColor = Color.FromArgb(30, 30, 31);
-            pnlSearch.BackColor = Color.FromArgb(59, 60, 62);
-            lblSearch.ForeColor = Color.White;
-            lvShortcuts.BackColor = Color.Gray;
+            
 
 
 
@@ -56,7 +52,7 @@ namespace TooManyShortcuts
             imgList.ImageSize = new System.Drawing.Size(40, 40);
 
 
-            Functions.FillImageList(ProgramIconPath,imgList,".png");
+            Functions.FillImageList(ProgramIconPath,imgList,"*.png");
             lvShortcuts.FullRowSelect = true;
             lvShortcuts.LargeImageList = imgList;
             lvShortcuts.SmallImageList = imgList;
@@ -91,7 +87,7 @@ namespace TooManyShortcuts
             ShortCutTable.Columns.Add("Name", typeof(string));
             ShortCutTable.Columns.Add("Path", typeof(string));
             ShortCutTable.Columns.Add("Parameter", typeof(string));
-            ShortCutTable.Columns.Add("Shortcut", typeof(string));
+            ShortCutTable.Columns.Add("Shortcuts", typeof(string));
             ShortCutTable.Columns.Add("Shorthand", typeof(string));
 
             //TEST
@@ -105,7 +101,7 @@ namespace TooManyShortcuts
 
             foreach (DataRow row in ShortCutTable.Rows)
             {
-                Functions.RegisterHotKey(row["Shortcut"].ToString());
+                Functions.RegisterHotKey(row["Shortcuts"].ToString());
 
 
 
@@ -115,7 +111,7 @@ namespace TooManyShortcuts
                 item.Text = row["Name"].ToString();
                 item.SubItems.Add(row["Path"].ToString());
                 item.SubItems.Add(row["Parameter"].ToString());
-                item.SubItems.Add(row["Shortcut"].ToString());
+                item.SubItems.Add(row["Shortcuts"].ToString());
                 item.SubItems.Add(row["Shorthand"].ToString());
                 SpecialIcons(row, item); // EasterEgg
 
@@ -166,18 +162,18 @@ namespace TooManyShortcuts
                 // Wenn das Objekt eine Datei ist 
                 if (System.IO.File.Exists(row["Path"].ToString()))
                 {
-                    imgList.Images.Add(row["Name"].ToString(), ico.ExtractAssociatedIconEx(row["Path"].ToString()));
-                    item.ImageIndex = imgList.Images.Count - 1; // + Wie viele Festdefinierte Bilder
+                     imgList.Images.Add(row["Name"].ToString(), ico.ExtractAssociatedIconEx(row["Path"].ToString()));
+                    // HIER MUSS NOCH CODE HIN 
 
-                    if (row["Path"].ToString().EndsWith(".mp4")) { item.ImageIndex = 4; } //4 Weil immer ein Element hier hinzugefügt obwohl 5 Datei im Ordner
-                    if (row["Path"].ToString().EndsWith(".mp3")) { item.ImageIndex = 5; }
+                    if (row["Path"].ToString().EndsWith(".mp4")) { item.ImageKey = "Video"; } //4 Weil immer ein Element hier hinzugefügt obwohl 5 Datei im Ordner
+                    if (row["Path"].ToString().EndsWith(".mp3")) { item.ImageKey = "Music"; }
 
                 }
 
                 // Wenn das Objekt ein Ordner ist 
                 if (System.IO.Directory.Exists(row["Path"].ToString()))
                 {
-                    item.ImageIndex = 0;  // + Wie viele Festdefinierte Bilder 
+                    item.ImageKey = "Folder.png";  // + Wie viele Festdefinierte Bilder 
                                           // INDEX UMÄNDERN MIT NAME AM BESTEN  rfhwe8ufh 
 
 
@@ -199,7 +195,7 @@ namespace TooManyShortcuts
 
             //Porn Icon //MUSS ZULETZT STEHEN DA EASTEREGG
             //if (row["Name"].ToString().Contains("Porn")) { item.ImageKey = "Porn"; }
-            //if (row["Path"].ToString().Contains("porn")) { item.ImageKey = "Porn"; }
+            // if (row["Path"].ToString().Contains("porn")) { item.ImageKey = "Porn"; }
             //
         }
 

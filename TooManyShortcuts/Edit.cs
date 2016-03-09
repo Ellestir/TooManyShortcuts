@@ -9,7 +9,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-
+using System.Data;
 using System.Diagnostics;
 using System.Collections.Generic;
 namespace TooManyShortcuts
@@ -22,7 +22,10 @@ namespace TooManyShortcuts
 
         KeyMods KeyMod = new KeyMods(); 
         ListView lv = new ListView();
-       public  int formwidth = 0;
+        string StandardHotKeyList = Application.StartupPath + "\\Settings\\StandardHotKeys.xml";
+       	string ShortCutTemp = ""; 
+       string ShortHandTemp = ""; 
+        public  int formwidth = 0;
 
         public Edit()
 
@@ -36,7 +39,7 @@ namespace TooManyShortcuts
             //
             // TODO: Add constructor code after the InitializeComponent() call.
             //
-
+           
         }
 
         /// <summary>
@@ -54,9 +57,10 @@ namespace TooManyShortcuts
             txtPath.Text = Path;
             txtParameter.Text = Parameter;
             FixedtxtShortcuts.Text = Shortcut;
-            txtShorthand.Text = Shorthand;
-          
-           
+            txtShorthand.Text = Shorthand; 
+            //Damit die Textbox nur einmal am Anfang gespeichert wird und bei eingabe des gleichen Wertes keine Warnung angezeigt wird da gleicher Wert
+            ShortCutTemp = FixedtxtShortcuts.Text;
+            ShortHandTemp = txtShorthand.Text; 
         }
 
         /// <summary>
@@ -79,6 +83,7 @@ namespace TooManyShortcuts
             txtParameter.Text = lv.SelectedItems[0].SubItems[2].Text;
             FixedtxtShortcuts.Text = lv.SelectedItems[0].SubItems[3].Text;
             txtShorthand.Text = lv.SelectedItems[0].SubItems[4].Text;
+            
         }
 
 
@@ -114,7 +119,11 @@ namespace TooManyShortcuts
 
         void EditLoad(object sender, EventArgs e)
         {
-            // Legt lediglich die TabIndex Reinfolge der Elemente fest
+        	Functions.hook.Dispose();
+        	
+
+        	
+        	// Legt lediglich die TabIndex Reinfolge der Elemente fest
             // Somit ist einfaches durchtappen mit der Taptaste gegeben
             formwidth = this.Width;
             this.BackColor = System.Drawing.SystemColors.Window;
@@ -137,8 +146,12 @@ namespace TooManyShortcuts
             FixedtxtShortcuts.Multiline = false; // Textbox bleibt in angemessener Größe
             FixedtxtShortcuts.ReadOnly = true; // Textbox kann nur gelesen werden 
 
-
-
+			//Error Provider
+			EPShortcut.BlinkRate = 200; 
+            EPShortcut.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError; 
+			EPShortHand.BlinkRate = 200; 
+            EPShortHand.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError; 
+            
         }
 
 
@@ -158,6 +171,8 @@ namespace TooManyShortcuts
             Functions.FileDragEnter(e);
         }
 
+        
+        //Pfadeingabe per Drag an Drop
         private void txtPath_DragDrop(object sender, DragEventArgs e)
         {
             Functions.FileDragDrop(e);
@@ -174,53 +189,110 @@ namespace TooManyShortcuts
         /// <param name="e"></param>
         void FixedTextBoxShortCutKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape ) { FixedtxtShortcuts.Text = null; }
-            if (e.Modifiers == Keys.Control && e.KeyCode != Keys.ControlKey)
+        	 
+        	if (e.KeyCode == Keys.Escape ) { FixedtxtShortcuts.Text = null; }
+        	
+        	if ((e.Modifiers == Keys.Control && e.KeyCode != Keys.ControlKey) || (e.Modifiers == Keys.Alt && e.KeyCode != Keys.Menu) ||  (e.Modifiers == Keys.Shift && e.KeyCode != Keys.ShiftKey) )
+        	{
+      	
+        	
+        	
+        	
+            if (e.Modifiers == Keys.Control)
             {
                 FixedtxtShortcuts.Text = "STRG + " + e.KeyCode.ToString();
                 KeyMod = KeyMods.Control;
-
             }
-            else if (e.Modifiers == Keys.Alt && e.KeyCode != Keys.Menu)
+            else if (e.Modifiers == Keys.Alt)
             {
-                FixedtxtShortcuts.Text = "ALT + " + e.KeyCode.ToString();
-                KeyMod= KeyMods.Alt;
-
-            }
-            else if (e.Modifiers == Keys.Shift && e.KeyCode != Keys.ShiftKey)
+           		 FixedtxtShortcuts.Text = "ALT + " + e.KeyCode.ToString();
+            	 KeyMod= KeyMods.Alt;
+			}
+            else if (e.Modifiers == Keys.Shift)
             {
-                FixedtxtShortcuts.Text = "SHIFT + " + e.KeyCode.ToString();
+                
+            	FixedtxtShortcuts.Text = "SHIFT + " + e.KeyCode.ToString();
                 KeyMod = KeyMods.Shift;
-
+			}
+             
+            int inttemp = 0; 
+            //Durcläuft die Zeilen ShortCutTable um nach einem schon verwendeten Shortcut zu suchen
+            foreach (DataRow row in ShortCutList.ShortCutTable.Rows)
+            {
+             	if(row["ShortCuts"].ToString() == FixedtxtShortcuts.Text) 
+             	{
+             		if (FixedtxtShortcuts.Text != ShortCutTemp) {
+             			
+             			EPShortcut.SetError(FixedtxtShortcuts, "Wird bereits von" + row["Name"].ToString() + " verwendet!");
+             		inttemp = 1; 
+             		}
+             		
+             	}
+        		
+       		 }
+            if (inttemp == 0) {
+            	EPShortcut.Clear(); 
             }
-
-
+            
+             
+             
+             	
+             	
+          
+  	
+        	}
         }
-
-
-
+       
 
 
         void BtnEditFinishedClick(object sender, EventArgs e)
         {
-            if (txtName.Text != "" && txtPath.Text != "" &&  txtShorthand.Text.Length <= 3 &&  (FixedtxtShortcuts.Text != "" || txtShorthand.Text != "" )   )
+            
+        	bool UpdateTable = false; 
+        	// Wenn Felder ausreichend ausgefüllt sind
+        	if (txtName.Text != "" && txtPath.Text != "" &&  txtShorthand.Text.Length <= 3 &&  (FixedtxtShortcuts.Text != "" || txtShorthand.Text != "" )   )
+            {
+        		// Wenn beide MessageBoxen mit Ja beantwortet werden
+        		if (EPShortcut.GetError(FixedtxtShortcuts) != "" ||EPShortHand.GetError(txtShorthand) != "")  {
+                    UpdateTable = true; 
+        			if (MessageBox.Show("Wollen sie die Werte in den anderen Shortcut wirklich ersetzen?" ,"Warnung!",MessageBoxButtons.YesNo,MessageBoxIcon.Warning) == DialogResult.Yes);
+        		 	{
+                        UpdateTable = true;
+
+
+
+
+                    }
+                }
+                else if (EPShortcut.GetError(FixedtxtShortcuts) == "" && EPShortHand.GetError(txtShorthand) == "")
+                {
+                    UpdateTable = true;
+                }
+                }
+
+            if (UpdateTable == true)
             {
                 try
                 {
                     Functions.RegisterHotKey(FixedtxtShortcuts.Text);
+                    // HIER MUSS NOCH DAS AKTUALISIEEN DER TABELLE REIN!
+                    //SHORTCUTS MÜSSEN WIEDER REGISTRIERT WERDEN!
+                    this.Close();
+
                 }
-                catch (Exception q )
+                catch (Exception q)
                 {
-                    MessageBox.Show(q.Message);
+                    MessageBox.Show(q.ToString());
                     throw;
                 }
-               
-                // WEITERMAXHEN  (ÜBERPRÜFUNG  NACH SHORTHANDS ETC.) 
             }
+        	}
+        
+        
+    
 
 
-
-        }
+      
 
 
 
@@ -229,6 +301,7 @@ namespace TooManyShortcuts
 
             txtShorthand.Text = txtShorthand.Text.ToUpper();
             txtShorthand.Select(txtShorthand.Text.Length, 0);
+			
         }
 
         private void lblParamHelp_Click(object sender, EventArgs e)
@@ -236,6 +309,35 @@ namespace TooManyShortcuts
             if (txtName.Text != "") { Process.Start("https://www.google.de/search?q=" + txtName.Text + "+command+line+parameters"); }
             else { MessageBox.Show(""); }//#INPROCESS
         }
+		
+	
+		
+		
+		
+		
+		
+
+		
+		void TxtShorthandKeyUp(object sender, KeyEventArgs e)
+		{
+			int inttemp = 0;             
+            foreach (DataRow row in ShortCutList.ShortCutTable.Rows)
+            {
+             	if(row["ShortHand"].ToString() == txtShorthand.Text) 
+             	{
+             		if (txtShorthand.Text != ShortHandTemp) {
+             			
+             		EPShortHand.SetError(txtShorthand, "Wird bereits von " + row["Name"].ToString() + " verwendet!");
+             		inttemp = 1; 
+             		}
+             		
+             	}
+        		
+       		 }
+            if (inttemp == 0) {
+            	EPShortHand.Clear(); 
+            }
+		}
     }
 }
 
