@@ -82,6 +82,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Shortcut.cs" />
     <Compile Include="ShortCutList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,9 +95,13 @@
     <Compile Include="ShorthandWindow.Designer.cs">
       <DependentUpon>ShorthandWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="XMLShortcutList.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="SCM_Schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Edit.resx">
