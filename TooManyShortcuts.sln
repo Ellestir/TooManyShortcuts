@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TooManyShortcuts", "TooManyShortcuts\TooManyShortcuts.csproj", "{CA1C66F7-DD37-45D1-AFF7-7148AC8E0760}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TooManyShortcutsTEST", "TooManyShortcutsTEST\TooManyShortcutsTEST.csproj", "{C26CE9AE-E3A6-4CC7-812F-9B52D5FF4FEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{CA1C66F7-DD37-45D1-AFF7-7148AC8E0760}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA1C66F7-DD37-45D1-AFF7-7148AC8E0760}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA1C66F7-DD37-45D1-AFF7-7148AC8E0760}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C26CE9AE-E3A6-4CC7-812F-9B52D5FF4FEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C26CE9AE-E3A6-4CC7-812F-9B52D5FF4FEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C26CE9AE-E3A6-4CC7-812F-9B52D5FF4FEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C26CE9AE-E3A6-4CC7-812F-9B52D5FF4FEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -61,3 +61,15 @@ D:\Dokumente\Visual Studio 2015\Projects\Repos\TooManyShortcuts\TooManyShortcuts
 D:\Dokumente\Visual Studio 2015\Projects\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.ShortCutList.resources
 D:\Dokumente\Visual Studio 2015\Projects\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.ShorthandWindow.resources
 D:\Dokumente\Visual Studio 2015\Projects\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.csproj.GenerateResource.Cache
+C:\Users\Fiae\Source\Repos\TooManyShortcuts\TooManyShortcuts\bin\Debug\TooManyShortcuts.exe.config
+C:\Users\Fiae\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.exe
+C:\Users\Fiae\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.pdb
+C:\Users\Fiae\Source\Repos\TooManyShortcuts\TooManyShortcuts\bin\Debug\TooManyShortcuts.exe
+C:\Users\Fiae\Source\Repos\TooManyShortcuts\TooManyShortcuts\bin\Debug\TooManyShortcuts.pdb
+C:\Users\Fiae\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.csprojResolveAssemblyReference.cache
+C:\Users\Fiae\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.Edit.resources
+C:\Users\Fiae\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.Main.resources
+C:\Users\Fiae\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.Properties.Resources.resources
+C:\Users\Fiae\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.ShortCutList.resources
+C:\Users\Fiae\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.ShorthandWindow.resources
+C:\Users\Fiae\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.csproj.GenerateResource.Cache
