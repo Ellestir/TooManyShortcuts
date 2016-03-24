@@ -7,31 +7,32 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element name="Shortcuts">
-            <xs:complexType>
-              <xs:sequence>
-                <xs:element name="shortcut" minOccurs="0" maxOccurs="unbounded">
-                  <xs:complexType>
-                    <xs:sequence>
-			        <xs:element name="shorthand" type="xs:string" minOccurs="1" maxOccurs="1" />
-			        <xs:element name="keycombo" type="xs:string" minOccurs="1" maxOccurs="1" />
-			        <xs:element name="path" type="xs:string" minOccurs="1" maxOccurs="1" />
-			        </xs:sequence>
-                  </xs:complexType>
-                </xs:element>
-              </xs:sequence>
-            </xs:complexType>
-            <xs:unique name="uniqueShorthand" >
-              <xs:selector xpath="shortcut" />
-              <xs:field xpath="@shorthand" />
-            </xs:unique>
-	        <xs:unique name="uniqueKeyCombo" >
-	          <xs:selector xpath="shortcut" />
-	          <xs:field xpath="@keycombo" />
-	        </xs:unique>
-	
-               
-         </xs:element>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Shortcut" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1" />
+                    <xs:element name="Shorthand" type="xs:string" minOccurs="1" maxOccurs="1" />
+                    <xs:element name="Keycombo" type="xs:string" minOccurs="1" maxOccurs="1" />
+                    <xs:element name="Path" type="xs:string" minOccurs="1" maxOccurs="1" />
+                    <xs:element name="IconLocation" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="Parameters" type ="xs:string" minOccurs="0" maxOccurs="1" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:unique name="uniqueShorthand">
+            <xs:selector xpath="Shortcut" />
+            <xs:field xpath="@Shorthand" />
+          </xs:unique>
+          <xs:unique name="uniqueKeyCombo">
+            <xs:selector xpath="Shortcut" />
+            <xs:field xpath="@Keycombo" />
+          </xs:unique>
+        </xs:element>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-</xs:schema>
+  </xs:schema>

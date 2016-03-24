@@ -73,3 +73,4 @@ C:\Users\Fiae\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManySh
 C:\Users\Fiae\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.ShortCutList.resources
 C:\Users\Fiae\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.ShorthandWindow.resources
 C:\Users\Fiae\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.csproj.GenerateResource.Cache
+C:\Users\Fiae\Source\Repos\TooManyShortcuts\TooManyShortcuts\bin\Debug\SCM_Schema.xsd

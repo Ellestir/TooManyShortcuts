@@ -1,16 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Schema;
 using System.Xml.Serialization;
 
 namespace TooManyShortcuts
 {
-    [XmlRoot("Shortcutlist")]
+    [XmlRoot(ElementName ="ShortcutList")]
     public class XMLShortcutList
     {
+        [XmlAttribute(AttributeName = "noNamespaceSchemaLocation", Namespace = XmlSchema.InstanceNamespace)]
+        public string SchemaLocation = "SCM_Schema.xsd";
+
         public List<Shortcut> Shortcuts = new List<Shortcut>(); 
         // Settings könnten hier noch rein und in das gleiche XML geschrieben werden
     }
@@ -23,14 +29,28 @@ namespace TooManyShortcuts
             // Erstellt eine neue Instanz der XmlSerializer-Klasse für den Typ unserer Listenklasse
             XmlSerializer SerializerObj = new XmlSerializer(typeof(XMLShortcutList));
 
-            // Erstellt eine neue StreamWriter-Instanz um die Daten in eine Datei zu schreiben
-            TextWriter WriteFileStream = new StreamWriter(xmlpath);
-            
-            // Alle Shortcuts werden als einzelne Child-Elemente("Shortcut") von "Shortcuts" geschrieben
-            SerializerObj.Serialize(WriteFileStream, list);
+            StringWriter ValidationStream = new StringWriter();
 
-            // Aufräumarbeiten
-            WriteFileStream.Close();
+            SerializerObj.Serialize(ValidationStream, list);
+            ValidationStream.Close();
+            string ValidationData = ValidationStream.ToString();
+
+            //validiert das bei der Serialisierung entstandene XML gegen das Schema bevor es gespeichert wird
+            if (ValidateXML(ValidationData, list.SchemaLocation) == true)
+            {
+                // Erstellt eine neue StreamWriter-Instanz um die Daten in eine Datei zu schreiben
+                TextWriter WriteFileStream = new StreamWriter(xmlpath);
+
+                // Alle Shortcuts werden als einzelne Child-Elemente("Shortcut") von "Shortcuts" geschrieben
+                SerializerObj.Serialize(WriteFileStream, list);
+
+                // Aufräumarbeiten
+                WriteFileStream.Close();
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("Fehlerhafte Eingabe"); //Platzhalter
+            }
         }
 
         //Liest Shortcut-Liste aus XML aus
@@ -38,7 +58,7 @@ namespace TooManyShortcuts
         {
             // Erstellt eine neue Instanz der XmlSerializer-Klasse für den Typ unserer Listenklasse
             XmlSerializer SerializerObj = new XmlSerializer(typeof(XMLShortcutList));
-            
+
             // Erstellt einen neuen FileStream um die Daten zu lesen
             FileStream ReadFileStream = new FileStream(xmlpath, FileMode.Open, FileAccess.Read, FileShare.Read);
 
@@ -50,6 +70,25 @@ namespace TooManyShortcuts
 
             // Aufräumarbeiten
             ReadFileStream.Close();
+
+        }
+        //Prüft, ob das gegebene XML dem gegebenen Schema entspricht
+        public static bool ValidateXML(string xml, string schema)
+        {
+           
+                XDocument xdoc = XDocument.Parse(xml);
+                XmlSchemaSet schemas = new XmlSchemaSet();
+                schemas.Add(null, schema);
+
+                try
+                {
+                    xdoc.Validate(schemas, null);
+                    return true;
+                }
+                catch(XmlSchemaValidationException)
+                {
+                    return false;
+                }
             
         }
     }

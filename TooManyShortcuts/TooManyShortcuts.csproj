@@ -101,6 +101,7 @@
     <None Include="app.config" />
     <None Include="SCM_Schema.xsd">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
