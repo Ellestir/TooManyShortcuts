@@ -25,11 +25,11 @@
           </xs:complexType>
           <xs:unique name="uniqueShorthand">
             <xs:selector xpath="Shortcut" />
-            <xs:field xpath="@Shorthand" />
+            <xs:field xpath="Shorthand" />
           </xs:unique>
           <xs:unique name="uniqueKeyCombo">
             <xs:selector xpath="Shortcut" />
-            <xs:field xpath="@Keycombo" />
+            <xs:field xpath="Keycombo" />
           </xs:unique>
         </xs:element>
       </xs:sequence>

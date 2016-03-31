@@ -36,7 +36,9 @@ namespace TooManyShortcuts
             string ValidationData = ValidationStream.ToString();
 
             //validiert das bei der Serialisierung entstandene XML gegen das Schema bevor es gespeichert wird
-            if (ValidateXML(ValidationData, list.SchemaLocation) == true)
+            string ValidationResult = ValidateXML(ValidationData, list.SchemaLocation);
+
+            if (ValidationResult == "ok")
             {
                 // Erstellt eine neue StreamWriter-Instanz um die Daten in eine Datei zu schreiben
                 TextWriter WriteFileStream = new StreamWriter(xmlpath);
@@ -49,7 +51,7 @@ namespace TooManyShortcuts
             }
             else
             {
-                System.Windows.Forms.MessageBox.Show("Fehlerhafte Eingabe"); //Platzhalter
+                System.Windows.Forms.MessageBox.Show(ValidationResult); //Platzhalter
             }
         }
 
@@ -73,7 +75,7 @@ namespace TooManyShortcuts
 
         }
         //Prüft, ob das gegebene XML dem gegebenen Schema entspricht
-        public static bool ValidateXML(string xml, string schema)
+        public static string ValidateXML(string xml, string schema)
         {
            
                 XDocument xdoc = XDocument.Parse(xml);
@@ -83,11 +85,11 @@ namespace TooManyShortcuts
                 try
                 {
                     xdoc.Validate(schemas, null);
-                    return true;
+                    return "ok";
                 }
-                catch(XmlSchemaValidationException)
+                catch(XmlSchemaValidationException e)
                 {
-                    return false;
+                    return e.Message;
                 }
             
         }
