@@ -42,7 +42,7 @@ namespace TooManyShortcuts
             // txtShorthand
             // 
             this.txtShorthand.Location = new System.Drawing.Point(9, 10);
-            this.txtShorthand.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtShorthand.Margin = new System.Windows.Forms.Padding(2);
             this.txtShorthand.Name = "txtShorthand";
             this.txtShorthand.Size = new System.Drawing.Size(206, 20);
             this.txtShorthand.TabIndex = 0;
@@ -54,7 +54,8 @@ namespace TooManyShortcuts
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(226, 41);
             this.Controls.Add(this.txtShorthand);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ShorthandWindow";
             this.Text = "Shorthand";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ShorthandWindow_FormClosed);

@@ -123,6 +123,11 @@ namespace TooManyShortcuts
             this.WindowState = FormWindowState.Normal; 
         }
 
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.Close(); 
+        }
+
 
 
 

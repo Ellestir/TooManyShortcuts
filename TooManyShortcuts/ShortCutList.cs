@@ -82,7 +82,7 @@ namespace TooManyShortcuts
         /// </summary>
         public void LOADXML()
         {
-            ListSerializer.DeSerialize(XMLList, XMLPath); 
+           //  ListSerializer.DeSerialize(XMLList, XMLPath); 
 
 
             //Auslesen aus XML
@@ -95,9 +95,12 @@ namespace TooManyShortcuts
             
             
         
-           
-            ShortCutTable.Rows.Add(XMLList.Shortcuts[0]);
-         
+            if (System.IO.File.Exists(XMLPath) == false) { System.IO.File.WriteAllText(XMLPath, ""); }
+            String[] a = System.IO.File.ReadAllLines(XMLPath);
+            for (int y = 0; y < a.Length; y = y + 5)
+            {
+                ShortCutTable.Rows.Add(a[y], a[y + 1], a[y + 2], a[y + 3], a[y + 4]);
+            }
        
 
             foreach (DataRow row in ShortCutTable.Rows)
