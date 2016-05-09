@@ -87,3 +87,6 @@ U:\Source\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.Propertie
 U:\Source\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.ShortCutList.resources
 U:\Source\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.ShorthandWindow.resources
 U:\Source\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.csproj.GenerateResource.Cache
+C:\Users\rill\Source\Repos\TooManyShortcuts\TooManyShortcuts\bin\Debug\TooManyShortcuts.exe.config
+C:\Users\rill\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.exe
+C:\Users\rill\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.pdb

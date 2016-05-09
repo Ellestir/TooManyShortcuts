@@ -83,25 +83,41 @@ namespace TooManyShortcuts
             //Auslesen aus XML
             this.Text = "TooManyShortcuts v0.0.1"; //XML Abfrage einfügen
                                                    //Beispiel Eintrag Anfang
+            
 
             ShortCutTable.Columns.Add("Name", typeof(string));
             ShortCutTable.Columns.Add("Path", typeof(string));
             ShortCutTable.Columns.Add("Parameter", typeof(string));
-            ShortCutTable.Columns.Add("Shortcuts", typeof(string));
+            ShortCutTable.Columns.Add("Shortcut", typeof(string));
             ShortCutTable.Columns.Add("Shorthand", typeof(string));
+
+            try
+            {
+                ListSerializer.DeSerialize(XMLList, "Shortcuts.xml");
+                foreach (Shortcut sc in XMLList.Shortcuts)
+                {
+                    ShortCutTable.Rows.Add(sc.Name, sc.Path, sc.Parameters, sc.Keycombo, sc.Shorthand);
+                }
+            }
+
+            catch
+            {
+
+            }
+            
 
             //TEST
 
-            if (System.IO.File.Exists(XMLPath) == false) { System.IO.File.WriteAllText(XMLPath, ""); }
+            /*if (System.IO.File.Exists(XMLPath) == false) { System.IO.File.WriteAllText(XMLPath, ""); }
             String[] a = System.IO.File.ReadAllLines(XMLPath);
             for (int y = 0; y < a.Length; y = y + 5)
             {
                 ShortCutTable.Rows.Add(a[y], a[y + 1], a[y + 2], a[y + 3], a[y + 4]);
             }
-
+            */
             foreach (DataRow row in ShortCutTable.Rows)
             {
-                Functions.RegisterHotKey(row["Shortcuts"].ToString());
+                Functions.RegisterHotKey(row["Shortcut"].ToString());
 
 
 
@@ -111,7 +127,7 @@ namespace TooManyShortcuts
                 item.Text = row["Name"].ToString();
                 item.SubItems.Add(row["Path"].ToString());
                 item.SubItems.Add(row["Parameter"].ToString());
-                item.SubItems.Add(row["Shortcuts"].ToString());
+                item.SubItems.Add(row["Shortcut"].ToString());
                 item.SubItems.Add(row["Shorthand"].ToString());
                 SpecialIcons(row, item); // EasterEgg
 
