@@ -82,12 +82,10 @@ namespace TooManyShortcuts
         /// </summary>
         public void LOADXML()
         {
-           
+            ListSerializer.DeSerialize(XMLList, XMLPath); 
 
 
             //Auslesen aus XML
-
-
             ShortCutTable.Columns.Add("Name", typeof(string));
             ShortCutTable.Columns.Add("Path", typeof(string));
             ShortCutTable.Columns.Add("Parameter", typeof(string));
@@ -96,16 +94,11 @@ namespace TooManyShortcuts
 
             
             
-            //TEST
-
-            // MAX Überschreiben
-            if (System.IO.File.Exists(XMLPath) == false) { System.IO.File.WriteAllText(XMLPath, ""); }
-            String[] a = System.IO.File.ReadAllLines(XMLPath);
-            for (int y = 0; y < a.Length; y = y + 5)
-            {
-                ShortCutTable.Rows.Add(a[y], a[y + 1], a[y + 2], a[y + 3], a[y + 4]);
-            }
-            // MAX Überschreiben ENde
+        
+           
+            ShortCutTable.Rows.Add(XMLList.Shortcuts[0]);
+         
+       
 
             foreach (DataRow row in ShortCutTable.Rows)
             {
@@ -251,8 +244,54 @@ namespace TooManyShortcuts
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
+            lvShortcuts.Items.Clear();
+            if (txtSearch.Text == "")
+            {
+                // Später
+            }
+            foreach (DataRow row in ShortCutTable.Rows)
+            {
+                ListViewItem item = new ListViewItem();
+                foreach (DataColumn dc in ShortCutTable.Columns)
+            {
+                    if (row[dc].ToString().Contains(txtSearch.Text))
+                    {
+                        if (dc.ColumnName == "Name" || dc.ColumnName == "Path" || dc.ColumnName == "Shorthand")
+                        {
+                            item.Text = row["Name"].ToString();
+                            item.SubItems.Add(row["Path"].ToString());
+                            item.SubItems.Add(row["Parameter"].ToString());
+                            item.SubItems.Add(row["Shortcuts"].ToString());
+                            item.SubItems.Add(row["Shorthand"].ToString());
+                            SpecialIcons(row, item); // EasterEgg
+                            if (row["Path"].ToString().StartsWith("http") == false)
+                            {
+                                if (System.IO.File.Exists(row["Path"].ToString()) == false)
+                                {
+                                    item.ForeColor = Color.Red;
+                                    item.SubItems[1].Text += " (nicht gefunden)";
 
-        }
+                                }
+                            }
+                            lvShortcuts.Items.Add(item); //Add this row to the ListView
+                            break;
+                        }
+
+                     
+                    }
+                    }
+             
+              
+
+               
+                }
+
+
+              
+
+            }
+
+       
 
 
         private void lvShortcuts_DoubleClick(object sender, EventArgs e)
@@ -294,8 +333,7 @@ namespace TooManyShortcuts
                
                 if (edt.ShowDialog(this) == DialogResult.OK)
                 {
-                    // Read the contents of testDialog's TextBox.
-                    MessageBox.Show("GG"); 
+                    
                 }
 
               

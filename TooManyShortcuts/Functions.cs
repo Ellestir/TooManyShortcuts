@@ -155,8 +155,16 @@ public static KeyboardHook hook = new KeyboardHook();
                 ProcessStartInfo ProcessInfo = new ProcessStartInfo();
                 ProcessInfo.FileName = row["Path"].ToString();
                 ProcessInfo.Arguments = row["Parameter"].ToString(); //Zuweißung des Parameters aus der Liste
-                                                                     // ProcessInfo.WindowStyle = ProcessWindowStyle.Normal;                                                // WICHTIG ProcessInfo.WindowStyle = ProcessWindowStyle.Maximized; // Usefull Pls Add an Option to the origin Program
-                Process.Start(ProcessInfo);
+                try
+                {
+                    Process.Start(ProcessInfo);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message); 
+                    
+                }                                                     // ProcessInfo.WindowStyle = ProcessWindowStyle.Normal;  
+                
 
             }
 

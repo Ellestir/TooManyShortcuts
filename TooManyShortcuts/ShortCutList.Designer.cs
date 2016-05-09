@@ -72,7 +72,7 @@
             this.pnlSearch.Name = "pnlSearch";
             this.pnlSearch.Size = new System.Drawing.Size(536, 44);
             this.pnlSearch.TabIndex = 3;
-             // 
+            // 
             // lblSearch
             // 
             this.lblSearch.AutoSize = true;
@@ -139,7 +139,7 @@
             this.lvShortcuts.TabIndex = 2;
             this.lvShortcuts.UseCompatibleStateImageBehavior = false;
             this.lvShortcuts.View = System.Windows.Forms.View.Details;
-           this.lvShortcuts.DoubleClick += new System.EventHandler(this.lvShortcuts_DoubleClick);
+            this.lvShortcuts.DoubleClick += new System.EventHandler(this.lvShortcuts_DoubleClick);
             // 
             // ShortCutList
             // 

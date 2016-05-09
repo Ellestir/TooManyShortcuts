@@ -62,6 +62,7 @@ namespace TooManyShortcuts
             XmlSerializer SerializerObj = new XmlSerializer(typeof(XMLShortcutList));
 
             // Erstellt einen neuen FileStream um die Daten zu lesen
+            
             FileStream ReadFileStream = new FileStream(xmlpath, FileMode.Open, FileAccess.Read, FileShare.Read);
 
             // Deserialisiert das XML-File und erzeugt daraus ein XMLShortcutList-Objekt

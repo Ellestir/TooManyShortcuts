@@ -13,9 +13,9 @@ using System.Windows.Forms;
 namespace TooManyShortcuts
 {
     public partial class Main : Form
-    {   
+    {
         // Inition 
-        int _loadedpanel = 0;
+      
         Edit edtform = new Edit();
         ShortCutList sclForm = new ShortCutList();
         public static ListViewItem selecteditem;
@@ -27,18 +27,29 @@ namespace TooManyShortcuts
 
             
             InitializeComponent();
-            this.Text = "TooManyShortcuts " + Application.ProductVersion; 
-        }
-      
+            this.Text = "TooManyShortcuts " + Application.ProductVersion;
+            this.WindowState = FormWindowState.Minimized; 
+            this.ShowInTaskbar = false;
+            
 
+
+        }
+
+        private void pnlLoad_StyleChanged(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+             
+                
+            }
+        }
 
 
         private void Main_Load(object sender, EventArgs e)
         {
         	Functions.IntalizeKeyPressEvent();
 
-           sclForm.TopLevel = false;
-
+            sclForm.TopLevel = false;
             sclForm.FormBorderStyle = FormBorderStyle.None;
 
             pnlLoad.Controls.Add(sclForm); 
@@ -107,16 +118,23 @@ namespace TooManyShortcuts
             //g.DrawRoundedRectangle(new Pen(Color.Black), 12, 12, this.Width - 44, this.Height - 64, 10);
         }
 
-     
+        private void NIMain_DoubleClick(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Normal; 
+        }
+
+
+
+
 
 
         // Weitermachen
-   
-        
-       
-        
-        
-        
-        
+
+
+
+
+
+
+
     }
 }
