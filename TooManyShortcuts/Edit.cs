@@ -19,12 +19,12 @@ namespace TooManyShortcuts
     /// </summary>
     public partial class Edit : Form
     {
-
+      
         KeyMods KeyMod = new KeyMods(); 
         ListView lv = new ListView();
         string StandardHotKeyList = Application.StartupPath + "\\Settings\\StandardHotKeys.xml";
        	string ShortCutTemp = ""; 
-       string ShortHandTemp = ""; 
+        string ShortHandTemp = ""; 
         public  int formwidth = 0;
 
         public Edit()
@@ -34,13 +34,27 @@ namespace TooManyShortcuts
             // The InitializeComponent() call is required for Windows Forms designer support.
             //
 
-            InitializeComponent(); 
+            InitializeComponent();
 
             //
             // TODO: Add constructor code after the InitializeComponent() call.
             //
            
         }
+        
+
+        public void CheckSaveButton(object sender, EventArgs e)
+        {
+            // Wenn Felder ausreichend ausgefüllt sind
+            if (txtName.Text != "" && txtPath.Text != "" && txtShorthand.Text.Length <= 3 && (FixedtxtShortcuts.Text != "" || txtShorthand.Text != ""))
+            {
+                btnSave.Enabled = true; 
+            }
+            else
+            {
+                btnSave.Enabled = false;
+            }
+          }
 
         /// <summary>
         /// Kontruktor mit Paramtern für die einzelnen Felder. 
@@ -119,12 +133,20 @@ namespace TooManyShortcuts
 
         void EditLoad(object sender, EventArgs e)
         {
-        	Functions.hook.Dispose();
-        	
+            this.txtName.TextChanged += new EventHandler(CheckSaveButton);
+            this.txtPath.TextChanged += new EventHandler(CheckSaveButton);
+            this.txtParameter.TextChanged += new EventHandler(CheckSaveButton);
+            this.FixedtxtShortcuts.TextChanged += new EventHandler(CheckSaveButton);
+            this.txtShorthand.TextChanged += new EventHandler(CheckSaveButton);
 
-        	
-        	// Legt lediglich die TabIndex Reinfolge der Elemente fest
+
+            Functions.hook.Dispose();
+
+
+
+            // Legt lediglich die TabIndex Reinfolge der Elemente fest
             // Somit ist einfaches durchtappen mit der Taptaste gegeben
+            btnSave.Enabled = false; 
             formwidth = this.Width;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.grpBoxEdit.BackColor = System.Drawing.SystemColors.Window;
@@ -160,7 +182,8 @@ namespace TooManyShortcuts
         {
 
             //Schließt die Edit Form in der Hauptform und setzt die Liste wieder auf eine große Ansicht 
-            this.Hide(); 
+            this.DialogResult = DialogResult.Cancel;
+            this.Close(); 
 
             // #INPROCESS
         }
@@ -223,7 +246,7 @@ namespace TooManyShortcuts
              	{
              		if (FixedtxtShortcuts.Text != ShortCutTemp) {
              			
-             			EPShortcut.SetError(FixedtxtShortcuts, "Wird bereits von" + row["Name"].ToString() + " verwendet!");
+             			EPShortcut.SetError(FixedtxtShortcuts, "Wird bereits von " + row["Name"].ToString() + " verwendet!");
              		inttemp = 1; 
              		}
              		
@@ -249,13 +272,10 @@ namespace TooManyShortcuts
         {
             
         	bool UpdateTable = false; 
-        	// Wenn Felder ausreichend ausgefüllt sind
-        	if (txtName.Text != "" && txtPath.Text != "" &&  txtShorthand.Text.Length <= 3 &&  (FixedtxtShortcuts.Text != "" || txtShorthand.Text != "" )   )
-            {
+        	
         		// Wenn beide MessageBoxen mit Ja beantwortet werden
         		if (EPShortcut.GetError(FixedtxtShortcuts) != "" ||EPShortHand.GetError(txtShorthand) != "")  {
-                    UpdateTable = true; 
-        			if (MessageBox.Show("Wollen sie die Werte in den anderen Shortcut wirklich ersetzen?" ,"Warnung!",MessageBoxButtons.YesNo,MessageBoxIcon.Warning) == DialogResult.Yes);
+                  if (MessageBox.Show("Wollen sie die Werte in den anderen Shortcut wirklich ersetzen?" ,"Warnung!",MessageBoxButtons.YesNo,MessageBoxIcon.Warning) == DialogResult.Yes);
         		 	{
                         UpdateTable = true;
 
@@ -268,15 +288,15 @@ namespace TooManyShortcuts
                 {
                     UpdateTable = true;
                 }
-                }
+                
 
             if (UpdateTable == true)
             {
                 try
                 {
                     Functions.RegisterHotKey(FixedtxtShortcuts.Text);
-                    // HIER MUSS NOCH DAS AKTUALISIEEN DER TABELLE REIN!
-                    //SHORTCUTS MÜSSEN WIEDER REGISTRIERT WERDEN!
+                    ShortCutList.ShortCutTable.Rows.Add(txtName.Text, txtPath.Text, txtParameter.Text, FixedtxtShortcuts.Text, txtShorthand.Text);
+                    this.DialogResult = DialogResult.OK;
                     this.Close();
 
                 }
@@ -320,7 +340,14 @@ namespace TooManyShortcuts
 		
 		void TxtShorthandKeyUp(object sender, KeyEventArgs e)
 		{
-			int inttemp = 0;             
+			int inttemp = 0;
+            if (txtShorthand.Text.Length > 3)
+            {
+                EPShortHand.SetError(txtShorthand, "Shorthand darf nur 3 Zeichen lang sein!");
+                inttemp = 1;
+            } 
+
+
             foreach (DataRow row in ShortCutList.ShortCutTable.Rows)
             {
              	if(row["ShortHand"].ToString() == txtShorthand.Text) 

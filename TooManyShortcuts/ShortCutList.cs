@@ -14,12 +14,14 @@ namespace TooManyShortcuts
     /// </summary>
     public partial class ShortCutList : Form
     {
+        XMLShortcutList XMLList = new XMLShortcutList(); 
+        
         public static DataTable ShortCutTable = new DataTable();
 
-        public static string[,] ShortcutList = new string[6, 5]; // StringListe der Shortcuts 
+       
         ImportIcon ico = new ImportIcon(); // Verknüopfung zu Toms KLasse zum Auslesen der Icons
         public int sclFormWidth = 0;
-        string XMLPath = Application.StartupPath + "\\Settings\\Config.xml";
+        string XMLPath = Application.StartupPath + "\\Config.xml";
         string ProgramIconPath = Application.StartupPath + "\\Icons\\Programs";
 	
 
@@ -39,6 +41,8 @@ namespace TooManyShortcuts
 
         private void Main_Load(object sender, EventArgs e)
         {
+            
+            // XML ShortcutList
             
 
 
@@ -65,7 +69,7 @@ namespace TooManyShortcuts
             LOADXML();
             LoadSearch();
 
-            //32 Item Größe xD 
+            //32 Item Größe
             txtSearch.Focus();
 
 
@@ -78,58 +82,56 @@ namespace TooManyShortcuts
         /// </summary>
         public void LOADXML()
         {
+           
 
 
             //Auslesen aus XML
-            this.Text = "TooManyShortcuts v0.0.1"; //XML Abfrage einfügen
-                                                   //Beispiel Eintrag Anfang
-            
+
 
             ShortCutTable.Columns.Add("Name", typeof(string));
             ShortCutTable.Columns.Add("Path", typeof(string));
             ShortCutTable.Columns.Add("Parameter", typeof(string));
-            ShortCutTable.Columns.Add("Shortcut", typeof(string));
+            ShortCutTable.Columns.Add("Shortcuts", typeof(string));
             ShortCutTable.Columns.Add("Shorthand", typeof(string));
 
-            try
-            {
-                ListSerializer.DeSerialize(XMLList, "Shortcuts.xml");
-                foreach (Shortcut sc in XMLList.Shortcuts)
-                {
-                    ShortCutTable.Rows.Add(sc.Name, sc.Path, sc.Parameters, sc.Keycombo, sc.Shorthand);
-                }
-            }
-
-            catch
-            {
-
-            }
             
-
+            
             //TEST
 
-            /*if (System.IO.File.Exists(XMLPath) == false) { System.IO.File.WriteAllText(XMLPath, ""); }
+            // MAX Überschreiben
+            if (System.IO.File.Exists(XMLPath) == false) { System.IO.File.WriteAllText(XMLPath, ""); }
             String[] a = System.IO.File.ReadAllLines(XMLPath);
             for (int y = 0; y < a.Length; y = y + 5)
             {
                 ShortCutTable.Rows.Add(a[y], a[y + 1], a[y + 2], a[y + 3], a[y + 4]);
             }
-            */
+            // MAX Überschreiben ENde
+
             foreach (DataRow row in ShortCutTable.Rows)
             {
-                Functions.RegisterHotKey(row["Shortcut"].ToString());
 
-
-
-
+                Functions.RegisterHotKey(row["Shortcuts"].ToString());
                 ListViewItem item = new ListViewItem();
+
+               
+              
+             
 
                 item.Text = row["Name"].ToString();
                 item.SubItems.Add(row["Path"].ToString());
                 item.SubItems.Add(row["Parameter"].ToString());
-                item.SubItems.Add(row["Shortcut"].ToString());
+                item.SubItems.Add(row["Shortcuts"].ToString());
                 item.SubItems.Add(row["Shorthand"].ToString());
                 SpecialIcons(row, item); // EasterEgg
+
+                if (row["Path"].ToString().StartsWith("http") == false)
+                {
+                    if (System.IO.File.Exists(row["Path"].ToString()) == false)
+                    {
+                        item.ForeColor = Color.Red;
+                        item.SubItems[1].Text += " (nicht gefunden)"; 
+                    }
+                }
 
 
                 lvShortcuts.Items.Add(item); //Add this row to the ListView
@@ -147,8 +149,9 @@ namespace TooManyShortcuts
             lvShortcuts.Columns[2].Width = -2;
             lvShortcuts.Columns[3].Width = -2;
             lvShortcuts.Columns[4].Width = 65;
-            if (lvShortcuts.Columns[1].Width > 400) { lvShortcuts.Columns[1].Width = 400; } // PFAD zu Lange Streckt das Programm sonst zu krass
-            if (lvShortcuts.Columns[2].Width > 110) { lvShortcuts.Columns[2].Width = 110; } // Ekliger Parameter Incoming #Bla 
+            if (lvShortcuts.Columns[0].Width > 100) { lvShortcuts.Columns[0].Width = 100; } // PFAD zu Lange Streckt das Programm sonst zu krass
+            if (lvShortcuts.Columns[1].Width > 100) { lvShortcuts.Columns[1].Width = 100; } // Ekliger Parameter Incoming #Bla 
+           
 
 
             sclFormWidth = lvShortcuts.Columns[0].Width + lvShortcuts.Columns[1].Width +
@@ -225,10 +228,7 @@ namespace TooManyShortcuts
         /// </summary>
         private void LoadSearch()
         {
-            for (int i = 0; i < lvShortcuts.Columns.Count; i++) { cBoxSearchType.Items.Add(lvShortcuts.Columns[i].Text); }
-            cBoxSearchType.Text = cBoxSearchType.Items[0].ToString();
-            cBoxSearchType.AutoCompleteSource = AutoCompleteSource.ListItems;
-            cBoxSearchType.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+         
 
         }
 
@@ -291,7 +291,14 @@ namespace TooManyShortcuts
             if ( Functions.IsFormOpend("Edit") == false )
             {
                 Edit edt = new Edit(Functions.DDFileName, Functions.DDPath, "", "", "");
-                edt.Show();
+               
+                if (edt.ShowDialog(this) == DialogResult.OK)
+                {
+                    // Read the contents of testDialog's TextBox.
+                    MessageBox.Show("GG"); 
+                }
+
+              
             }
             else
             {
@@ -300,6 +307,11 @@ namespace TooManyShortcuts
          
 
         }
+
+
+
+    
+      
     }
 
 
