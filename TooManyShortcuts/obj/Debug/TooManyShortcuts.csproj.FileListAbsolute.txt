@@ -74,3 +74,16 @@ C:\Users\Fiae\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManySh
 C:\Users\Fiae\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.ShorthandWindow.resources
 C:\Users\Fiae\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.csproj.GenerateResource.Cache
 C:\Users\Fiae\Source\Repos\TooManyShortcuts\TooManyShortcuts\bin\Debug\SCM_Schema.xsd
+U:\Source\TooManyShortcuts\TooManyShortcuts\bin\Debug\TooManyShortcuts.exe.config
+U:\Source\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.exe
+U:\Source\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.pdb
+U:\Source\TooManyShortcuts\TooManyShortcuts\bin\Debug\SCM_Schema.xsd
+U:\Source\TooManyShortcuts\TooManyShortcuts\bin\Debug\TooManyShortcuts.exe
+U:\Source\TooManyShortcuts\TooManyShortcuts\bin\Debug\TooManyShortcuts.pdb
+U:\Source\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.csprojResolveAssemblyReference.cache
+U:\Source\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.Edit.resources
+U:\Source\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.Main.resources
+U:\Source\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.Properties.Resources.resources
+U:\Source\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.ShortCutList.resources
+U:\Source\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.ShorthandWindow.resources
+U:\Source\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.csproj.GenerateResource.Cache
