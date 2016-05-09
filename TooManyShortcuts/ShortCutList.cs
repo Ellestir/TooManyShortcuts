@@ -14,16 +14,16 @@ namespace TooManyShortcuts
     /// </summary>
     public partial class ShortCutList : Form
     {
-        XMLShortcutList XMLList = new XMLShortcutList(); 
-        
+        XMLShortcutList XMLList = new XMLShortcutList();
+       
         public static DataTable ShortCutTable = new DataTable();
 
-       
-        ImportIcon ico = new ImportIcon(); // Verknüopfung zu Toms KLasse zum Auslesen der Icons
+
+      
         public int sclFormWidth = 0;
         string XMLPath = Application.StartupPath + "\\Config.xml";
         string ProgramIconPath = Application.StartupPath + "\\Icons\\Programs";
-	
+
 
         public ShortCutList()
         {
@@ -41,14 +41,18 @@ namespace TooManyShortcuts
 
         private void Main_Load(object sender, EventArgs e)
         {
-            
+
             // XML ShortcutList
-            
+            ShortCutTable.Columns.Add("Name", typeof(string));
+            ShortCutTable.Columns.Add("Path", typeof(string));
+            ShortCutTable.Columns.Add("Parameter", typeof(string));
+            ShortCutTable.Columns.Add("Shortcuts", typeof(string));
+            ShortCutTable.Columns.Add("Shorthand", typeof(string));
 
 
 
             //Icons
-      
+
 
             lvShortcuts.AllowDrop = true;
             lvShortcuts.DragEnter += new DragEventHandler(lvShortcuts_DragEnter);
@@ -56,7 +60,7 @@ namespace TooManyShortcuts
             imgList.ImageSize = new System.Drawing.Size(40, 40);
 
 
-            Functions.FillImageList(ProgramIconPath,imgList,"*.png");
+            Functions.FillImageList(ProgramIconPath, imgList, "*.png");
             lvShortcuts.FullRowSelect = true;
             lvShortcuts.LargeImageList = imgList;
             lvShortcuts.SmallImageList = imgList;
@@ -66,9 +70,8 @@ namespace TooManyShortcuts
 
             // Hier Sprache festlegen 
 
-            LOADXML();
-            LoadSearch();
-
+            UpdateShortcuts();
+         
             //32 Item Größe
             txtSearch.Focus();
 
@@ -80,38 +83,41 @@ namespace TooManyShortcuts
         /// Läd die Shortcuts aus der XML Datei und schreibt diese in ein Datatable. 
         /// Weiterhin wird die ListView mit den Daten aus der Datatable befühlt.
         /// </summary>
-        public void LOADXML()
+        public void UpdateShortcuts()
         {
-           //  ListSerializer.DeSerialize(XMLList, XMLPath); 
-
-
-            //Auslesen aus XML
-            ShortCutTable.Columns.Add("Name", typeof(string));
-            ShortCutTable.Columns.Add("Path", typeof(string));
-            ShortCutTable.Columns.Add("Parameter", typeof(string));
-            ShortCutTable.Columns.Add("Shortcuts", typeof(string));
-            ShortCutTable.Columns.Add("Shorthand", typeof(string));
-
             
-            
-        
-            if (System.IO.File.Exists(XMLPath) == false) { System.IO.File.WriteAllText(XMLPath, ""); }
-            String[] a = System.IO.File.ReadAllLines(XMLPath);
-            for (int y = 0; y < a.Length; y = y + 5)
+            lvShortcuts.Items.Clear(); 
+            ShortCutTable.Clear();
+             
+
+            try
             {
-                ShortCutTable.Rows.Add(a[y], a[y + 1], a[y + 2], a[y + 3], a[y + 4]);
+                ListSerializer.DeSerialize(XMLList, XMLPath);
+                foreach (Shortcut sc in XMLList.Shortcuts)
+                {
+                    ShortCutTable.Rows.Add(sc.Name, sc.Path, sc.Parameters, sc.Keycombo, sc.Shorthand);
+                }
             }
-       
+
+            catch
+            {
+
+            }
+
 
             foreach (DataRow row in ShortCutTable.Rows)
             {
 
-                Functions.RegisterHotKey(row["Shortcuts"].ToString());
+               
+                
+                    Functions.RegisterHotKey(row["Shortcuts"].ToString());
+              
+                
                 ListViewItem item = new ListViewItem();
 
-               
-              
-             
+
+
+
 
                 item.Text = row["Name"].ToString();
                 item.SubItems.Add(row["Path"].ToString());
@@ -125,7 +131,7 @@ namespace TooManyShortcuts
                     if (System.IO.File.Exists(row["Path"].ToString()) == false)
                     {
                         item.ForeColor = Color.Red;
-                        item.SubItems[1].Text += " (nicht gefunden)"; 
+                        item.SubItems[1].Text += " (nicht gefunden)";
                     }
                 }
 
@@ -135,31 +141,29 @@ namespace TooManyShortcuts
             }
 
 
-            int ButtonEndPoint = btnNew.Location.X + btnNew.Width + 25;
 
 
 
-
-            lvShortcuts.Columns[0].Width = -2; // -2 Heißt Achte auf ColumnHeader und Content 
-            lvShortcuts.Columns[1].Width = -2;
-            lvShortcuts.Columns[2].Width = -2;
-            lvShortcuts.Columns[3].Width = -2;
-            lvShortcuts.Columns[4].Width = 65;
-            if (lvShortcuts.Columns[0].Width > 100) { lvShortcuts.Columns[0].Width = 100; } // PFAD zu Lange Streckt das Programm sonst zu krass
-            if (lvShortcuts.Columns[1].Width > 100) { lvShortcuts.Columns[1].Width = 100; } // Ekliger Parameter Incoming #Bla 
-           
-
-
-            sclFormWidth = lvShortcuts.Columns[0].Width + lvShortcuts.Columns[1].Width +
-                             lvShortcuts.Columns[2].Width + lvShortcuts.Columns[3].Width
-              + lvShortcuts.Columns[4].Width + 16;
-            if (sclFormWidth < ButtonEndPoint)
+            if (lvShortcuts.Items.Count == 0) 
             {
-                sclFormWidth = ButtonEndPoint;
-                lvShortcuts.Columns[4].Width = ButtonEndPoint - lvShortcuts.Columns[0].Width - lvShortcuts.Columns[1].Width -
-                    lvShortcuts.Columns[2].Width - lvShortcuts.Columns[3].Width;
+                for (int i = 0; i < 4; i++)
+                {
+                    lvShortcuts.Columns[i].Width = lvShortcuts.Width / 5 ; 
+                }
             }
-            lvShortcuts.Width = sclFormWidth;
+            else
+            {
+                lvShortcuts.Columns[1].Width = -2;
+                lvShortcuts.Columns[2].Width = -2;
+                lvShortcuts.Columns[3].Width = -2;
+                lvShortcuts.Columns[4].Width = -2; // -2 Heißt Achte auf ColumnHeader und Content 
+                lvShortcuts.Columns[0].Width = -2;
+                if (lvShortcuts.Columns[0].Width > 100) { lvShortcuts.Columns[0].Width = 100; } // PFAD zu Lange Streckt das Programm sonst zu krass
+                if (lvShortcuts.Columns[1].Width > 100) { lvShortcuts.Columns[1].Width = 100; } // Ekliger Parameter Incoming #Bla 
+            }
+        
+         
+
 
         }
         /// <summary>
@@ -177,8 +181,8 @@ namespace TooManyShortcuts
                 // Wenn das Objekt eine Datei ist 
                 if (System.IO.File.Exists(row["Path"].ToString()))
                 {
-                     imgList.Images.Add(row["Name"].ToString(), ico.ExtractAssociatedIconEx(row["Path"].ToString()));
-                    // HIER MUSS NOCH CODE HIN 
+                    imgList.Images.Add(row["Name"].ToString(), Functions.getIcon(row["Path"].ToString()));
+                    item.ImageKey = row["Name"].ToString();
 
                     if (row["Path"].ToString().EndsWith(".mp4")) { item.ImageKey = "Video"; } //4 Weil immer ein Element hier hinzugefügt obwohl 5 Datei im Ordner
                     if (row["Path"].ToString().EndsWith(".mp3")) { item.ImageKey = "Music"; }
@@ -189,7 +193,7 @@ namespace TooManyShortcuts
                 if (System.IO.Directory.Exists(row["Path"].ToString()))
                 {
                     item.ImageKey = "Folder.png";  // + Wie viele Festdefinierte Bilder 
-                                          // INDEX UMÄNDERN MIT NAME AM BESTEN  rfhwe8ufh 
+                                                   // INDEX UMÄNDERN MIT NAME AM BESTEN  rfhwe8ufh 
 
 
                 }
@@ -214,19 +218,13 @@ namespace TooManyShortcuts
             //
         }
 
-
-
-
+      
 
 
         /// <summary>
         /// Befüllt die Checkbox mit den ensprechenden Werten und liegt ihre Autovervollständigung fest. 
         /// </summary>
-        private void LoadSearch()
-        {
-         
 
-        }
 
 
 
@@ -256,7 +254,7 @@ namespace TooManyShortcuts
             {
                 ListViewItem item = new ListViewItem();
                 foreach (DataColumn dc in ShortCutTable.Columns)
-            {
+                {
                     if (row[dc].ToString().Contains(txtSearch.Text))
                     {
                         if (dc.ColumnName == "Name" || dc.ColumnName == "Path" || dc.ColumnName == "Shorthand")
@@ -280,21 +278,21 @@ namespace TooManyShortcuts
                             break;
                         }
 
-                     
-                    }
-                    }
-             
-              
 
-               
+                    }
                 }
 
 
-              
+
 
             }
 
-       
+
+
+
+        }
+
+
 
 
         private void lvShortcuts_DoubleClick(object sender, EventArgs e)
@@ -330,29 +328,57 @@ namespace TooManyShortcuts
         private void btnNew_Click(object sender, EventArgs e)
         {
 
-            if ( Functions.IsFormOpend("Edit") == false )
+            if (Functions.IsFormOpend("Edit") == false)
             {
                 Edit edt = new Edit(Functions.DDFileName, Functions.DDPath, "", "", "");
-               
+
                 if (edt.ShowDialog(this) == DialogResult.OK)
                 {
+                    XMLList.Shortcuts.Add(new Shortcut{
+                        Name =  ShortCutTable.Rows[ShortCutTable.Rows.Count - 1]["Name"].ToString(),
+                        Path =                  ShortCutTable.Rows[ShortCutTable.Rows.Count - 1]["Path"].ToString(),
+                        Parameters =                   ShortCutTable.Rows[ShortCutTable.Rows.Count - 1]["Parameter"].ToString(),
+                        Keycombo =                    ShortCutTable.Rows[ShortCutTable.Rows.Count - 1]["Shortcuts"].ToString(),
+                        Shorthand =                   ShortCutTable.Rows[ShortCutTable.Rows.Count - 1]["Shorthand"].ToString() });
+                    ListSerializer.Serialize(XMLList, XMLPath);
+                 
+                 
+                    UpdateShortcuts();
                     
                 }
 
-              
+
             }
             else
             {
                 // Application.OpenForms
             }
-         
+
 
         }
 
+        private void lvShortcuts_KeyDown(object sender, KeyEventArgs e)
+        {
+           
+            if (e.KeyCode == Keys.Delete)
+            {
+                try
+                {
 
+                    lvShortcuts.SelectedItems[0].Remove();
+                    // HIER Weitermachen
+                }
+                catch (Exception)
+                {
 
-    
-      
+                    
+                }
+                
+                
+
+                
+            }
+        }
     }
 
 

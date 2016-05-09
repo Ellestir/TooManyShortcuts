@@ -32,7 +32,7 @@ namespace TooManyShortcuts
         static KeyMods KeyMod = new KeyMods();
         public static string DDFileName = ""; // DragDropFileName 
         public static string DDPath; //DragDropPath
-public static KeyboardHook hook = new KeyboardHook(); 
+       public static KeyboardHook hook = new KeyboardHook(); 
             
        
         /// <summary>
@@ -184,7 +184,19 @@ public static KeyboardHook hook = new KeyboardHook();
             if (objchecked) { rkPath.SetValue("StartUp", Application.ExecutablePath.ToString()); }
             else { rkPath.DeleteValue("StartUp", false);  }
         }
-
+        static public Bitmap getIcon(string path)
+        {
+            try
+            {
+                Bitmap b = Icon.ExtractAssociatedIcon(path).ToBitmap();
+                return b;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Die folgende Datei ist nicht vorhanden oder hat nicht das richtige Format: " + e.Message);
+                return null;
+            }
+        }
 
 
         /// <summary>

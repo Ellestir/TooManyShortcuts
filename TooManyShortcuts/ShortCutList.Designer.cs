@@ -47,17 +47,16 @@
             // 
             this.txtSearch.Location = new System.Drawing.Point(85, 14);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(207, 20);
+            this.txtSearch.Size = new System.Drawing.Size(289, 20);
             this.txtSearch.TabIndex = 0;
-            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // btnNew
             // 
-            this.btnNew.Location = new System.Drawing.Point(298, 12);
+            this.btnNew.Location = new System.Drawing.Point(380, 12);
             this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(94, 23);
+            this.btnNew.Size = new System.Drawing.Size(144, 23);
             this.btnNew.TabIndex = 4;
-            this.btnNew.Text = "Anlegen";
+            this.btnNew.Text = "Neuen Shortcut erstellen";
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
@@ -140,6 +139,7 @@
             this.lvShortcuts.UseCompatibleStateImageBehavior = false;
             this.lvShortcuts.View = System.Windows.Forms.View.Details;
             this.lvShortcuts.DoubleClick += new System.EventHandler(this.lvShortcuts_DoubleClick);
+            this.lvShortcuts.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvShortcuts_KeyDown);
             // 
             // ShortCutList
             // 

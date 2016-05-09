@@ -67,7 +67,6 @@
     </Compile>
     <Compile Include="Functions.cs" />
     <Compile Include="GraphicsExtension.cs" />
-    <Compile Include="ImportIcon.cs" />
     <Compile Include="KeyboardHook.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>

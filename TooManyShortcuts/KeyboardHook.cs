@@ -108,7 +108,7 @@ namespace TooManyShortcuts
             }
 
             // dispose the inner native window.
-            _window.Dispose();
+            //_window.Dispose();
         }
 
         #endregion

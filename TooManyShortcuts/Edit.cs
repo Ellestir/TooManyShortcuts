@@ -46,7 +46,7 @@ namespace TooManyShortcuts
         public void CheckSaveButton(object sender, EventArgs e)
         {
             // Wenn Felder ausreichend ausgefüllt sind
-            if (txtName.Text != "" && txtPath.Text != "" && txtShorthand.Text.Length <= 3 && (FixedtxtShortcuts.Text != "" || txtShorthand.Text != ""))
+            if (txtName.Text != "" && txtPath.Text != "" && txtShorthand.Text.Length <= 3  && EPShortcut.GetError(FixedtxtShortcuts) == "" && EPShortHand.GetError(txtShorthand) == "" && (FixedtxtShortcuts.Text != "" || txtShorthand.Text != ""))
             {
                 btnSave.Enabled = true; 
             }
@@ -112,7 +112,7 @@ namespace TooManyShortcuts
         {
             
             OpenFileDialog odf = new OpenFileDialog(); //Erstellt ein OpenfileDialog in dem Sich Dateien etc auswählen lassen 
-            if (txtPath.Text == "") { odf.InitialDirectory = "C:\\Program Files"; } // Wenn die Textbox leer war wird C:\\Program Files als Einstiegsordner gewählt.
+            if (txtPath.Text.Contains("\\") == false ) { odf.InitialDirectory = "C:\\Program Files"; } // Wenn die Textbox leer war wird C:\\Program Files als Einstiegsordner gewählt.
             else { odf.InitialDirectory = txtPath.Text.Substring(0, txtPath.Text.LastIndexOf('\\')); }; // Springt auf den Ordner zurück wenn eine Datei gegeben war
             odf.Filter = "Excetuable File (*.exe)|*.exe|All files (*.*)|*.*";
 
@@ -136,11 +136,9 @@ namespace TooManyShortcuts
             this.txtName.TextChanged += new EventHandler(CheckSaveButton);
             this.txtPath.TextChanged += new EventHandler(CheckSaveButton);
             this.txtParameter.TextChanged += new EventHandler(CheckSaveButton);
-            this.FixedtxtShortcuts.TextChanged += new EventHandler(CheckSaveButton);
-            this.txtShorthand.TextChanged += new EventHandler(CheckSaveButton);
+          
 
-
-            Functions.hook.Dispose();
+             Functions.hook.Dispose();
 
 
 
@@ -256,14 +254,14 @@ namespace TooManyShortcuts
             if (inttemp == 0) {
             	EPShortcut.Clear(); 
             }
-            
-             
-             
-             	
-             	
-          
-  	
-        	}
+                CheckSaveButton(sender, e);
+
+
+
+
+
+
+            }
         }
        
 
@@ -271,30 +269,10 @@ namespace TooManyShortcuts
         void BtnEditFinishedClick(object sender, EventArgs e)
         {
             
-        	bool UpdateTable = false; 
         	
-        		// Wenn beide MessageBoxen mit Ja beantwortet werden
-        		if (EPShortcut.GetError(FixedtxtShortcuts) != "" ||EPShortHand.GetError(txtShorthand) != "")  {
-                  if (MessageBox.Show("Wollen sie die Werte in den anderen Shortcut wirklich ersetzen?" ,"Warnung!",MessageBoxButtons.YesNo,MessageBoxIcon.Warning) == DialogResult.Yes);
-        		 	{
-                        UpdateTable = true;
-
-
-
-
-                    }
-                }
-                else if (EPShortcut.GetError(FixedtxtShortcuts) == "" && EPShortHand.GetError(txtShorthand) == "")
-                {
-                    UpdateTable = true;
-                }
-                
-
-            if (UpdateTable == true)
-            {
                 try
                 {
-                    Functions.RegisterHotKey(FixedtxtShortcuts.Text);
+                   
                     ShortCutList.ShortCutTable.Rows.Add(txtName.Text, txtPath.Text, txtParameter.Text, FixedtxtShortcuts.Text, txtShorthand.Text);
                     this.DialogResult = DialogResult.OK;
                     this.Close();
@@ -306,7 +284,7 @@ namespace TooManyShortcuts
                     throw;
                 }
             }
-        	}
+        	
         
         
     
@@ -321,7 +299,7 @@ namespace TooManyShortcuts
 
             txtShorthand.Text = txtShorthand.Text.ToUpper();
             txtShorthand.Select(txtShorthand.Text.Length, 0);
-			
+          
         }
 
         private void lblParamHelp_Click(object sender, EventArgs e)
@@ -364,6 +342,7 @@ namespace TooManyShortcuts
             if (inttemp == 0) {
             	EPShortHand.Clear(); 
             }
+            CheckSaveButton(sender,e); 
 		}
     }
 }

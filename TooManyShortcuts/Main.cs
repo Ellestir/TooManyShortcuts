@@ -28,21 +28,13 @@ namespace TooManyShortcuts
             
             InitializeComponent();
             this.Text = "TooManyShortcuts " + Application.ProductVersion;
-            this.WindowState = FormWindowState.Minimized; 
-            this.ShowInTaskbar = false;
-            
-
+           // this.WindowState = FormWindowState.Minimized; 
+          
+           
 
         }
 
-        private void pnlLoad_StyleChanged(object sender, EventArgs e)
-        {
-            if (this.WindowState == FormWindowState.Minimized)
-            {
-             
-                
-            }
-        }
+    
 
 
         private void Main_Load(object sender, EventArgs e)
@@ -127,6 +119,20 @@ namespace TooManyShortcuts
         {
             this.Close(); 
         }
+
+        private void Main_StyleChanged(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+
+                this.ShowInTaskbar = false;
+            }
+        }
+
+
+
+
+
 
 
 

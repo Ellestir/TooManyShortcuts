@@ -49,9 +49,8 @@
             this.pnlLoad.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlLoad.Location = new System.Drawing.Point(0, 0);
             this.pnlLoad.Name = "pnlLoad";
-            this.pnlLoad.Size = new System.Drawing.Size(421, 439);
+            this.pnlLoad.Size = new System.Drawing.Size(536, 439);
             this.pnlLoad.TabIndex = 5;
-            this.pnlLoad.StyleChanged += new System.EventHandler(this.pnlLoad_StyleChanged);
             // 
             // NIMain
             // 
@@ -71,7 +70,7 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(120, 22);
             this.toolStripMenuItem1.Text = "Beenden";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
@@ -79,7 +78,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(421, 439);
+            this.ClientSize = new System.Drawing.Size(536, 439);
             this.Controls.Add(this.pnlLoad);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -87,6 +86,7 @@
             this.Name = "Main";
             this.Text = "Main";
             this.Load += new System.EventHandler(this.Main_Load);
+            this.StyleChanged += new System.EventHandler(this.Main_StyleChanged);
             this.conMenStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
