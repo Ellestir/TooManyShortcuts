@@ -94,6 +94,7 @@
     <Compile Include="ShorthandWindow.Designer.cs">
       <DependentUpon>ShorthandWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="XMLSerializer.cs" />
     <Compile Include="XMLShortcutList.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -106,3 +106,6 @@ C:\Users\Louis\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyS
 C:\Users\Marcel\Source\Repos\TooManyShortcuts2\TooManyShortcuts\bin\Debug\TooManyShortcuts.exe.config
 C:\Users\Marcel\Source\Repos\TooManyShortcuts2\TooManyShortcuts\obj\Debug\TooManyShortcuts.exe
 C:\Users\Marcel\Source\Repos\TooManyShortcuts2\TooManyShortcuts\obj\Debug\TooManyShortcuts.pdb
+C:\Users\Driven\Source\Repos\TooManyShortcuts\TooManyShortcuts\bin\Debug\TooManyShortcuts.exe.config
+C:\Users\Driven\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.exe
+C:\Users\Driven\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.pdb
