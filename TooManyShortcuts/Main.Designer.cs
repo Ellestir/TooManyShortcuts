@@ -48,6 +48,7 @@
             // 
             this.pnlLoad.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlLoad.Location = new System.Drawing.Point(0, 0);
+            this.pnlLoad.Margin = new System.Windows.Forms.Padding(0);
             this.pnlLoad.Name = "pnlLoad";
             this.pnlLoad.Size = new System.Drawing.Size(536, 439);
             this.pnlLoad.TabIndex = 5;

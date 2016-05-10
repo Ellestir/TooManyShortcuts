@@ -38,8 +38,6 @@ namespace TooManyShortcuts
 		{
             this.components = new System.ComponentModel.Container();
             this.grpBoxEdit = new System.Windows.Forms.GroupBox();
-            this.lblParamHelp = new System.Windows.Forms.Label();
-            this.FixedtxtShortcuts = new FixedTextBox();
             this.btnAbort = new System.Windows.Forms.Button();
             this.txtParameter = new System.Windows.Forms.TextBox();
             this.lblParameter = new System.Windows.Forms.Label();
@@ -54,6 +52,7 @@ namespace TooManyShortcuts
             this.lblPath = new System.Windows.Forms.Label();
             this.EPShortcut = new System.Windows.Forms.ErrorProvider(this.components);
             this.EPShortHand = new System.Windows.Forms.ErrorProvider(this.components);
+            this.FixedtxtShortcuts = new FixedTextBox();
             this.grpBoxEdit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EPShortcut)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EPShortHand)).BeginInit();
@@ -62,7 +61,6 @@ namespace TooManyShortcuts
             // grpBoxEdit
             // 
             this.grpBoxEdit.BackColor = System.Drawing.SystemColors.Window;
-            this.grpBoxEdit.Controls.Add(this.lblParamHelp);
             this.grpBoxEdit.Controls.Add(this.FixedtxtShortcuts);
             this.grpBoxEdit.Controls.Add(this.btnAbort);
             this.grpBoxEdit.Controls.Add(this.txtParameter);
@@ -84,26 +82,6 @@ namespace TooManyShortcuts
             this.grpBoxEdit.TabIndex = 16;
             this.grpBoxEdit.TabStop = false;
             this.grpBoxEdit.Text = "Hinzufügen oder Ändern eines Shortcuts";
-            // 
-            // lblParamHelp
-            // 
-            this.lblParamHelp.AutoSize = true;
-            this.lblParamHelp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblParamHelp.Location = new System.Drawing.Point(12, 141);
-            this.lblParamHelp.Name = "lblParamHelp";
-            this.lblParamHelp.Size = new System.Drawing.Size(131, 26);
-            this.lblParamHelp.TabIndex = 14;
-            this.lblParamHelp.Text = "    Parameter Help";
-            this.lblParamHelp.Click += new System.EventHandler(this.lblParamHelp_Click);
-            // 
-            // FixedtxtShortcuts
-            // 
-            this.FixedtxtShortcuts.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FixedtxtShortcuts.Location = new System.Drawing.Point(90, 112);
-            this.FixedtxtShortcuts.Name = "FixedtxtShortcuts";
-            this.FixedtxtShortcuts.Size = new System.Drawing.Size(112, 20);
-            this.FixedtxtShortcuts.TabIndex = 13;
-            this.FixedtxtShortcuts.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FixedTextBoxShortCutKeyDown);
             // 
             // btnAbort
             // 
@@ -230,6 +208,15 @@ namespace TooManyShortcuts
             // 
             this.EPShortHand.ContainerControl = this;
             // 
+            // FixedtxtShortcuts
+            // 
+            this.FixedtxtShortcuts.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FixedtxtShortcuts.Location = new System.Drawing.Point(90, 112);
+            this.FixedtxtShortcuts.Name = "FixedtxtShortcuts";
+            this.FixedtxtShortcuts.Size = new System.Drawing.Size(112, 20);
+            this.FixedtxtShortcuts.TabIndex = 13;
+            this.FixedtxtShortcuts.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FixedTextBoxShortCutKeyDown);
+            // 
             // Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -264,6 +251,5 @@ namespace TooManyShortcuts
 		private System.Windows.Forms.Label lblParameter;
 		private System.Windows.Forms.TextBox txtParameter;
 		private System.Windows.Forms.GroupBox grpBoxEdit;
-        private System.Windows.Forms.Label lblParamHelp;
     }
 }

@@ -72,7 +72,7 @@
             this.pnlSearch.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlSearch.Location = new System.Drawing.Point(0, 0);
             this.pnlSearch.Name = "pnlSearch";
-            this.pnlSearch.Size = new System.Drawing.Size(536, 44);
+            this.pnlSearch.Size = new System.Drawing.Size(540, 44);
             this.pnlSearch.TabIndex = 3;
             // 
             // btnDelete
@@ -83,6 +83,7 @@
             this.btnDelete.TabIndex = 5;
             this.btnDelete.Text = "Löschen";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // lblSearch
             // 
@@ -141,22 +142,25 @@
             this.clmShortcut,
             this.clmShorthand});
             this.lvShortcuts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvShortcuts.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.lvShortcuts.FullRowSelect = true;
             this.lvShortcuts.GridLines = true;
             this.lvShortcuts.LargeImageList = this.imgList;
             this.lvShortcuts.Location = new System.Drawing.Point(0, 44);
             this.lvShortcuts.Name = "lvShortcuts";
-            this.lvShortcuts.Size = new System.Drawing.Size(536, 656);
+            this.lvShortcuts.Size = new System.Drawing.Size(540, 399);
             this.lvShortcuts.TabIndex = 2;
             this.lvShortcuts.UseCompatibleStateImageBehavior = false;
             this.lvShortcuts.View = System.Windows.Forms.View.Details;
+            this.lvShortcuts.SelectedIndexChanged += new System.EventHandler(this.lvShortcuts_SelectedIndexChanged);
             this.lvShortcuts.DoubleClick += new System.EventHandler(this.lvShortcuts_DoubleClick);
+            this.lvShortcuts.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvShortcuts_KeyDown);
             // 
             // ShortCutList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(536, 700);
+            this.ClientSize = new System.Drawing.Size(540, 443);
             this.Controls.Add(this.lvShortcuts);
             this.Controls.Add(this.pnlSearch);
             this.Name = "ShortCutList";

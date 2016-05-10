@@ -2,6 +2,7 @@
 using System.Data;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 
@@ -23,7 +24,7 @@ namespace TooManyShortcuts
 
         public int sclFormWidth = 0;
         public static string XMLPath = Application.StartupPath + "\\Config.xml";
-        string ProgramIconPath = Application.StartupPath + "\\Icons\\Programs";
+        string ProgramIconPath = Application.StartupPath + "\\Icons";
 
 
         public ShortCutList()
@@ -31,6 +32,8 @@ namespace TooManyShortcuts
             InitializeComponent();
             // register the event that is fired after the key press.
             this.lvShortcuts.ColumnWidthChanging += new ColumnWidthChangingEventHandler(lvShortcuts_ColumnWidthChanging);
+
+
 
         }
 
@@ -42,120 +45,129 @@ namespace TooManyShortcuts
 
         private void Main_Load(object sender, EventArgs e)
         {
+            // Initizalisierung des KeyPressEvents wie Registrieren von ShorthandWindows durch STRG + Space
             Functions.IntalizeKeyPressEvent(XMLList);
-            Functions.RegisterHotKey("STRG + Space");
 
+            Functions.RegisterHotKey("STRG + Space");
+            Functions.StartAtWindowsStartUp(XMLList.LaunchOnSystemStartup);// Steht immer auf True....
 
             //Icons
 
-
+            // Drag an Drop Events 
             lvShortcuts.AllowDrop = true;
             lvShortcuts.DragEnter += new DragEventHandler(lvShortcuts_DragEnter);
             lvShortcuts.DragDrop += new DragEventHandler(lvShortcuts_DragDrop);
-            imgList.ImageSize = new System.Drawing.Size(40, 40);
+            imgList.ImageSize = new System.Drawing.Size(40, 40); //40 Item Größe
 
 
+            // Imagelist wird befüllt 
             Functions.FillImageList(ProgramIconPath, imgList, "*.png");
+
+            // Listview Einstellungen
             lvShortcuts.FullRowSelect = true;
             lvShortcuts.LargeImageList = imgList;
             lvShortcuts.SmallImageList = imgList;
             lvShortcuts.GridLines = true;
             lvShortcuts.MultiSelect = false;
+            // Lösch Button wird disabled
+            btnDelete.Enabled = false;
+
 
 
             // Hier Sprache festlegen 
-            
+
             UpdateShortcuts();
 
-            //32 Item Größe
+
             txtSearch.Focus();
-           
 
 
-            }
+
+        }
 
         /// <summary>
-        /// Läd die Shortcuts aus der XML Datei und schreibt diese in ein Datatable. 
-        /// Weiterhin wird die ListView mit den Daten aus der Datatable befühlt.
+        /// Updatet die XMLList, schreibt diese in die XML Datei, befüllt das List view Element sowie legt die Column Größen fest. 
         /// </summary>
+        /// <param name="edt">Beim Systemstart nichts übergeben bei Änderungen die entsprechende Edt Form mit übergeben um XMLList zu überschreiben</param>
         public void UpdateShortcuts([Optional] Edit edt)
         {
-            
+            bool stop = false; 
+            // Wenn edt mitgebenen wird  dann wird die jetzige XML List  von der edt List überschrieben.
             if (edt != null)
             {
                 if (edt.ShowDialog(this) == DialogResult.OK)
                 {
                     XMLList = edt.XMLListTemp;
                 }
-            }
-          
-            lvShortcuts.Items.Clear();
-
-            try
-            {
-                ListSerializer.DeSerialize(XMLList, XMLPath);
-                foreach (Shortcut sc in XMLList.Shortcuts)
+                else
                 {
-                    Functions.RegisterHotKey(sc.Keycombo);
-                    ListViewItem item = new ListViewItem();
+                    stop = true; 
+                }
+            }
 
-                    item.Text = sc.Name;
-                    item.SubItems.Add(sc.Path);
-                    item.SubItems.Add(sc.Parameters);
-                    item.SubItems.Add(sc.Keycombo);
-                    item.SubItems.Add(sc.Shorthand);
-                    SpecialIcons(sc, item); // EasterEgg
+            if (!stop)
+            {
+                lvShortcuts.Items.Clear();
 
-                    if (sc.Path.StartsWith("http") == false)
+                try
+                {
+                    ListSerializer.DeSerialize(XMLList, XMLPath);
+                    // Durchläuft Schleifer aller Shortcuts und registriert jeden Shortcut erneut da diese in der edt Form gelöscht wurden. 
+                    // Weiterhin werden ListviewItems zur Listview hinzugefügt und mit Spezialen Icons versehen. 
+                    foreach (Shortcut sc in XMLList.Shortcuts)
                     {
-                        if (System.IO.File.Exists(sc.Path) == false)
-                        {
-                            item.ForeColor = Color.Red;
-                            item.SubItems[1].Text += " (nicht gefunden)";
-                        }
+                        Functions.RegisterHotKey(sc.Keycombo);
+                        ListViewItem item = new ListViewItem();
+
+                        item.Text = sc.Name;
+
+
+                        item.SubItems.Add(sc.Path);
+                        item.SubItems.Add(sc.Parameters);
+                        item.SubItems.Add(sc.Keycombo);
+                        item.SubItems.Add(sc.Shorthand);
+                        SpecialIcons(sc, item); // EasterEgg
+                        lvShortcuts.Items.Add(item); //Add this row to the ListView
+
                     }
 
 
-                    lvShortcuts.Items.Add(item); //Add this row to the ListView
-
                 }
-
-
-            }
-            catch
-            {
-                MessageBox.Show("Dumm gelaufen!");
-            }
-
-
-
-
-            if (lvShortcuts.Items.Count == 0)
-            {
-                for (int i = 0; i < 4; i++)
+                catch
                 {
-                    lvShortcuts.Columns[i].Width = lvShortcuts.Width / 5;
+
                 }
+
+
+
+                // Column Größe festlegen 
+                if (lvShortcuts.Items.Count == 0)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        lvShortcuts.Columns[i].Width = lvShortcuts.Width / 5;
+                    }
+                }
+                else
+                {
+                    lvShortcuts.Columns[0].Width = 148;
+                    lvShortcuts.Columns[1].Width = 148;
+                    lvShortcuts.Columns[2].Width = 80;
+                    lvShortcuts.Columns[3].Width = 80;
+                    lvShortcuts.Columns[4].Width = 80; // -2 Heißt Achte auf ColumnHeader und Content 
+
+
+
+                }
+                txtSearch.Text = txtSearch.Text;
+
             }
-            else
-            {
-                lvShortcuts.Columns[1].Width = -2;
-                lvShortcuts.Columns[2].Width = -2;
-                lvShortcuts.Columns[3].Width = -2;
-                lvShortcuts.Columns[4].Width = -2; // -2 Heißt Achte auf ColumnHeader und Content 
-                lvShortcuts.Columns[0].Width = -2;
-                if (lvShortcuts.Columns[0].Width > 100) { lvShortcuts.Columns[0].Width = 100; } // PFAD zu Lange Streckt das Programm sonst zu krass
-                if (lvShortcuts.Columns[1].Width > 100) { lvShortcuts.Columns[1].Width = 100; } // Ekliger Parameter Incoming #Bla 
-            }
-
-
-
 
         }
         /// <summary>
-        /// Fügt EasterEggs ABER auch sinnvolle Icons zu Speziellen Zeilen hinzu :3
+        /// Fügt EasterEggs aber auch sinnvolle Icons zu Speziellen Zeilen hinzu :3
         /// </summary>
-        /// <param name="row">Die Zeilen des DataTalbs</param>
+        /// <param name="sc">Die Zeilen des DataTalbs</param>
         /// <param name="item">Das ListviewItem</param>
         private void SpecialIcons(Shortcut sc, ListViewItem item)
         {
@@ -170,38 +182,37 @@ namespace TooManyShortcuts
                     imgList.Images.Add(sc.Name, Functions.getIcon(sc.Path));
                     item.ImageKey = sc.Name;
 
-                    if (sc.Path.EndsWith(".mp4")) { item.ImageKey = "Video"; } //4 Weil immer ein Element hier hinzugefügt obwohl 5 Datei im Ordner
+                    if (sc.Path.EndsWith(".mp4")) { item.ImageKey = "Videos"; } //4 Weil immer ein Element hier hinzugefügt obwohl 5 Datei im Ordner
                     if (sc.Path.EndsWith(".mp3")) { item.ImageKey = "Music"; }
-
+                    if (sc.Path.EndsWith(".png") || sc.Path.EndsWith(".jpg")) { item.ImageKey = "Pictures"; }
                 }
 
                 // Wenn das Objekt ein Ordner ist 
                 if (System.IO.Directory.Exists(sc.Path))
                 {
-                    item.ImageKey = "Folder.png";  // + Wie viele Festdefinierte Bilder 
-                                                   // INDEX UMÄNDERN MIT NAME AM BESTEN  rfhwe8ufh 
+                    if (sc.Path == ("C:\\")) { item.ImageKey = "C"; }
+                    else if (sc.Path == ("D:\\")) { item.ImageKey = "C"; }
+                    else
+                    {
+                        item.ImageKey = "Folder";
+                    }
+
+
 
 
                 }
             }
-            else { item.ImageIndex = 2; };
+            else { item.ImageKey = "Error"; };
 
 
-            //Webseiten NOCH BEARBWITEN
-            if (sc.Path.Contains("http://")) { item.ImageKey = "Web"; }
+            if (sc.Path.Contains("http") || sc.Path.Contains("www"))
+            {
+                           
+                    item.ImageKey = "Web";
+               
 
+            }
 
-
-
-
-
-
-
-
-            //Porn Icon //MUSS ZULETZT STEHEN DA EASTEREGG
-            //if (sc.Name.Contains("Porn")) { item.ImageKey = "Porn"; }
-            // if (sc.Path.Contains("porn")) { item.ImageKey = "Porn"; }
-            //
         }
 
 
@@ -229,11 +240,6 @@ namespace TooManyShortcuts
             e.Cancel = true;
         }
         // Überprufen
-       
-
-
-
-    
 
 
 
@@ -242,56 +248,64 @@ namespace TooManyShortcuts
 
 
 
-    private void lvShortcuts_DoubleClick(object sender, EventArgs e)
-    {
-        ListView lv = (ListView)sender;
 
-        Edit edt = new Edit(lv.SelectedItems[0].Text, lv.SelectedItems[0].SubItems[1].Text, lv.SelectedItems[0].SubItems[2].Text, lv.SelectedItems[0].SubItems[3].Text, lv.SelectedItems[0].SubItems[4].Text, XMLList);
-        UpdateShortcuts(edt);
+
+
+
+
+        private void lvShortcuts_DoubleClick(object sender, EventArgs e)
+        {
+            ListView lv = (ListView)sender;
+
+            Edit edt = new Edit(lv.SelectedItems[0].Text, lv.SelectedItems[0].SubItems[1].Text, lv.SelectedItems[0].SubItems[2].Text, lv.SelectedItems[0].SubItems[3].Text, lv.SelectedItems[0].SubItems[4].Text, XMLList);
+            UpdateShortcuts(edt);
         }
 
 
 
-    private void lvShortcuts_DragEnter(object sender, DragEventArgs e)
-    {
-        Functions.FileDragEnter(e);
-    }
+        private void lvShortcuts_DragEnter(object sender, DragEventArgs e)
+        {
+            Functions.FileDragEnter(e);
+        }
 
 
-    /// <summary>
-    /// DragDrop Event 
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void lvShortcuts_DragDrop(object sender, DragEventArgs e)
-    {
-        Functions.FileDragDrop(e);
-        Edit edt = new Edit(Functions.DDFileName, Functions.DDPath, "", "", "", XMLList);
-        UpdateShortcuts(edt);
-    }
+        /// <summary>
+        /// DragDrop Event 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lvShortcuts_DragDrop(object sender, DragEventArgs e)
+        {
+            Functions.FileDragDrop(e);
+            Edit edt = new Edit(Functions.DDFileName, Functions.DDPath, "", "", "", XMLList);
+            UpdateShortcuts(edt);
+        }
 
-    private void btnNew_Click(object sender, EventArgs e)
-    {
-
-
-        Edit edt = new Edit(Functions.DDFileName, Functions.DDPath, "", "", "", XMLList);
-
-        UpdateShortcuts(edt);
+        private void btnNew_Click(object sender, EventArgs e)
+        {
 
 
-    }
+            Edit edt = new Edit(Functions.DDFileName, Functions.DDPath, "", "", "", XMLList);
 
-     
+            UpdateShortcuts(edt);
+
+
+        }
+
+
+
+
+
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            
+
             lvShortcuts.Items.Clear();
 
             foreach (Shortcut sc in XMLList.Shortcuts)
             {
                 ListViewItem item = new ListViewItem();
-                if (sc.Name.Contains(txtSearch.Text) || sc.Path.Contains(txtSearch.Text) || sc.Shorthand.Contains(txtSearch.Text))
+                if (Regex.IsMatch(sc.Name, txtSearch.Text, RegexOptions.IgnoreCase) || Regex.IsMatch(sc.Path, txtSearch.Text, RegexOptions.IgnoreCase) || Regex.IsMatch(sc.Shorthand, txtSearch.Text, RegexOptions.IgnoreCase))
                 {
                     item.Text = sc.Name;
                     item.SubItems.Add(sc.Path);
@@ -303,22 +317,64 @@ namespace TooManyShortcuts
                     {
                         if (System.IO.File.Exists(sc.Path) == false)
                         {
-                            item.ForeColor = Color.Red;
-                            item.SubItems[1].Text += " (nicht gefunden)";
+
+
 
                         }
                     }
                     lvShortcuts.Items.Add(item); //Add this row to the ListView
-                    
+
                 }
 
 
             }
         }
-    }
 
+        private void lvShortcuts_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
 
+                DeleteShortcut();
+            }
+        }
+
+        private void lvShortcuts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lvShortcuts.SelectedItems.Count == 0)
+            {
+                btnDelete.Enabled = false;
+            }
+            else
+            {
+                btnDelete.Enabled = true;
+            }
+
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            DeleteShortcut();
+        }
+
+        private void DeleteShortcut()
+        {
+            try
+            {
+                XMLList.Shortcuts.Remove(XMLList.Shortcuts.Find((x => x.Name == lvShortcuts.SelectedItems[0].Text)));
+                lvShortcuts.SelectedItems[0].Remove();
+                ListSerializer.Serialize(XMLList, XMLPath);
+                Functions.hook.Dispose();
+                UpdateShortcuts();
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Kein Element ausgewählt!");
+            }
+        }
     }
+}
 
 
 

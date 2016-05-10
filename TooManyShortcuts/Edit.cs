@@ -47,7 +47,7 @@ namespace TooManyShortcuts
         public void CheckSaveButton(object sender, EventArgs e)
         {
             // Wenn Felder ausreichend ausgefüllt sind
-            if (txtName.Text != "" && txtPath.Text != "" && txtShorthand.Text.Length <= 3  && EPShortcut.GetError(FixedtxtShortcuts) == "" && EPShortHand.GetError(txtShorthand) == "" && (FixedtxtShortcuts.Text != "" || txtShorthand.Text != ""))
+            if (txtName.Text != "" && txtPath.Text != "" && txtShorthand.Text.Length <= 3  && EPShortcut.GetError(FixedtxtShortcuts) == "" && EPShortHand.GetError(txtShorthand) == "" && FixedtxtShortcuts.Text != "" && txtShorthand.Text != "")
             {
                 btnSave.Enabled = true; 
             }
@@ -75,10 +75,13 @@ namespace TooManyShortcuts
             txtPath.Text = Path;
             txtParameter.Text = Parameter;
             FixedtxtShortcuts.Text = Shortcut;
-            txtShorthand.Text = Shorthand; 
+            txtShorthand.Text = Shorthand;
             //Damit die Textbox nur einmal am Anfang gespeichert wird und bei eingabe des gleichen Wertes keine Warnung angezeigt wird da gleicher Wert
             ShortCutTemp = FixedtxtShortcuts.Text;
             ShortHandTemp = txtShorthand.Text;
+            
+            
+           
             XMLListTemp = XMLList; 
         }
 
@@ -102,7 +105,8 @@ namespace TooManyShortcuts
             txtParameter.Text = lv.SelectedItems[0].SubItems[2].Text;
             FixedtxtShortcuts.Text = lv.SelectedItems[0].SubItems[3].Text;
             txtShorthand.Text = lv.SelectedItems[0].SubItems[4].Text;
-            
+           
+
         }
 
 
@@ -175,8 +179,11 @@ namespace TooManyShortcuts
 			EPShortcut.BlinkRate = 200; 
             EPShortcut.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError; 
 			EPShortHand.BlinkRate = 200; 
-            EPShortHand.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError; 
-            
+            EPShortHand.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
+            this.TopMost = true;
+
+
+         
         }
 
 
@@ -240,10 +247,21 @@ namespace TooManyShortcuts
             	FixedtxtShortcuts.Text = "SHIFT + " + e.KeyCode.ToString();
                 KeyMod = KeyMods.Shift;
 			}
-             
-            int inttemp = 0; 
-            //Durcläuft die Zeilen ShortCutTable um nach einem schon verwendeten Shortcut zu suchen
-            foreach (Shortcut sc in XMLListTemp.Shortcuts)
+
+               
+
+            int inttemp = 0;
+
+
+                // Überprfung allgemeiner Shortcuts
+                if (FixedtxtShortcuts.Text == "STRG + A" || FixedtxtShortcuts.Text == "STRG + C" || FixedtxtShortcuts.Text == "STRG + V" || FixedtxtShortcuts.Text == "STRG + X" || FixedtxtShortcuts.Text == "STRG + N" || FixedtxtShortcuts.Text == "STRG + S")
+                {
+                    EPShortcut.SetError(FixedtxtShortcuts, "Allgemein gültiger Shortcut! Nicht verwenden!");
+                    inttemp = 1;
+                }
+
+                //Durcläuft die Zeilen ShortCutTable um nach einem schon verwendeten Shortcut zu suchen
+                foreach (Shortcut sc in XMLListTemp.Shortcuts)
             {
              	if(sc.Keycombo == FixedtxtShortcuts.Text) 
              	{
@@ -273,9 +291,17 @@ namespace TooManyShortcuts
 
         void BtnEditFinishedClick(object sender, EventArgs e)
         {
-          
             XMLListTemp.Shortcuts.Remove(XMLListTemp.Shortcuts.Find(x => x.Shorthand == txtShorthand.Text));
             XMLListTemp.Shortcuts.Remove(XMLListTemp.Shortcuts.Find(x => x.Keycombo == FixedtxtShortcuts.Text));
+            foreach (Shortcut sc in XMLListTemp.Shortcuts)
+            {
+                if (sc.Keycombo == FixedtxtShortcuts.Text || sc.Shorthand == txtShorthand.Text)
+                {
+                    XMLListTemp.Shortcuts.Remove(sc); 
+                }
+            }
+
+
             try
             {
 
@@ -316,11 +342,7 @@ namespace TooManyShortcuts
           
         }
 
-        private void lblParamHelp_Click(object sender, EventArgs e)
-        {
-            if (txtName.Text != "") { Process.Start("https://www.google.de/search?q=" + txtName.Text + "+command+line+parameters"); }
-            else { MessageBox.Show(""); }//#INPROCESS
-        }
+      
 		
 	
 		
@@ -358,6 +380,7 @@ namespace TooManyShortcuts
             }
             CheckSaveButton(sender,e); 
 		}
+
     }
 }
 

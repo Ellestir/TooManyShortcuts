@@ -23,7 +23,7 @@
               </xs:element>
             </xs:sequence>
           </xs:complexType>
-          <xs:unique name="uniqueShorthand">
+           <xs:unique name="uniqueShorthand">
             <xs:selector xpath="Shortcut" />
             <xs:field xpath="Shorthand" />
           </xs:unique>
@@ -32,6 +32,7 @@
             <xs:field xpath="Keycombo" />
           </xs:unique>
         </xs:element>
+        <xs:element name ="LaunchOnSystemStartup" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

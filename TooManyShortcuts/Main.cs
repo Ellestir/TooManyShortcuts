@@ -28,7 +28,8 @@ namespace TooManyShortcuts
             
             InitializeComponent();
             this.Text = "TooManyShortcuts " + Application.ProductVersion;
-           // this.WindowState = FormWindowState.Minimized; 
+            this.MinimizeBox = false;
+            this.WindowState = FormWindowState.Minimized; 
           
            
 
@@ -40,7 +41,7 @@ namespace TooManyShortcuts
         private void Main_Load(object sender, EventArgs e)
         {
         	
-
+            // Damit form in andere Form geladen werden kann / Zukünftige Changes : Usercontrol
             sclForm.TopLevel = false;
             sclForm.FormBorderStyle = FormBorderStyle.None;
 
@@ -52,25 +53,23 @@ namespace TooManyShortcuts
             Application.DoEvents();
 
 
-            //Functions.StartAtWindowsStartUp(true); //Verändern auf Objekte!
+            
+         
 
 
 
-            string[] startparameters = Environment.GetCommandLineArgs();
-            
-            
-          
-            
-           
+
+
+
 
         }
 
-    
 
-   
-     
 
-      
+
+
+
+
 
 
 
@@ -78,7 +77,6 @@ namespace TooManyShortcuts
         //  Reinigt das pnlLoad jedoch nur wenn ein anderer Button gedrückt wurde ( Andere Form wird dann geladen) 
 
 
- 
 
 
 
@@ -86,31 +84,25 @@ namespace TooManyShortcuts
 
 
 
-     
 
-     
-    
-        private void JustMakeItGray(object sender, EventArgs e)
-        {
-            Label snd = (Label)sender;
-            if (snd.BackColor != Color.DimGray) { snd.BackColor = Color.DarkGray; }
-        }
-        private void MakeItNormalAgain(object sender, EventArgs e)
-        {
-            Label snd = (Label)sender;
-            if (snd.BackColor != Color.DimGray) { snd.BackColor = Color.Gray; }
-        }
+
+
+
+
+  
 
       
 
         private void NIMain_DoubleClick(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Normal; 
+            this.WindowState = FormWindowState.Normal;
+            this.ShowInTaskbar = true;  
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            this.Close(); 
+            NIMain.Icon = null;
+            this.Dispose(); 
         }
 
         private void Main_Resize(object sender, EventArgs e)
@@ -124,7 +116,10 @@ namespace TooManyShortcuts
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            NIMain.Icon = null;
+            e.Cancel = true;
+            this.WindowState = FormWindowState.Minimized; 
+
+
         }
     }
 }
