@@ -39,7 +39,7 @@ namespace TooManyShortcuts
 
         private void Main_Load(object sender, EventArgs e)
         {
-        	Functions.IntalizeKeyPressEvent();
+        	
 
             sclForm.TopLevel = false;
             sclForm.FormBorderStyle = FormBorderStyle.None;
@@ -58,7 +58,7 @@ namespace TooManyShortcuts
 
             string[] startparameters = Environment.GetCommandLineArgs();
             
-            Functions.RegisterHotKey("STRG + Space");
+            
           
             
            
@@ -101,14 +101,7 @@ namespace TooManyShortcuts
             if (snd.BackColor != Color.DimGray) { snd.BackColor = Color.Gray; }
         }
 
-        private void pnlLoad_Paint(object sender, PaintEventArgs e)
-        {
-            Graphics g = e.Graphics;
-            g.SmoothingMode = SmoothingMode.AntiAlias;
-
-
-            //g.DrawRoundedRectangle(new Pen(Color.Black), 12, 12, this.Width - 44, this.Height - 64, 10);
-        }
+      
 
         private void NIMain_DoubleClick(object sender, EventArgs e)
         {
@@ -120,7 +113,7 @@ namespace TooManyShortcuts
             this.Close(); 
         }
 
-        private void Main_StyleChanged(object sender, EventArgs e)
+        private void Main_Resize(object sender, EventArgs e)
         {
             if (this.WindowState == FormWindowState.Minimized)
             {
@@ -129,23 +122,9 @@ namespace TooManyShortcuts
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-        // Weitermachen
-
-
-
-
-
-
-
+        private void Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            NIMain.Icon = null;
+        }
     }
 }

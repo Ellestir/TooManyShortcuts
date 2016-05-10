@@ -17,18 +17,20 @@ namespace TooManyShortcuts
 	/// </summary>
 	public partial class ShorthandWindow : Form
 	{
-        
-        public ShorthandWindow()
+
+        XMLShortcutList XMLListTemp; 
+        public ShorthandWindow(XMLShortcutList XMLListTemp)
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//
 			InitializeComponent();
-			
-			//
-			// TODO: Add constructor code after the InitializeComponent() call.
-			//
-		}
+
+            //
+            // TODO: Add constructor code after the InitializeComponent() call.
+            //
+            this.XMLListTemp = XMLListTemp;
+        }
 		
 		void ShorthandWindowLoad(object sender, EventArgs e)
 		{
@@ -38,7 +40,7 @@ namespace TooManyShortcuts
 			this.TopMost = true;
             txtShorthand.CharacterCasing = CharacterCasing.Upper;
             txtShorthand.Focus();
-		    
+           
 		}
 		
 
@@ -48,16 +50,16 @@ namespace TooManyShortcuts
             if(txtShorthand.Text != "")
             {
                 int hitcounter = 0;
-                DataRow hit = null;
+                Shortcut hit = null;
                 txtShorthand.Select(txtShorthand.Text.Length, 0);
 
-                foreach (DataRow row in ShortCutList.ShortCutTable.Rows)
+                foreach (Shortcut sc in XMLListTemp.Shortcuts)
                 {
 
-                    if (row["Shorthand"].ToString().StartsWith(txtShorthand.Text))
+                    if (sc.Shorthand.StartsWith(txtShorthand.Text))
                     {
                         hitcounter += 1;
-                        hit = row;
+                        hit = sc;
                     }
                 }
 

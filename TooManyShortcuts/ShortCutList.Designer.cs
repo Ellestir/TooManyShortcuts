@@ -32,6 +32,7 @@
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnNew = new System.Windows.Forms.Button();
             this.pnlSearch = new System.Windows.Forms.Panel();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.lblSearch = new System.Windows.Forms.Label();
             this.imgList = new System.Windows.Forms.ImageList(this.components);
             this.clmName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -49,20 +50,22 @@
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(289, 20);
             this.txtSearch.TabIndex = 0;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // btnNew
             // 
             this.btnNew.Location = new System.Drawing.Point(380, 12);
             this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(144, 23);
+            this.btnNew.Size = new System.Drawing.Size(73, 23);
             this.btnNew.TabIndex = 4;
-            this.btnNew.Text = "Neuen Shortcut erstellen";
+            this.btnNew.Text = "Erstellen";
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // pnlSearch
             // 
             this.pnlSearch.BackColor = System.Drawing.Color.White;
+            this.pnlSearch.Controls.Add(this.btnDelete);
             this.pnlSearch.Controls.Add(this.btnNew);
             this.pnlSearch.Controls.Add(this.lblSearch);
             this.pnlSearch.Controls.Add(this.txtSearch);
@@ -71,6 +74,15 @@
             this.pnlSearch.Name = "pnlSearch";
             this.pnlSearch.Size = new System.Drawing.Size(536, 44);
             this.pnlSearch.TabIndex = 3;
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(459, 12);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(74, 23);
+            this.btnDelete.TabIndex = 5;
+            this.btnDelete.Text = "Löschen";
+            this.btnDelete.UseVisualStyleBackColor = true;
             // 
             // lblSearch
             // 
@@ -139,7 +151,6 @@
             this.lvShortcuts.UseCompatibleStateImageBehavior = false;
             this.lvShortcuts.View = System.Windows.Forms.View.Details;
             this.lvShortcuts.DoubleClick += new System.EventHandler(this.lvShortcuts_DoubleClick);
-            this.lvShortcuts.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvShortcuts_KeyDown);
             // 
             // ShortCutList
             // 
@@ -170,6 +181,7 @@
         private System.Windows.Forms.ColumnHeader clmShortcut;
         private System.Windows.Forms.ColumnHeader clmShorthand;
         private System.Windows.Forms.ListView lvShortcuts;
+        private System.Windows.Forms.Button btnDelete;
     }
 }
 

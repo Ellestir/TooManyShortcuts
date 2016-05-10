@@ -26,7 +26,8 @@ namespace TooManyShortcuts
        	string ShortCutTemp = ""; 
         string ShortHandTemp = ""; 
         public  int formwidth = 0;
-
+        public XMLShortcutList XMLListTemp;
+        
         public Edit()
 
         {
@@ -64,17 +65,21 @@ namespace TooManyShortcuts
         /// <param name="Parameter">Parameter z.B. /call in Skype</param>
         /// <param name="Shortcut">z.B dieses Format: STRG + D </param>
         /// <param name="Shorthand">Max drei Zeichen z.B. AAA</param>
-        public Edit(string Name, string Path, string Parameter, string Shortcut, string Shorthand)
+        public Edit(string Name, string Path, string Parameter, string Shortcut, string Shorthand,XMLShortcutList XMLList)
         {
             InitializeComponent();
             txtName.Text = Name;
+
+           
+
             txtPath.Text = Path;
             txtParameter.Text = Parameter;
             FixedtxtShortcuts.Text = Shortcut;
             txtShorthand.Text = Shorthand; 
             //Damit die Textbox nur einmal am Anfang gespeichert wird und bei eingabe des gleichen Wertes keine Warnung angezeigt wird da gleicher Wert
             ShortCutTemp = FixedtxtShortcuts.Text;
-            ShortHandTemp = txtShorthand.Text; 
+            ShortHandTemp = txtShorthand.Text;
+            XMLListTemp = XMLList; 
         }
 
         /// <summary>
@@ -139,7 +144,7 @@ namespace TooManyShortcuts
           
 
              Functions.hook.Dispose();
-
+            Functions.RegisterHotKey("STRG + Space");
 
 
             // Legt lediglich die TabIndex Reinfolge der Elemente fest
@@ -238,13 +243,13 @@ namespace TooManyShortcuts
              
             int inttemp = 0; 
             //Durcläuft die Zeilen ShortCutTable um nach einem schon verwendeten Shortcut zu suchen
-            foreach (DataRow row in ShortCutList.ShortCutTable.Rows)
+            foreach (Shortcut sc in XMLListTemp.Shortcuts)
             {
-             	if(row["ShortCuts"].ToString() == FixedtxtShortcuts.Text) 
+             	if(sc.Keycombo == FixedtxtShortcuts.Text) 
              	{
              		if (FixedtxtShortcuts.Text != ShortCutTemp) {
              			
-             			EPShortcut.SetError(FixedtxtShortcuts, "Wird bereits von " + row["Name"].ToString() + " verwendet!");
+             			EPShortcut.SetError(FixedtxtShortcuts, "Wird bereits von " + sc.Name + " verwendet!");
              		inttemp = 1; 
              		}
              		
@@ -268,15 +273,24 @@ namespace TooManyShortcuts
 
         void BtnEditFinishedClick(object sender, EventArgs e)
         {
-            
-        	
-                try
-                {
-                   
-                    ShortCutList.ShortCutTable.Rows.Add(txtName.Text, txtPath.Text, txtParameter.Text, FixedtxtShortcuts.Text, txtShorthand.Text);
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
+          
+            XMLListTemp.Shortcuts.Remove(XMLListTemp.Shortcuts.Find(x => x.Shorthand == txtShorthand.Text));
+            XMLListTemp.Shortcuts.Remove(XMLListTemp.Shortcuts.Find(x => x.Keycombo == FixedtxtShortcuts.Text));
+            try
+            {
 
+                XMLListTemp.Shortcuts.Add(new Shortcut
+                {
+                    Name = txtName.Text,
+                    Path = txtPath.Text,
+                    Parameters = txtParameter.Text,
+                    Keycombo = FixedtxtShortcuts.Text,
+                    Shorthand = txtShorthand.Text
+                });
+                ListSerializer.Serialize(XMLListTemp, ShortCutList.XMLPath);
+
+                this.DialogResult = DialogResult.OK;
+                this.Close();
                 }
                 catch (Exception q)
                 {
@@ -326,13 +340,13 @@ namespace TooManyShortcuts
             } 
 
 
-            foreach (DataRow row in ShortCutList.ShortCutTable.Rows)
+            foreach (Shortcut sc in XMLListTemp.Shortcuts)
             {
-             	if(row["ShortHand"].ToString() == txtShorthand.Text) 
+             	if(sc.Shorthand.ToString() == txtShorthand.Text) 
              	{
              		if (txtShorthand.Text != ShortHandTemp) {
              			
-             		EPShortHand.SetError(txtShorthand, "Wird bereits von " + row["Name"].ToString() + " verwendet!");
+             		EPShortHand.SetError(txtShorthand, "Wird bereits von " + sc.Name + " verwendet!");
              		inttemp = 1; 
              		}
              		

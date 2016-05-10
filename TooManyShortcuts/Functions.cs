@@ -32,14 +32,16 @@ namespace TooManyShortcuts
         static KeyMods KeyMod = new KeyMods();
         public static string DDFileName = ""; // DragDropFileName 
         public static string DDPath; //DragDropPath
-       public static KeyboardHook hook = new KeyboardHook(); 
-            
+       public static KeyboardHook hook = new KeyboardHook();
+        public static XMLShortcutList XMLListTemp;    
        
         /// <summary>
         /// Notwendig um Shortcuts registrieren zu können!
         /// </summary>
-        public static void IntalizeKeyPressEvent(){
-        	hook.KeyPressed +=
+        public static void IntalizeKeyPressEvent(XMLShortcutList XMLList)
+        {
+            XMLListTemp = XMLList; 
+            hook.KeyPressed +=
                   new EventHandler<KeyPressedEventArgs>(hook_KeyPressed);
         }
         
@@ -75,17 +77,18 @@ namespace TooManyShortcuts
             //Falls STRG und Leertaste gedrückt werden wird das ShorthandWindow aufgerufen
             if (Mod == "STRG" && e.Key.ToString() == "Space")
             {
-                ShorthandWindow shw = new ShorthandWindow();
+                ShorthandWindow shw = new ShorthandWindow(XMLListTemp);
                 CreatePopUpForm(shw);
                 
+                
             }
-            foreach (DataRow row in ShortCutList.ShortCutTable.Rows)
+            foreach (Shortcut sc in XMLListTemp.Shortcuts)
             { // Durchsuche die Erste Dimension (Alle Items ohne Subitem) 
                 ListViewItem item = new ListViewItem();
 
-                if (Mod + " + " + e.Key.ToString() == row["Shortcuts"].ToString())
+                if (Mod + " + " + e.Key.ToString() == sc.Keycombo)
                 { //Ist das 3 Subitem (gespeicherte Tastenkombi) mit der Tastenkombination gleich {
-                    StartProcess(row);
+                    StartProcess(sc);
 
                 }
 
@@ -122,39 +125,26 @@ namespace TooManyShortcuts
             }
         }
 
-        public static bool IsFormOpend(string FormName)
-        {
-
-            foreach (Form frm in Application.OpenForms)
-            {
-              if (frm.Name == FormName) {
-                    return true;
-                    
-                }
-               
-            }
-           return false;
-        }
-
-        public static void StartProcess(DataRow row)
+     
+        public static void StartProcess(Shortcut sc)
         {
 
 
 
 
-            if (row["Path"].ToString() == "Text" ) 
+            if (sc.Path == "Text" ) 
             {
-             //   Application.DoEvents();
-           //     Thread.Sleep(200); 
-           //     SendKeys.Send("TEST");
+              Application.DoEvents();
+              Thread.Sleep(200); 
+              SendKeys.Send(sc.Path);
       
             } 
 
             else
             {
                 ProcessStartInfo ProcessInfo = new ProcessStartInfo();
-                ProcessInfo.FileName = row["Path"].ToString();
-                ProcessInfo.Arguments = row["Parameter"].ToString(); //Zuweißung des Parameters aus der Liste
+                ProcessInfo.FileName = sc.Path; 
+                ProcessInfo.Arguments = sc.Parameters; //Zuweißung des Parameters aus der Liste
                 try
                 {
                     Process.Start(ProcessInfo);

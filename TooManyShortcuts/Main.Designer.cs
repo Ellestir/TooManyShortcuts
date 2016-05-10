@@ -85,8 +85,9 @@
             this.MaximizeBox = false;
             this.Name = "Main";
             this.Text = "Main";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
-            this.StyleChanged += new System.EventHandler(this.Main_StyleChanged);
+            this.Resize += new System.EventHandler(this.Main_Resize);
             this.conMenStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
