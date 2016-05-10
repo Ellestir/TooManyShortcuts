@@ -37,7 +37,7 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>1462835781_141_Keyboard.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Keyboard.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -123,15 +123,17 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="1450943603_x-ms-shortcut.ico" />
-    <Content Include="1450943628_configure_shortcuts.ico" />
-    <Content Include="1450943718_emblem-symbolic-link.ico" />
-    <Content Include="1462835781_141_Keyboard.ico" />
-    <None Include="Resources\1453304458_FireFox.png" />
-    <None Include="Resources\Fotor0120103349.jpg" />
-    <None Include="Resources\1451027221_circle-info-more-information-detail-glyph.png" />
-    <None Include="Resources\1451027168_circle-info-more-information-detail-glyph.png" />
-    <None Include="Resources\1451027136_circle-info-more-information-detail-glyph.png" />
+    <None Include="Resources\Web.png" />
+    <None Include="Resources\Warning.png" />
+    <None Include="Resources\Videos.png" />
+    <None Include="Resources\Pictures.png" />
+    <None Include="Resources\Music.png" />
+    <None Include="Resources\C.png" />
+    <None Include="Resources\Folder.png" />
+    <Content Include="Resources\Keyboard.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

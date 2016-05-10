@@ -61,7 +61,14 @@ namespace TooManyShortcuts
 
 
             // Imagelist wird befüllt 
-            Functions.FillImageList(ProgramIconPath, imgList, "*.png");
+            //Functions.FillImageList(ProgramIconPath, imgList, "*.png");
+            imgList.Images.Add("C", Properties.Resources.C);
+            imgList.Images.Add("Folder", Properties.Resources.Folder);
+            imgList.Images.Add("Music", Properties.Resources.Music);
+            imgList.Images.Add("Pictures", Properties.Resources.Pictures);
+            imgList.Images.Add("Videos", Properties.Resources.Videos);
+            imgList.Images.Add("Warning", Properties.Resources.Warning);
+            imgList.Images.Add("Web", Properties.Resources.Web);
 
             // Listview Einstellungen
             lvShortcuts.FullRowSelect = true;

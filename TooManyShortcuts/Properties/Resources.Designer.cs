@@ -63,9 +63,102 @@ namespace TooManyShortcuts.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Fotor0120103349 {
+        internal static System.Drawing.Bitmap C {
             get {
-                object obj = ResourceManager.GetObject("Fotor0120103349", resourceCulture);
+                object obj = ResourceManager.GetObject("C", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Folder {
+            get {
+                object obj = ResourceManager.GetObject("Folder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Icon ähnlich wie (Symbol).
+        /// </summary>
+        internal static System.Drawing.Icon Keyboard {
+            get {
+                object obj = ResourceManager.GetObject("Keyboard", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Music {
+            get {
+                object obj = ResourceManager.GetObject("Music", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Pictures {
+            get {
+                object obj = ResourceManager.GetObject("Pictures", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;xs:schema id=&quot;SCM_Schema&quot;
+        ///    elementFormDefault=&quot;qualified&quot;
+        ///    xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
+        ///
+        ///  &lt;xs:element name=&quot;ShortcutList&quot;&gt;
+        ///    &lt;xs:complexType&gt;
+        ///      &lt;xs:sequence&gt;
+        ///        &lt;xs:element name=&quot;Shortcuts&quot;&gt;
+        ///          &lt;xs:complexType&gt;
+        ///            &lt;xs:sequence&gt;
+        ///              &lt;xs:element name=&quot;Shortcut&quot; minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;
+        ///                &lt;xs:complexType&gt;
+        ///                  &lt;xs:sequence&gt;
+        ///                    &lt;xs:element name [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        /// </summary>
+        internal static string SCM_Schema {
+            get {
+                return ResourceManager.GetString("SCM_Schema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Videos {
+            get {
+                object obj = ResourceManager.GetObject("Videos", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Warning {
+            get {
+                object obj = ResourceManager.GetObject("Warning", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Web {
+            get {
+                object obj = ResourceManager.GetObject("Web", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
