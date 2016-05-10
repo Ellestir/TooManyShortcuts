@@ -15,7 +15,7 @@ namespace TooManyShortcuts
     public partial class Main : Form
     {
         // Inition 
-      
+
         Edit edtform = new Edit();
         ShortCutList sclForm = new ShortCutList();
         public static ListViewItem selecteditem;
@@ -25,27 +25,28 @@ namespace TooManyShortcuts
         public Main()
         {
 
-            
+
             InitializeComponent();
             this.Text = "TooManyShortcuts " + Application.ProductVersion;
             this.MinimizeBox = false;
-            this.WindowState = FormWindowState.Minimized; 
-          
            
 
+
+            
         }
 
-    
+
 
 
         private void Main_Load(object sender, EventArgs e)
         {
-        	
+            this.WindowState = FormWindowState.Minimized;
             // Damit form in andere Form geladen werden kann / Zukünftige Changes : Usercontrol
+
             sclForm.TopLevel = false;
             sclForm.FormBorderStyle = FormBorderStyle.None;
 
-            pnlLoad.Controls.Add(sclForm); 
+            pnlLoad.Controls.Add(sclForm);
 
 
             sclForm.Dock = DockStyle.Fill;
@@ -53,8 +54,8 @@ namespace TooManyShortcuts
             Application.DoEvents();
 
 
-            
-         
+
+
 
 
 
@@ -89,20 +90,20 @@ namespace TooManyShortcuts
 
 
 
-  
 
-      
+
+
 
         private void NIMain_DoubleClick(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Normal;
-            this.ShowInTaskbar = true;  
+            this.ShowInTaskbar = true;
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             NIMain.Icon = null;
-            this.Dispose(); 
+            this.Dispose();
         }
 
         private void Main_Resize(object sender, EventArgs e)
@@ -117,7 +118,7 @@ namespace TooManyShortcuts
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
-            this.WindowState = FormWindowState.Minimized; 
+            this.WindowState = FormWindowState.Minimized;
 
 
         }
