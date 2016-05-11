@@ -60,7 +60,6 @@ namespace TooManyShortcuts
             this.Name = "ShorthandWindow";
             this.Text = "Shorthand";
             this.Activated += new System.EventHandler(this.ShorthandWindow_Activated);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ShorthandWindow_FormClosed);
             this.Load += new System.EventHandler(this.ShorthandWindowLoad);
             this.ResumeLayout(false);
             this.PerformLayout();

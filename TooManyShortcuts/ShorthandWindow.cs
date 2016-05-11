@@ -74,10 +74,7 @@ namespace TooManyShortcuts
 
         }
 
-        private void ShorthandWindow_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Functions.forminwork = false;
-        }
+     
 
         private void ShorthandWindow_Activated(object sender, EventArgs e)
         {

@@ -27,9 +27,6 @@ namespace TooManyShortcuts
     public static class Functions
     {
 
-
-
-        public static bool forminwork = false;
         static KeyMods KeyMod = new KeyMods();
         public static string DDFileName = ""; // DragDropFileName 
         public static string DDPath; //DragDropPath
@@ -37,26 +34,6 @@ namespace TooManyShortcuts
         public static XMLShortcutList XMLListTemp;
         public static RegistryKey rkStartUp = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
         public static RegistryKey rkDisabledStartUp;
-        [DllImport("USER32.DLL")]
-        public static extern bool SetForegroundWindow(IntPtr hWnd);
-
-        [System.Runtime.InteropServices.DllImport("User32.dll")]
-        public static extern bool ShowWindow(IntPtr handle, int nCmdShow);
-
-        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-
-
-
-        // this gives you the handle of the window you need.
-
-        // then use this handle to bring the window to focus or forground(I guessed you wanted this).
-
-        // sometimes the window may be minimized and the setforground function cannot bring it to focus so:
-
-        /*use this ShowWindow(IntPtr handle, int nCmdShow);
-        *there are various values of nCmdShow 3, 5 ,9. What 9 does is: 
-        *Activates and displays the window. If the window is minimized or maximized, *the system restores it to its original size and position. An application *should specify this flag when restoring a minimized window */
 
       
         /// <summary>
@@ -96,7 +73,7 @@ namespace TooManyShortcuts
             string Mod = "";
             if (e.Modifier.ToString() == "Control") { Mod = "STRG"; } //Umwandelung um eine Abfrage mit der Liste durchzuführen
             else if (e.Modifier.ToString() == "Alt") { Mod = "ALT"; } // --
-            else if (e.Modifier.ToString() == "Shift") { Mod = "SHIFT"; } // --
+      
 
 
             //Falls STRG und Leertaste gedrückt werden wird das ShorthandWindow aufgerufen

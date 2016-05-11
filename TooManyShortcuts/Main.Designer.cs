@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
-            this.imgListMenu = new System.Windows.Forms.ImageList(this.components);
             this.pnlLoad = new System.Windows.Forms.Panel();
             this.conMenStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.autostartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,12 +37,6 @@
             this.NIMain = new System.Windows.Forms.NotifyIcon(this.components);
             this.conMenStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // imgListMenu
-            // 
-            this.imgListMenu.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.imgListMenu.ImageSize = new System.Drawing.Size(32, 32);
-            this.imgListMenu.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // pnlLoad
             // 
@@ -97,13 +90,12 @@
             this.Text = "Main";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
-          this.conMenStrip.ResumeLayout(false);
+            this.conMenStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.ImageList imgListMenu;
         private System.Windows.Forms.Panel pnlLoad;
         private System.Windows.Forms.ContextMenuStrip conMenStrip;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;

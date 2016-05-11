@@ -225,7 +225,7 @@ namespace TooManyShortcuts
         	 
         	if (e.KeyCode == Keys.Escape ) { FixedtxtShortcuts.Text = null; }
         	
-        	if ((e.Modifiers == Keys.Control && e.KeyCode != Keys.ControlKey) || (e.Modifiers == Keys.Alt && e.KeyCode != Keys.Menu) ||  (e.Modifiers == Keys.Shift && e.KeyCode != Keys.ShiftKey) )
+        	if ((e.Modifiers == Keys.Control && e.KeyCode != Keys.ControlKey) || (e.Modifiers == Keys.Alt && e.KeyCode != Keys.Menu)  )
         	{
       	
         	
@@ -241,13 +241,7 @@ namespace TooManyShortcuts
            		 FixedtxtShortcuts.Text = "ALT + " + e.KeyCode.ToString();
             	 KeyMod= KeyMods.Alt;
 			}
-            else if (e.Modifiers == Keys.Shift)
-            {
-                
-            	FixedtxtShortcuts.Text = "SHIFT + " + e.KeyCode.ToString();
-                KeyMod = KeyMods.Shift;
-			}
-
+          
                
 
             int inttemp = 0;
