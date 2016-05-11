@@ -116,3 +116,16 @@ C:\Users\rill\Source\Repos\TooManyShortcuts\TooManyShortcuts\bin\Debug\TooManySh
 C:\Users\rill\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.Properties.Resources.resources
 U:\Source\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.exe
 U:\Source\TooManyShortcuts\TooManyShortcuts\bin\Debug\SCM_Schema.xsd
+C:\Users\Marcel\Source\Repos\TooManyShortcuts\TooManyShortcuts\bin\Debug\TooManyShortcuts.exe.config
+C:\Users\Marcel\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.exe
+C:\Users\Marcel\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.pdb
+C:\Users\Marcel\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.csprojResolveAssemblyReference.cache
+C:\Users\Marcel\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.Edit.resources
+C:\Users\Marcel\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.Main.resources
+C:\Users\Marcel\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.Properties.Resources.resources
+C:\Users\Marcel\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.ShortCutList.resources
+C:\Users\Marcel\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.ShorthandWindow.resources
+C:\Users\Marcel\Source\Repos\TooManyShortcuts\TooManyShortcuts\obj\Debug\TooManyShortcuts.csproj.GenerateResource.Cache
+C:\Users\Marcel\Source\Repos\TooManyShortcuts\TooManyShortcuts\bin\Debug\SCM_Schema.xsd
+C:\Users\Marcel\Source\Repos\TooManyShortcuts\TooManyShortcuts\bin\Debug\TooManyShortcuts.exe
+C:\Users\Marcel\Source\Repos\TooManyShortcuts\TooManyShortcuts\bin\Debug\TooManyShortcuts.pdb

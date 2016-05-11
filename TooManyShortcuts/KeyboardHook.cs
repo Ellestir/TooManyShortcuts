@@ -17,10 +17,12 @@ namespace TooManyShortcuts
         [DllImport("user32.dll")]
         private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
+        private Window _window = new Window();
+        private int _currentId;
+
         /// <summary>
         /// Represents the window that is used internally to get the messages.
-        /// </summary>s
-      
+        /// </summary>
         private class Window : NativeWindow, IDisposable
         {
             private static int WM_HOTKEY = 0x0312;
@@ -31,6 +33,7 @@ namespace TooManyShortcuts
                 this.CreateHandle(new CreateParams());
             }
 
+
             /// <summary>
             /// Overridden to get the notifications.
             /// </summary>
@@ -38,7 +41,7 @@ namespace TooManyShortcuts
             protected override void WndProc(ref Message m)
             {
                 base.WndProc(ref m);
-                
+
                 // check if we got a hot key pressed.
                 if (m.Msg == WM_HOTKEY)
                 {
@@ -50,7 +53,6 @@ namespace TooManyShortcuts
                     if (KeyPressed != null)
                         KeyPressed(this, new KeyPressedEventArgs(modifier, key));
                 }
-              
             }
 
             public event EventHandler<KeyPressedEventArgs> KeyPressed;
@@ -64,9 +66,7 @@ namespace TooManyShortcuts
 
             #endregion
         }
-
-        private Window _window = new Window();
-        private int _currentId;
+        
 
         public KeyboardHook()
         {
@@ -77,6 +77,7 @@ namespace TooManyShortcuts
                     KeyPressed(this, args);
             };
         }
+
 
         /// <summary>
         /// Registers a hot key in the system.
@@ -92,6 +93,7 @@ namespace TooManyShortcuts
             if (!RegisterHotKey(_window.Handle, _currentId, (uint)modifier, (uint)key))
                 throw new InvalidOperationException("Couldn’t register the hot key.He is in use already!");
         }
+
 
         /// <summary>
         /// A hot key has been pressed.
@@ -114,6 +116,7 @@ namespace TooManyShortcuts
 
         #endregion
     }
+
 
     /// <summary>
     /// Event Args for the event that is fired after the hot key has been pressed.
@@ -140,6 +143,7 @@ namespace TooManyShortcuts
         }
     }
 
+
     /// <summary>
     /// The enumeration of possible modifiers.
     /// </summary>
@@ -151,5 +155,4 @@ namespace TooManyShortcuts
         Shift = 4,
         Win = 8
     }
-
 }

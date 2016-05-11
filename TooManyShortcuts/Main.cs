@@ -15,29 +15,25 @@ namespace TooManyShortcuts
     public partial class Main : Form
     {
         // Inition 
-
-      
         XMLShortcutList XMLTempList = new XMLShortcutList();
         ShortCutList sclForm = new ShortCutList();
         public static ListViewItem selecteditem;
-       
-       
+
+
         public Main()
         {
-         
+
             InitializeComponent();
             this.Text = "TooManyShortcuts " + Application.ProductVersion;
             this.MinimizeBox = false;
             NIMain.Icon = Properties.Resources.Keyboard;
-       
+
         }
-
-
 
 
         private void Main_Load(object sender, EventArgs e)
         {
-           
+
             // Damit form in andere Form geladen werden kann / Zukünftige Changes : Usercontrol
             if (Functions.CheckWindowsStartUp() == "firststart" || Functions.CheckWindowsStartUp() == "activated")
             {
@@ -54,8 +50,7 @@ namespace TooManyShortcuts
             sclForm.Show();
             Application.DoEvents();
         }
-
-
+        
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -63,27 +58,22 @@ namespace TooManyShortcuts
             this.Dispose();
         }
 
-      
-
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
             this.Hide();
             this.ShowInTaskbar = false;
-
         }
+
 
         private void autostartToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-           Functions.SetWindowsStartUp(autostartToolStripMenuItem.Checked);
-        
-        }
+            Functions.SetWindowsStartUp(autostartToolStripMenuItem.Checked);
 
-   
- 
-       
+        }
+        
 
         private void NIMain_MouseDoubleClick(object sender, MouseEventArgs e)
         {

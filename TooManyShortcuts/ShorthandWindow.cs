@@ -9,43 +9,40 @@
 using System;
 using System.Data;
 using System.Drawing;
-using System.Windows.Forms; 
+using System.Windows.Forms;
 namespace TooManyShortcuts
 {
-	/// <summary>
-	/// Description of ShorthandWindow.
-	/// </summary>
-	public partial class ShorthandWindow : Form
-	{
 
-        XMLShortcutList XMLListTemp; 
+    /// <summary>
+    /// Description of ShorthandWindow.
+    /// </summary>
+    public partial class ShorthandWindow : Form
+    {
+        XMLShortcutList XMLListTemp;
         public ShorthandWindow(XMLShortcutList XMLListTemp)
-		{
-			//
-			// The InitializeComponent() call is required for Windows Forms designer support.
-			//
-			InitializeComponent();
+        {
+            //
+            // The InitializeComponent() call is required for Windows Forms designer support.
+            //
+            InitializeComponent();
 
             //
             // TODO: Add constructor code after the InitializeComponent() call.
             //
             this.XMLListTemp = XMLListTemp;
         }
-		
-		void ShorthandWindowLoad(object sender, EventArgs e)
-		{
+
+
+        void ShorthandWindowLoad(object sender, EventArgs e)
+        {
             txtShorthand.CharacterCasing = CharacterCasing.Upper;
             this.Location = new Point(Screen.PrimaryScreen.WorkingArea.Width / 2 - this.Width / 2, Screen.PrimaryScreen.WorkingArea.Height / 2 - this.Height / 2);
-
-            
-
         }
-		
 
-		
-		void TxtShorthandTextChanged(object sender, EventArgs e)
-		{
-            if(txtShorthand.Text != "")
+
+        void TxtShorthandTextChanged(object sender, EventArgs e)
+        {
+            if (txtShorthand.Text != "")
             {
                 int hitcounter = 0;
                 Shortcut hit = null;
@@ -65,30 +62,22 @@ namespace TooManyShortcuts
                 {
                     Functions.StartProcess(hit);
                     this.Close();
-
                 }
             }
-            
-
-          
-
         }
 
-     
 
         private void ShorthandWindow_Activated(object sender, EventArgs e)
         {
-        
+
             this.ShowInTaskbar = false;
             this.BringToFront();
             this.TopLevel = true;
             this.TopMost = true;
             this.Focus();
             txtShorthand.Select();
-
         }
 
-    
 
         private void txtShorthand_KeyDown(object sender, KeyEventArgs e)
         {

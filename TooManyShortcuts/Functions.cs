@@ -35,7 +35,7 @@ namespace TooManyShortcuts
         public static RegistryKey rkStartUp = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
         public static RegistryKey rkDisabledStartUp;
 
-      
+
         /// <summary>
         /// Notwendig um Shortcuts registrieren zu können!
         /// </summary>
@@ -43,7 +43,7 @@ namespace TooManyShortcuts
         {
             XMLListTemp = XMLList;
             hook.KeyPressed +=
-                  new EventHandler<KeyPressedEventArgs>(hook_KeyPressed);
+            new EventHandler<KeyPressedEventArgs>(hook_KeyPressed);
         }
 
 
@@ -57,46 +57,35 @@ namespace TooManyShortcuts
             tempstr = tempstr.Substring(1, tempstr.Length - 1);
             Application.DoEvents();
 
-
-
-
             hook.RegisterHotKey(KeyMod, (Keys)Enum.Parse(typeof(Keys), tempstr));
 
         }
-
-
+        
 
         //Hotkeyausführung: Falls der Hotkey gedrückt wird müssen einige Zeichen umgewandelt werden 
-        static void hook_KeyPressed(object sender, KeyPressedEventArgs e)
+        public static void hook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
-            Application.DoEvents(); 
+            Application.DoEvents();
             string Mod = "";
             if (e.Modifier.ToString() == "Control") { Mod = "STRG"; } //Umwandelung um eine Abfrage mit der Liste durchzuführen
             else if (e.Modifier.ToString() == "Alt") { Mod = "ALT"; } // --
-      
 
 
             //Falls STRG und Leertaste gedrückt werden wird das ShorthandWindow aufgerufen
             if (Mod == "STRG" && e.Key.ToString() == "Space")
             {
                 ShorthandWindow shw = new ShorthandWindow(XMLListTemp);
-                shw.Name = "ShorthandWindow"; 
-                if (Application.OpenForms["ShorthandWindow"] == null) 
+                shw.Name = "ShorthandWindow";
+                if (Application.OpenForms["ShorthandWindow"] == null)
                 {
                     shw.Show();
-
-                    ShowWindow(FindWindow("ShorthandWindow", null), 9);
-
-                    SetForegroundWindow(FindWindow("ShorthandWindow", null));
                 }
                 else
                 {
                     Application.OpenForms["ShorthandWindow"].Focus();
                 }
-              
-
-
             }
+
             foreach (Shortcut sc in XMLListTemp.Shortcuts)
             { // Durchsuche die Erste Dimension (Alle Items ohne Subitem) 
                 ListViewItem item = new ListViewItem();
@@ -106,12 +95,11 @@ namespace TooManyShortcuts
                     StartProcess(sc);
 
                 }
-                
+
             }
-           
+
         }
 
-     
 
         /// <summary>
         /// Fill ImgList with Picture from a Directory.
@@ -134,10 +122,6 @@ namespace TooManyShortcuts
 
         public static void StartProcess(Shortcut sc)
         {
-
-
-            
-
             if (sc.Path == "Text")
             {
                 Application.DoEvents();
@@ -146,7 +130,6 @@ namespace TooManyShortcuts
                 SendKeys.Send("^{v}");
 
             }
-
             else
             {
                 ProcessStartInfo ProcessInfo = new ProcessStartInfo();
@@ -159,15 +142,8 @@ namespace TooManyShortcuts
                 catch (Exception e)
                 {
                     MessageBox.Show(e.Message);
-
-                }                                                   
-
-
+                }
             }
-
-
-
-
         }
 
 
@@ -177,13 +153,13 @@ namespace TooManyShortcuts
         /// <param name="objchecked">Eine gecheckte Textbox etc. Lediglich false oder true Mitgabe</param>
         public static void SetWindowsStartUp(bool objchecked)
         {
-            CheckWindowsStartUp(); 
+            CheckWindowsStartUp();
 
             if (objchecked)
             {
                 rkDisabledStartUp.DeleteValue("StartUp", false);
                 rkStartUp.SetValue("StartUp", Application.ExecutablePath.ToString());
-               
+
             }
             else
             {
@@ -192,6 +168,8 @@ namespace TooManyShortcuts
 
             }
         }
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -220,7 +198,7 @@ namespace TooManyShortcuts
             }
 
         }
- 
+
 
         static public Bitmap getIcon(string path)
         {
@@ -268,7 +246,7 @@ namespace TooManyShortcuts
                     DDFileName = s.Substring(s.LastIndexOf("\\") + 1, s.LastIndexOf(".") - s.LastIndexOf("\\") - 1);
                 }
                 else { DDFileName = s.Substring(s.LastIndexOf("\\") + 1, s.Length - s.LastIndexOf("\\") - 1); }
-                DDPath = s; 
+                DDPath = s;
             }
             else if (e.Data.GetDataPresent(typeof(string)))
             {
@@ -277,7 +255,7 @@ namespace TooManyShortcuts
             {
 
             }
-            
+
         }
 
     }
