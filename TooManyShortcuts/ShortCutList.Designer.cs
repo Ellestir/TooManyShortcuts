@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ShortCutList));
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnNew = new System.Windows.Forms.Button();
             this.pnlSearch = new System.Windows.Forms.Panel();
@@ -42,12 +41,7 @@
             this.clmShortcut = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clmShorthand = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lvShortcuts = new System.Windows.Forms.ListView();
-            this.NIMain = new System.Windows.Forms.NotifyIcon(this.components);
-            this.conMenStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.autostartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlSearch.SuspendLayout();
-            this.conMenStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtSearch
@@ -162,34 +156,6 @@
             this.lvShortcuts.DoubleClick += new System.EventHandler(this.lvShortcuts_DoubleClick);
             this.lvShortcuts.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvShortcuts_KeyDown);
             // 
-            // NIMain
-            // 
-            this.NIMain.ContextMenuStrip = this.conMenStrip;
-            this.NIMain.Icon = ((System.Drawing.Icon)(resources.GetObject("NIMain.Icon")));
-            this.NIMain.Text = "TooManyShortcuts";
-            this.NIMain.Visible = true;
-            // 
-            // conMenStrip
-            // 
-            this.conMenStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.autostartToolStripMenuItem,
-            this.toolStripMenuItem1});
-            this.conMenStrip.Name = "conMenStrip";
-            this.conMenStrip.Size = new System.Drawing.Size(153, 70);
-            // 
-            // autostartToolStripMenuItem
-            // 
-            this.autostartToolStripMenuItem.CheckOnClick = true;
-            this.autostartToolStripMenuItem.Name = "autostartToolStripMenuItem";
-            this.autostartToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.autostartToolStripMenuItem.Text = "Autostart";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.toolStripMenuItem1.Text = "Beenden";
-            // 
             // ShortCutList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -199,10 +165,9 @@
             this.Controls.Add(this.pnlSearch);
             this.Name = "ShortCutList";
             this.Text = "Form1";
-           this.Load += new System.EventHandler(this.Main_Load);
+            this.Load += new System.EventHandler(this.Main_Load);
             this.pnlSearch.ResumeLayout(false);
             this.pnlSearch.PerformLayout();
-            this.conMenStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -221,10 +186,6 @@
         private System.Windows.Forms.ColumnHeader clmShorthand;
         private System.Windows.Forms.ListView lvShortcuts;
         private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.NotifyIcon NIMain;
-        private System.Windows.Forms.ContextMenuStrip conMenStrip;
-        private System.Windows.Forms.ToolStripMenuItem autostartToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
     }
 }
 

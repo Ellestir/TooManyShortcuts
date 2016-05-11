@@ -32,10 +32,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.imgListMenu = new System.Windows.Forms.ImageList(this.components);
             this.pnlLoad = new System.Windows.Forms.Panel();
-            this.NIMain = new System.Windows.Forms.NotifyIcon(this.components);
             this.conMenStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.autostartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.NIMain = new System.Windows.Forms.NotifyIcon(this.components);
             this.conMenStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,14 +54,6 @@
             this.pnlLoad.Size = new System.Drawing.Size(536, 439);
             this.pnlLoad.TabIndex = 5;
             // 
-            // NIMain
-            // 
-            this.NIMain.ContextMenuStrip = this.conMenStrip;
-            this.NIMain.Icon = ((System.Drawing.Icon)(resources.GetObject("NIMain.Icon")));
-            this.NIMain.Text = "TooManyShortcuts";
-            this.NIMain.Visible = true;
-            this.NIMain.DoubleClick += new System.EventHandler(this.NIMain_DoubleClick);
-            // 
             // conMenStrip
             // 
             this.conMenStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -70,20 +62,27 @@
             this.conMenStrip.Name = "conMenStrip";
             this.conMenStrip.Size = new System.Drawing.Size(124, 48);
             // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.toolStripMenuItem1.Text = "Beenden";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
-            // 
             // autostartToolStripMenuItem
             // 
             this.autostartToolStripMenuItem.CheckOnClick = true;
             this.autostartToolStripMenuItem.Name = "autostartToolStripMenuItem";
-            this.autostartToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.autostartToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.autostartToolStripMenuItem.Text = "Autostart";
             this.autostartToolStripMenuItem.Click += new System.EventHandler(this.autostartToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(123, 22);
+            this.toolStripMenuItem1.Text = "Beenden";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // NIMain
+            // 
+            this.NIMain.ContextMenuStrip = this.conMenStrip;
+            this.NIMain.Text = "TooManyShortcuts";
+            this.NIMain.Visible = true;
+            this.NIMain.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.NIMain_MouseDoubleClick);
             // 
             // Main
             // 
@@ -107,9 +106,9 @@
         #endregion
         private System.Windows.Forms.ImageList imgListMenu;
         private System.Windows.Forms.Panel pnlLoad;
-        private System.Windows.Forms.NotifyIcon NIMain;
         private System.Windows.Forms.ContextMenuStrip conMenStrip;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem autostartToolStripMenuItem;
+        private System.Windows.Forms.NotifyIcon NIMain;
     }
 }

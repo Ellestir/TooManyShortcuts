@@ -89,7 +89,7 @@ namespace TooManyShortcuts
 
             txtSearch.Focus();
 
-            autostartToolStripMenuItem.Checked = XMLList.LaunchOnSystemStartup; 
+            
 
         }
 

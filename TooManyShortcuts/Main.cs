@@ -16,20 +16,22 @@ namespace TooManyShortcuts
     {
         // Inition 
 
-        Edit edtform = new Edit();
+      
+        XMLShortcutList XMLTempList = new XMLShortcutList();
+        
         ShortCutList sclForm = new ShortCutList();
         public static ListViewItem selecteditem;
-     
-
+        
+       
         public Main()
         {
 
-
+            
             InitializeComponent();
             this.Text = "TooManyShortcuts " + Application.ProductVersion;
             this.MinimizeBox = false;
-           
-
+            NIMain.Icon = Properties.Resources.Keyboard;
+            
 
             
         }
@@ -41,7 +43,9 @@ namespace TooManyShortcuts
         {
             this.WindowState = FormWindowState.Minimized;
             // Damit form in andere Form geladen werden kann / Zukünftige Changes : Usercontrol
-            
+            ListSerializer.DeSerialize(XMLTempList, ShortCutList.XMLPath);
+            autostartToolStripMenuItem.Checked = XMLTempList.LaunchOnSystemStartup; 
+
             sclForm.TopLevel = false;
             sclForm.FormBorderStyle = FormBorderStyle.None;
 
@@ -93,15 +97,10 @@ namespace TooManyShortcuts
 
 
 
-        private void NIMain_DoubleClick(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Normal;
-            this.ShowInTaskbar = true;
-        }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            NIMain.Icon = null;
+            //NIMain.Icon = null;
             this.Dispose();
         }
 
@@ -111,6 +110,7 @@ namespace TooManyShortcuts
             {
 
                 this.ShowInTaskbar = false;
+                NIMain.Visible = true; 
             }
         }
 
@@ -128,6 +128,16 @@ namespace TooManyShortcuts
            Functions.Autostart =  autostartToolStripMenuItem.Checked  ;
            Functions.StartAtWindowsStartUp(Functions.Autostart);
         
+        }
+
+   
+ 
+       
+
+        private void NIMain_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.WindowState = FormWindowState.Normal;
+            this.ShowInTaskbar = true;
         }
     }
 }
