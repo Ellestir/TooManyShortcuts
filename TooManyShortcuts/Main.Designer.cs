@@ -35,6 +35,7 @@
             this.NIMain = new System.Windows.Forms.NotifyIcon(this.components);
             this.conMenStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.autostartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.conMenStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,16 +65,25 @@
             // conMenStrip
             // 
             this.conMenStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.autostartToolStripMenuItem,
             this.toolStripMenuItem1});
             this.conMenStrip.Name = "conMenStrip";
-            this.conMenStrip.Size = new System.Drawing.Size(121, 26);
+            this.conMenStrip.Size = new System.Drawing.Size(124, 48);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(120, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem1.Text = "Beenden";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // autostartToolStripMenuItem
+            // 
+            this.autostartToolStripMenuItem.CheckOnClick = true;
+            this.autostartToolStripMenuItem.Name = "autostartToolStripMenuItem";
+            this.autostartToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.autostartToolStripMenuItem.Text = "Autostart";
+            this.autostartToolStripMenuItem.Click += new System.EventHandler(this.autostartToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -100,5 +110,6 @@
         private System.Windows.Forms.NotifyIcon NIMain;
         private System.Windows.Forms.ContextMenuStrip conMenStrip;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem autostartToolStripMenuItem;
     }
 }
