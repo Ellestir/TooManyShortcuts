@@ -24,11 +24,9 @@ namespace TooManyShortcuts
             SerializerObj.Serialize(ValidationStream, list);
             ValidationStream.Close();
             string ValidationData = ValidationStream.ToString();
-            //Stream SchemaRessource = ;
-            string ValidationSchema = Assembly.GetExecutingAssembly().GetManifestResourceStream(list.Schema).ToString();
 
             //validiert das bei der Serialisierung entstandene XML gegen das Schema bevor es gespeichert wird
-            string ValidationResult = ValidateXML(ValidationData, ValidationSchema);
+            string ValidationResult = ValidateXML(ValidationData, list.SchemaLocation);
 
             if (ValidationResult == "ok")
             {
@@ -73,7 +71,7 @@ namespace TooManyShortcuts
 
             XDocument xdoc = XDocument.Parse(xml);
             XmlSchemaSet schemas = new XmlSchemaSet();
-            schemas.Add(null, new XmlTextReader(schema));
+            schemas.Add(null, schema);
 
             try
             {

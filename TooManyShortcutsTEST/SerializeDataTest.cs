@@ -5,7 +5,7 @@ using TooManyShortcuts;
 namespace TooManyShortcutsTEST
 {
     [TestClass]
-    public class SerializeTest
+    public class SerializeDataTest
     {
         XMLShortcutList original = new XMLShortcutList(); //Liste mit den zu serialisierenden Objekten
         XMLShortcutList deserialized = new XMLShortcutList(); //Liste für das Ergebnis der Deserialisierung

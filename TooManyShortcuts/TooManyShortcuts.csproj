@@ -99,10 +99,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <EmbeddedResource Include="Resources\SCM_Schema.xsd">
+    <Content Include="SCM_Schema.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Edit.resx">
