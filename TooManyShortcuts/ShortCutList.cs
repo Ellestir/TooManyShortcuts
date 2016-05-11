@@ -225,18 +225,6 @@ namespace TooManyShortcuts
         }
 
 
-
-
-        /// <summary>
-        /// Befüllt die Checkbox mit den ensprechenden Werten und liegt ihre Autovervollständigung fest. 
-        /// </summary>
-
-
-
-
-
-
-
         /// <summary>
         /// Verhindert das die Columns gezogen oder verkleinert werden 
         /// </summary>
@@ -249,16 +237,6 @@ namespace TooManyShortcuts
             e.Cancel = true;
         }
         // Überprufen
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -300,10 +278,6 @@ namespace TooManyShortcuts
 
 
         }
-
-
-
-
 
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
