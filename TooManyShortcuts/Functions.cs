@@ -26,27 +26,29 @@ namespace TooManyShortcuts
 
     public static class Functions
     {
-  
-     
+
+
         public static bool forminwork = false;
-        public static bool Autostart = false; 
         static KeyMods KeyMod = new KeyMods();
         public static string DDFileName = ""; // DragDropFileName 
         public static string DDPath; //DragDropPath
         public static KeyboardHook hook = new KeyboardHook();
-        public static XMLShortcutList XMLListTemp;    
-       
+        public static XMLShortcutList XMLListTemp;
+        public static RegistryKey rkStartUp = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+        public static RegistryKey rkDisabledStartUp = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\Disabled", true);
+
+
         /// <summary>
         /// Notwendig um Shortcuts registrieren zu können!
         /// </summary>
         public static void IntalizeKeyPressEvent(XMLShortcutList XMLList)
         {
-            XMLListTemp = XMLList; 
+            XMLListTemp = XMLList;
             hook.KeyPressed +=
                   new EventHandler<KeyPressedEventArgs>(hook_KeyPressed);
         }
-        
-        
+
+
         public static void RegisterHotKey(string completeshortcut)
         {
             if (completeshortcut.Split('+')[0] == "STRG ") KeyMod = KeyMods.Control;
@@ -56,16 +58,16 @@ namespace TooManyShortcuts
             string tempstr = completeshortcut.Split('+')[1];
             tempstr = tempstr.Substring(1, tempstr.Length - 1);
             Application.DoEvents();
-			
 
-           
-           
+
+
+
             hook.RegisterHotKey(KeyMod, (Keys)Enum.Parse(typeof(Keys), tempstr));
-            
+
         }
-       
-        
-			
+
+
+
         //Hotkeyausführung: Falls der Hotkey gedrückt wird müssen einige Zeichen umgewandelt werden 
         static void hook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
@@ -80,8 +82,8 @@ namespace TooManyShortcuts
             {
                 ShorthandWindow shw = new ShorthandWindow(XMLListTemp);
                 CreatePopUpForm(shw);
-                
-                
+
+
             }
             foreach (Shortcut sc in XMLListTemp.Shortcuts)
             { // Durchsuche die Erste Dimension (Alle Items ohne Subitem) 
@@ -102,21 +104,21 @@ namespace TooManyShortcuts
             if (forminwork == false)
             {
                 f.Show();
-                f.Focus();  
+                f.Focus();
                 forminwork = true;
             }
 
         }
-      
+
         /// <summary>
         /// Fill ImgList with Picture from a Directory.
         /// </summary>
         /// <param name="folderpath"> Foldername</param>
         /// <param name="imgList"> Which ImgList should be filled</param>
         /// <param name="filter">searchPatter like "*.png" or "*.jpg"</param>
-        public static void FillImageList(string folderpath,ImageList imgList, string filter)
+        public static void FillImageList(string folderpath, ImageList imgList, string filter)
         {
-            foreach (string path in System.IO.Directory.GetFiles(folderpath, filter,System.IO.SearchOption.AllDirectories))
+            foreach (string path in System.IO.Directory.GetFiles(folderpath, filter, System.IO.SearchOption.AllDirectories))
             {
                 string name = path.Substring(path.LastIndexOf("\\") + 1);
                 name = name.Substring(0, name.Length - 4);
@@ -126,25 +128,25 @@ namespace TooManyShortcuts
             }
         }
 
-     
+
         public static void StartProcess(Shortcut sc)
         {
 
 
 
 
-            if (sc.Path == "Text" ) 
+            if (sc.Path == "Text")
             {
-              Application.DoEvents();
-              Thread.Sleep(200); 
-              SendKeys.Send(sc.Path);
-      
-            } 
+                Application.DoEvents();
+                Thread.Sleep(200);
+                SendKeys.Send(sc.Path);
+
+            }
 
             else
             {
                 ProcessStartInfo ProcessInfo = new ProcessStartInfo();
-                ProcessInfo.FileName = sc.Path; 
+                ProcessInfo.FileName = sc.Path;
                 ProcessInfo.Arguments = sc.Parameters; //Zuweißung des Parameters aus der Liste
                 try
                 {
@@ -152,10 +154,10 @@ namespace TooManyShortcuts
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(e.Message); 
-                    
+                    MessageBox.Show(e.Message);
+
                 }                                                     // ProcessInfo.WindowStyle = ProcessWindowStyle.Normal;  
-                
+
 
             }
 
@@ -163,18 +165,55 @@ namespace TooManyShortcuts
 
 
         }
-       
+
 
         /// <summary>
         /// Setzt den Autostart des Programms fest bzw ändert ihn 
         /// </summary>
         /// <param name="objchecked">Eine gecheckte Textbox etc. Lediglich false oder true Mitgabe</param>
-        public static void StartAtWindowsStartUp(bool objchecked)
+        public static void SetWindowsStartUp(bool objchecked)
         {
-            RegistryKey rkPath = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-            if (objchecked) { rkPath.SetValue("StartUp", Application.ExecutablePath.ToString()); }
-            else { rkPath.DeleteValue("StartUp", false);  }
+            rkStartUp.CreateSubKey("Disabled");
+            if (objchecked)
+            {
+                rkDisabledStartUp.DeleteValue("StartUp", false);
+                rkStartUp.SetValue("StartUp", Application.ExecutablePath.ToString());
+               
+            }
+            else
+            {
+                rkStartUp.DeleteValue("StartUp", false);
+                rkDisabledStartUp.SetValue("StartUp", Application.ExecutablePath.ToString());
+
+            }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>FirstStart = Erster Start des Programms // </returns>
+        public static string CheckWindowsStartUp()
+        {
+            rkStartUp.CreateSubKey("Disabled");
+
+            if (rkStartUp.GetValue("StartUp") == null)
+            {
+
+                if (rkDisabledStartUp.GetValue("StartUp") == null)
+                {
+                    return "firststart";
+                }
+                else
+                {
+                    return "deactivated";
+                }
+            }
+            else
+            {
+                return "activated";
+            }
+
+        }
+
         static public Bitmap getIcon(string path)
         {
             try
@@ -211,7 +250,7 @@ namespace TooManyShortcuts
         {
             string[] FileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
             string s = FileList[0];
-            
+
 
             if (s.Substring(s.LastIndexOf("\\"), s.Length - s.LastIndexOf("\\")).Contains("."))
             {

@@ -18,22 +18,18 @@ namespace TooManyShortcuts
 
       
         XMLShortcutList XMLTempList = new XMLShortcutList();
-        
         ShortCutList sclForm = new ShortCutList();
         public static ListViewItem selecteditem;
         
        
         public Main()
         {
-
-            
+         
             InitializeComponent();
             this.Text = "TooManyShortcuts " + Application.ProductVersion;
             this.MinimizeBox = false;
             NIMain.Icon = Properties.Resources.Keyboard;
-            
-
-            
+       
         }
 
 
@@ -43,58 +39,21 @@ namespace TooManyShortcuts
         {
             this.WindowState = FormWindowState.Minimized;
             // Damit form in andere Form geladen werden kann / Zukünftige Changes : Usercontrol
-            ListSerializer.DeSerialize(XMLTempList, ShortCutList.XMLPath);
-            autostartToolStripMenuItem.Checked = XMLTempList.LaunchOnSystemStartup; 
-
+            if (Functions.CheckWindowsStartUp() == "firststart" || Functions.CheckWindowsStartUp() == "activated")
+            {
+                autostartToolStripMenuItem.Checked = true;
+            }
+            else
+            {
+                autostartToolStripMenuItem.Checked = false;
+            }
             sclForm.TopLevel = false;
             sclForm.FormBorderStyle = FormBorderStyle.None;
-
             pnlLoad.Controls.Add(sclForm);
-
-
             sclForm.Dock = DockStyle.Fill;
             sclForm.Show();
             Application.DoEvents();
-
-
-
-
-
-
-
-
-
-
-
         }
-
-
-
-
-
-
-
-
-
-
-
-        //  Reinigt das pnlLoad jedoch nur wenn ein anderer Button gedrückt wurde ( Andere Form wird dann geladen) 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -125,8 +84,7 @@ namespace TooManyShortcuts
         private void autostartToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-           Functions.Autostart =  autostartToolStripMenuItem.Checked  ;
-           Functions.StartAtWindowsStartUp(Functions.Autostart);
+           Functions.SetWindowsStartUp(autostartToolStripMenuItem.Checked);
         
         }
 
