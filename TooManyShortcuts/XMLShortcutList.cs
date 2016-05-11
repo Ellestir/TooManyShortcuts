@@ -14,7 +14,6 @@ namespace TooManyShortcuts
 
         public List<Shortcut> Shortcuts = new List<Shortcut>();
 
-        public bool LaunchOnSystemStartup;
     }
 
 
