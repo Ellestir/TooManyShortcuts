@@ -15,6 +15,7 @@ namespace TooManyShortcutsTEST
     [TestClass]
     public class SerializeValidationTest
     {
+        // Tests um zu testen ob die Validierung bei den verschiedenen unique-Elementen funktioniert
         [TestMethod]
         public void uniqueName()
         {
