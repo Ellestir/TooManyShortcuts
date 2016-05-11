@@ -108,7 +108,9 @@ namespace TooManyShortcuts
                 {
                     shw.Show();
 
-                    
+                    ShowWindow(FindWindow("ShorthandWindow", null), 9);
+
+                    SetForegroundWindow(FindWindow("ShorthandWindow", null));
                 }
                 else
                 {

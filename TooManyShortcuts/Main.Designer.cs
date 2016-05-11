@@ -97,8 +97,7 @@
             this.Text = "Main";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
-            this.Resize += new System.EventHandler(this.Main_Resize);
-            this.conMenStrip.ResumeLayout(false);
+          this.conMenStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

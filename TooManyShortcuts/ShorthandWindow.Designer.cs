@@ -47,6 +47,7 @@ namespace TooManyShortcuts
             this.txtShorthand.Size = new System.Drawing.Size(206, 20);
             this.txtShorthand.TabIndex = 0;
             this.txtShorthand.TextChanged += new System.EventHandler(this.TxtShorthandTextChanged);
+            this.txtShorthand.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtShorthand_KeyDown);
             // 
             // ShorthandWindow
             // 

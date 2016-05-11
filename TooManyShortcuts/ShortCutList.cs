@@ -114,7 +114,7 @@ namespace TooManyShortcuts
                 }
                 else
                 {
-                    
+                    RegisterAllShortcuts(); 
                     stop = true; 
                 }
             }

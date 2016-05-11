@@ -82,13 +82,23 @@ namespace TooManyShortcuts
         private void ShorthandWindow_Activated(object sender, EventArgs e)
         {
         
-            this.ShowInTaskbar = true;
+            this.ShowInTaskbar = false;
             this.BringToFront();
             this.TopLevel = true;
             this.TopMost = true;
             this.Focus();
             txtShorthand.Select();
 
+        }
+
+    
+
+        private void txtShorthand_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
         }
     }
 }
