@@ -70,6 +70,7 @@ namespace TooManyShortcuts
             imgList.Images.Add("Videos", Properties.Resources.Videos);
             imgList.Images.Add("Web", Properties.Resources.Web);
             imgList.Images.Add("Error", Properties.Resources.Error);
+            imgList.Images.Add("Text", Properties.Resources.Text);
 
             // Listview Einstellungen
             lvShortcuts.FullRowSelect = true;
@@ -182,6 +183,7 @@ namespace TooManyShortcuts
         {
 
             // Wenn das Objekt Existiert egal ob es eine Datei oder ein Ordner ist
+            
             if (System.IO.File.Exists(sc.Path) || System.IO.Directory.Exists(sc.Path))
             {
 
@@ -210,6 +212,10 @@ namespace TooManyShortcuts
 
 
                 }
+            }
+            else if (sc.Path == "Text")
+            {
+                item.ImageKey = "Text";
             }
             else { item.ImageKey = "Error"; };
 

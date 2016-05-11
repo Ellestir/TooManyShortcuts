@@ -35,8 +35,7 @@ namespace TooManyShortcuts
         public static KeyboardHook hook = new KeyboardHook();
         public static XMLShortcutList XMLListTemp;
         public static RegistryKey rkStartUp = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-        public static RegistryKey rkDisabledStartUp = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\Disabled", true);
-
+        public static RegistryKey rkDisabledStartUp;
 
         /// <summary>
         /// Notwendig um Shortcuts registrieren zu können!
@@ -139,7 +138,7 @@ namespace TooManyShortcuts
             {
                 Application.DoEvents();
                 Thread.Sleep(200);
-                SendKeys.Send(sc.Path);
+                SendKeys.Send(sc.Parameters);
 
             }
 
@@ -156,7 +155,7 @@ namespace TooManyShortcuts
                 {
                     MessageBox.Show(e.Message);
 
-                }                                                     // ProcessInfo.WindowStyle = ProcessWindowStyle.Normal;  
+                }                                                   
 
 
             }
@@ -173,7 +172,8 @@ namespace TooManyShortcuts
         /// <param name="objchecked">Eine gecheckte Textbox etc. Lediglich false oder true Mitgabe</param>
         public static void SetWindowsStartUp(bool objchecked)
         {
-            rkStartUp.CreateSubKey("Disabled");
+            CheckWindowsStartUp(); 
+
             if (objchecked)
             {
                 rkDisabledStartUp.DeleteValue("StartUp", false);
@@ -194,6 +194,8 @@ namespace TooManyShortcuts
         public static string CheckWindowsStartUp()
         {
             rkStartUp.CreateSubKey("Disabled");
+            rkDisabledStartUp = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\Disabled", true);
+
 
             if (rkStartUp.GetValue("StartUp") == null)
             {
@@ -213,6 +215,7 @@ namespace TooManyShortcuts
             }
 
         }
+ 
 
         static public Bitmap getIcon(string path)
         {
@@ -235,7 +238,7 @@ namespace TooManyShortcuts
         /// <param name="e"></param>
         public static void FileDragEnter(DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            if (e.Data.GetDataPresent(DataFormats.FileDrop) | e.Data.GetDataPresent(typeof(string)))
                 e.Effect = DragDropEffects.Copy;
             else
                 e.Effect = DragDropEffects.None;
@@ -248,16 +251,28 @@ namespace TooManyShortcuts
         /// <param name="e"></param>
         public static void FileDragDrop(DragEventArgs e)
         {
-            string[] FileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
-            string s = FileList[0];
-
-
-            if (s.Substring(s.LastIndexOf("\\"), s.Length - s.LastIndexOf("\\")).Contains("."))
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                DDFileName = s.Substring(s.LastIndexOf("\\") + 1, s.LastIndexOf(".") - s.LastIndexOf("\\") - 1);
+                string[] FileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+
+                string s = FileList[0];
+
+
+                if (s.Substring(s.LastIndexOf("\\"), s.Length - s.LastIndexOf("\\")).Contains("."))
+                {
+                    DDFileName = s.Substring(s.LastIndexOf("\\") + 1, s.LastIndexOf(".") - s.LastIndexOf("\\") - 1);
+                }
+                else { DDFileName = s.Substring(s.LastIndexOf("\\") + 1, s.Length - s.LastIndexOf("\\") - 1); }
+                DDPath = s; 
             }
-            else { DDFileName = s.Substring(s.LastIndexOf("\\") + 1, s.Length - s.LastIndexOf("\\") - 1); }
-            DDPath = s;
+            else if (e.Data.GetDataPresent(typeof(string)))
+            {
+                DDPath = (string)e.Data.GetData(typeof(string));
+            }
+            {
+
+            }
+            
         }
         /// <summary>
         /// Kann durch die angabe des HandleWidnows die Postion dessen ändern. 

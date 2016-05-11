@@ -291,6 +291,7 @@ namespace TooManyShortcuts
 
         void BtnEditFinishedClick(object sender, EventArgs e)
         {
+            if (txtPath.Text == "text") { txtPath.Text = "Text"; }
             XMLListTemp.Shortcuts.Remove(XMLListTemp.Shortcuts.Find(x => x.Shorthand == txtShorthand.Text));
             XMLListTemp.Shortcuts.Remove(XMLListTemp.Shortcuts.Find(x => x.Keycombo == FixedtxtShortcuts.Text));
             foreach (Shortcut sc in XMLListTemp.Shortcuts)

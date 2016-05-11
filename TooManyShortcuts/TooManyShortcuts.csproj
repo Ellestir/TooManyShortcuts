@@ -98,6 +98,7 @@
     <Compile Include="XMLShortcutList.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Text.png" />
     <None Include="app.config" />
     <Content Include="SCM_Schema.xsd">
       <SubType>Designer</SubType>
