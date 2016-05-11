@@ -130,6 +130,7 @@
     <None Include="Resources\Music.png" />
     <None Include="Resources\C.png" />
     <None Include="Resources\Folder.png" />
+    <None Include="Resources\Error.png" />
     <Content Include="Resources\Keyboard.ico" />
   </ItemGroup>
   <ItemGroup>

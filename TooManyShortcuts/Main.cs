@@ -19,8 +19,7 @@ namespace TooManyShortcuts
         Edit edtform = new Edit();
         ShortCutList sclForm = new ShortCutList();
         public static ListViewItem selecteditem;
-        string MenuIconPath = Application.StartupPath + "\\Icons\\Menu";
-
+     
 
         public Main()
         {
@@ -42,7 +41,7 @@ namespace TooManyShortcuts
         {
             this.WindowState = FormWindowState.Minimized;
             // Damit form in andere Form geladen werden kann / Zukünftige Changes : Usercontrol
-
+            
             sclForm.TopLevel = false;
             sclForm.FormBorderStyle = FormBorderStyle.None;
 
@@ -121,6 +120,14 @@ namespace TooManyShortcuts
             this.WindowState = FormWindowState.Minimized;
 
 
+        }
+
+        private void autostartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+           Functions.Autostart =  autostartToolStripMenuItem.Checked  ;
+           Functions.StartAtWindowsStartUp(Functions.Autostart);
+        
         }
     }
 }

@@ -49,7 +49,8 @@ namespace TooManyShortcuts
             Functions.IntalizeKeyPressEvent(XMLList);
 
             Functions.RegisterHotKey("STRG + Space");
-            Functions.StartAtWindowsStartUp(XMLList.LaunchOnSystemStartup);// Steht immer auf True....
+            
+            
 
             //Icons
 
@@ -67,8 +68,8 @@ namespace TooManyShortcuts
             imgList.Images.Add("Music", Properties.Resources.Music);
             imgList.Images.Add("Pictures", Properties.Resources.Pictures);
             imgList.Images.Add("Videos", Properties.Resources.Videos);
-            imgList.Images.Add("Warning", Properties.Resources.Warning);
             imgList.Images.Add("Web", Properties.Resources.Web);
+            imgList.Images.Add("Error", Properties.Resources.Error);
 
             // Listview Einstellungen
             lvShortcuts.FullRowSelect = true;
@@ -88,7 +89,7 @@ namespace TooManyShortcuts
 
             txtSearch.Focus();
 
-
+            autostartToolStripMenuItem.Checked = XMLList.LaunchOnSystemStartup; 
 
         }
 
@@ -98,6 +99,7 @@ namespace TooManyShortcuts
         /// <param name="edt">Beim Systemstart nichts übergeben bei Änderungen die entsprechende Edt Form mit übergeben um XMLList zu überschreiben</param>
         public void UpdateShortcuts([Optional] Edit edt)
         {
+            
             bool stop = false; 
             // Wenn edt mitgebenen wird  dann wird die jetzige XML List  von der edt List überschrieben.
             if (edt != null)
@@ -379,6 +381,11 @@ namespace TooManyShortcuts
 
                 MessageBox.Show("Kein Element ausgewählt!");
             }
+        }
+
+        private void ShortCutList_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            MessageBox.Show("HI");
         }
     }
 }

@@ -29,10 +29,11 @@ namespace TooManyShortcuts
   
      
         public static bool forminwork = false;
+        public static bool Autostart = false; 
         static KeyMods KeyMod = new KeyMods();
         public static string DDFileName = ""; // DragDropFileName 
         public static string DDPath; //DragDropPath
-       public static KeyboardHook hook = new KeyboardHook();
+        public static KeyboardHook hook = new KeyboardHook();
         public static XMLShortcutList XMLListTemp;    
        
         /// <summary>
