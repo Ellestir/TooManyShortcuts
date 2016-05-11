@@ -43,8 +43,7 @@ namespace TooManyShortcuts
         {
             this.WindowState = FormWindowState.Minimized;
             // Damit form in andere Form geladen werden kann / Zukünftige Changes : Usercontrol
-            ListSerializer.DeSerialize(XMLTempList, ShortCutList.XMLPath);
-            autostartToolStripMenuItem.Checked = XMLTempList.LaunchOnSystemStartup; 
+            ListSerializer.DeSerialize(XMLTempList, ShortCutList.XMLPath); 
 
             sclForm.TopLevel = false;
             sclForm.FormBorderStyle = FormBorderStyle.None;
