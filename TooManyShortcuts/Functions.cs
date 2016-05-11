@@ -138,7 +138,8 @@ namespace TooManyShortcuts
             {
                 Application.DoEvents();
                 Thread.Sleep(200);
-                SendKeys.Send(sc.Parameters);
+                Clipboard.SetText(sc.Parameters, TextDataFormat.UnicodeText);
+                SendKeys.Send("^{v}");
 
             }
 
