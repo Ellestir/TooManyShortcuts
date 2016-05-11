@@ -48,21 +48,28 @@ namespace TooManyShortcuts
         //Liest Shortcut-Liste aus XML aus
         public static void DeSerialize(XMLShortcutList list, string xmlpath)
         {
-            // Erstellt eine neue Instanz der XmlSerializer-Klasse für den Typ unserer Listenklasse
-            XmlSerializer SerializerObj = new XmlSerializer(typeof(XMLShortcutList));
+            if (File.Exists(xmlpath))
+            {
+                // Erstellt eine neue Instanz der XmlSerializer-Klasse für den Typ unserer Listenklasse
+                XmlSerializer SerializerObj = new XmlSerializer(typeof(XMLShortcutList));
 
-            // Erstellt einen neuen FileStream um die Daten zu lesen
+                // Erstellt einen neuen FileStream um die Daten zu lesen
 
-            FileStream ReadFileStream = new FileStream(xmlpath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                FileStream ReadFileStream = new FileStream(xmlpath, FileMode.Open, FileAccess.Read, FileShare.Read);
 
-            // Deserialisiert das XML-File und erzeugt daraus ein XMLShortcutList-Objekt
-            XMLShortcutList LoadedObj = (XMLShortcutList)SerializerObj.Deserialize(ReadFileStream);
+                // Deserialisiert das XML-File und erzeugt daraus ein XMLShortcutList-Objekt
+                XMLShortcutList LoadedObj = (XMLShortcutList)SerializerObj.Deserialize(ReadFileStream);
 
-            //Überträgt die Shortcut-Liste von dem deserialisierten Objekt in das übergebene XMLShortcutList-Objekt (aktualisiert also die Liste, die bereits verwendet wird)
-            list.Shortcuts = LoadedObj.Shortcuts;
+                //Überträgt die Shortcut-Liste von dem deserialisierten Objekt in das übergebene XMLShortcutList-Objekt (aktualisiert also die Liste, die bereits verwendet wird)
+                list.Shortcuts = LoadedObj.Shortcuts;
 
-            // Aufräumarbeiten
-            ReadFileStream.Close();
+                // Aufräumarbeiten
+                ReadFileStream.Close();
+            }
+            else
+            {
+                list.LaunchOnSystemStartup = false;
+            }
 
         }
         //Prüft, ob das gegebene XML dem gegebenen Schema entspricht
