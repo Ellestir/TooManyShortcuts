@@ -48,7 +48,7 @@ namespace TooManyShortcuts
             // Initizalisierung des KeyPressEvents wie Registrieren von ShorthandWindows durch STRG + Space
             Functions.IntalizeKeyPressEvent(XMLList);
 
-            Functions.RegisterHotKey("STRG + Space");
+
             
             
 
@@ -101,22 +101,27 @@ namespace TooManyShortcuts
         public void UpdateShortcuts([Optional] Edit edt)
         {
             
+
+
             bool stop = false; 
             // Wenn edt mitgebenen wird  dann wird die jetzige XML List  von der edt List überschrieben.
             if (edt != null)
             {
                 if (edt.ShowDialog(this) == DialogResult.OK)
                 {
+                    
                     XMLList = edt.XMLListTemp;
                 }
                 else
                 {
+                    
                     stop = true; 
                 }
             }
 
             if (!stop)
             {
+                Functions.RegisterHotKey("STRG + Space");
                 lvShortcuts.Items.Clear();
 
                 try
@@ -124,9 +129,10 @@ namespace TooManyShortcuts
                     ListSerializer.DeSerialize(XMLList, XMLPath);
                     // Durchläuft Schleifer aller Shortcuts und registriert jeden Shortcut erneut da diese in der edt Form gelöscht wurden. 
                     // Weiterhin werden ListviewItems zur Listview hinzugefügt und mit Spezialen Icons versehen. 
+                    RegisterAllShortcuts(); 
                     foreach (Shortcut sc in XMLList.Shortcuts)
                     {
-                        Functions.RegisterHotKey(sc.Keycombo);
+
                         ListViewItem item = new ListViewItem();
 
                         item.Text = sc.Name;
@@ -173,6 +179,14 @@ namespace TooManyShortcuts
 
             }
 
+        }
+
+        public void RegisterAllShortcuts()
+        {
+            foreach (Shortcut sc in XMLList.Shortcuts)
+            {
+                Functions.RegisterHotKey(sc.Keycombo);
+            }
         }
         /// <summary>
         /// Fügt EasterEggs aber auch sinnvolle Icons zu Speziellen Zeilen hinzu :3
@@ -354,6 +368,7 @@ namespace TooManyShortcuts
                 lvShortcuts.SelectedItems[0].Remove();
                 ListSerializer.Serialize(XMLList, XMLPath);
                 Functions.hook.Dispose();
+                
                 UpdateShortcuts();
             }
             catch (Exception)
@@ -363,10 +378,6 @@ namespace TooManyShortcuts
             }
         }
 
-        private void ShortCutList_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            MessageBox.Show("HI");
-        }
     }
 }
 

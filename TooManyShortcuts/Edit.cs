@@ -147,8 +147,8 @@ namespace TooManyShortcuts
             this.txtParameter.TextChanged += new EventHandler(CheckSaveButton);
           
 
-             Functions.hook.Dispose();
-            Functions.RegisterHotKey("STRG + Space");
+            Functions.hook.Dispose();
+            
 
 
             // Legt lediglich die TabIndex Reinfolge der Elemente fest
@@ -291,6 +291,7 @@ namespace TooManyShortcuts
 
         void BtnEditFinishedClick(object sender, EventArgs e)
         {
+            
             if (txtPath.Text == "text") { txtPath.Text = "Text"; }
             XMLListTemp.Shortcuts.Remove(XMLListTemp.Shortcuts.Find(x => x.Shorthand == txtShorthand.Text));
             XMLListTemp.Shortcuts.Remove(XMLListTemp.Shortcuts.Find(x => x.Keycombo == FixedtxtShortcuts.Text));

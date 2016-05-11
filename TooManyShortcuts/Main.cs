@@ -96,6 +96,11 @@ namespace TooManyShortcuts
         {
             this.WindowState = FormWindowState.Normal;
             this.ShowInTaskbar = true;
+            this.BringToFront();
+            this.Focus(); 
+       
+            
+           
         }
     }
 }

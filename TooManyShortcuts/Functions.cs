@@ -28,6 +28,7 @@ namespace TooManyShortcuts
     {
 
 
+
         public static bool forminwork = false;
         static KeyMods KeyMod = new KeyMods();
         public static string DDFileName = ""; // DragDropFileName 
@@ -36,7 +37,28 @@ namespace TooManyShortcuts
         public static XMLShortcutList XMLListTemp;
         public static RegistryKey rkStartUp = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
         public static RegistryKey rkDisabledStartUp;
+        [DllImport("USER32.DLL")]
+        public static extern bool SetForegroundWindow(IntPtr hWnd);
 
+        [System.Runtime.InteropServices.DllImport("User32.dll")]
+        public static extern bool ShowWindow(IntPtr handle, int nCmdShow);
+
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+
+
+        // this gives you the handle of the window you need.
+
+        // then use this handle to bring the window to focus or forground(I guessed you wanted this).
+
+        // sometimes the window may be minimized and the setforground function cannot bring it to focus so:
+
+        /*use this ShowWindow(IntPtr handle, int nCmdShow);
+        *there are various values of nCmdShow 3, 5 ,9. What 9 does is: 
+        *Activates and displays the window. If the window is minimized or maximized, *the system restores it to its original size and position. An application *should specify this flag when restoring a minimized window */
+
+      
         /// <summary>
         /// Notwendig um Shortcuts registrieren zu können!
         /// </summary>
@@ -52,7 +74,7 @@ namespace TooManyShortcuts
         {
             if (completeshortcut.Split('+')[0] == "STRG ") KeyMod = KeyMods.Control;
             if (completeshortcut.Split('+')[0] == "ALT ") KeyMod = KeyMods.Alt;
-            if (completeshortcut.Split('+')[0] == "SHIFT ") KeyMod = KeyMods.Alt;
+            if (completeshortcut.Split('+')[0] == "SHIFT ") KeyMod = KeyMods.Shift;
 
             string tempstr = completeshortcut.Split('+')[1];
             tempstr = tempstr.Substring(1, tempstr.Length - 1);
@@ -70,6 +92,7 @@ namespace TooManyShortcuts
         //Hotkeyausführung: Falls der Hotkey gedrückt wird müssen einige Zeichen umgewandelt werden 
         static void hook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
+            Application.DoEvents(); 
             string Mod = "";
             if (e.Modifier.ToString() == "Control") { Mod = "STRG"; } //Umwandelung um eine Abfrage mit der Liste durchzuführen
             else if (e.Modifier.ToString() == "Alt") { Mod = "ALT"; } // --
@@ -80,7 +103,18 @@ namespace TooManyShortcuts
             if (Mod == "STRG" && e.Key.ToString() == "Space")
             {
                 ShorthandWindow shw = new ShorthandWindow(XMLListTemp);
-                CreatePopUpForm(shw);
+                shw.Name = "ShorthandWindow"; 
+                if (Application.OpenForms["ShorthandWindow"] == null) 
+                {
+                    shw.Show();
+
+                    
+                }
+                else
+                {
+                    Application.OpenForms["ShorthandWindow"].Focus();
+                }
+              
 
 
             }
@@ -93,21 +127,12 @@ namespace TooManyShortcuts
                     StartProcess(sc);
 
                 }
-
+                
             }
+           
         }
 
-        public static void CreatePopUpForm(Form f)
-        {
-
-            if (forminwork == false)
-            {
-                f.Show();
-                f.Focus();
-                forminwork = true;
-            }
-
-        }
+     
 
         /// <summary>
         /// Fill ImgList with Picture from a Directory.
@@ -132,7 +157,7 @@ namespace TooManyShortcuts
         {
 
 
-
+            
 
             if (sc.Path == "Text")
             {
@@ -275,33 +300,7 @@ namespace TooManyShortcuts
             }
             
         }
-        /// <summary>
-        /// Kann durch die angabe des HandleWidnows die Postion dessen ändern. 
-        /// </summary>
-        /// <param name="hWnd">HandleWindow. Kann mit Process.Start (prc.MainWindowHandle) ermittelt werden</param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <param name="repaint"></param>
-        /// <returns></returns>
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern bool MoveWindow(IntPtr hWnd, int x, int y, int width, int height, bool repaint);
-        [DllImport("user32.dll")]
-        static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
-        [DllImport("user32.dll")]
-        private static extern bool EnumWindows(EnumWindowsProc enumProc, IntPtr lParam);
-
-        // Delegate to filter which windows to include 
-        public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern int GetWindowThreadProcessId(HandleRef handle, out int processId);
-
-        public static void WindowsLeftSide(IntPtr WindowHandle)
-        {
-            MoveWindow(WindowHandle, 0, 0, Screen.PrimaryScreen.WorkingArea.X / 2, Screen.PrimaryScreen.WorkingArea.Y, false);
-        }
     }
 
 

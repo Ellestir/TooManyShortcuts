@@ -38,7 +38,7 @@ namespace TooManyShortcuts
             protected override void WndProc(ref Message m)
             {
                 base.WndProc(ref m);
-
+                
                 // check if we got a hot key pressed.
                 if (m.Msg == WM_HOTKEY)
                 {
@@ -50,6 +50,7 @@ namespace TooManyShortcuts
                     if (KeyPressed != null)
                         KeyPressed(this, new KeyPressedEventArgs(modifier, key));
                 }
+              
             }
 
             public event EventHandler<KeyPressedEventArgs> KeyPressed;

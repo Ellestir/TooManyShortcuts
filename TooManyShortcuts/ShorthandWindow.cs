@@ -34,14 +34,12 @@ namespace TooManyShortcuts
 		
 		void ShorthandWindowLoad(object sender, EventArgs e)
 		{
-            BringToFront();
-            this.ShowIcon = false;
-            this.Location = new Point(Screen.PrimaryScreen.WorkingArea.Width	/ 2 - this.Width / 2,Screen.PrimaryScreen.WorkingArea.Height / 2 - this.Height / 2); 
-			this.TopMost = true;
             txtShorthand.CharacterCasing = CharacterCasing.Upper;
-            txtShorthand.Focus();
-           
-		}
+            this.Location = new Point(Screen.PrimaryScreen.WorkingArea.Width / 2 - this.Width / 2, Screen.PrimaryScreen.WorkingArea.Height / 2 - this.Height / 2);
+
+            
+
+        }
 		
 
 		
@@ -79,6 +77,18 @@ namespace TooManyShortcuts
         private void ShorthandWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
             Functions.forminwork = false;
+        }
+
+        private void ShorthandWindow_Activated(object sender, EventArgs e)
+        {
+        
+            this.ShowInTaskbar = true;
+            this.BringToFront();
+            this.TopLevel = true;
+            this.TopMost = true;
+            this.Focus();
+            txtShorthand.Select();
+
         }
     }
 }
