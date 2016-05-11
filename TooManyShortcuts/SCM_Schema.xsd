@@ -36,7 +36,6 @@
             <xs:field xpath="Name" />
           </xs:unique>
         </xs:element>
-        <xs:element name ="LaunchOnSystemStartup" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

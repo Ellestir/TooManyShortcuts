@@ -14,9 +14,10 @@ namespace TooManyShortcutsTEST
         [TestInitialize]
         public void init()
         {
-            original.Shortcuts.Add(new Shortcut { Name="Dingens1", Shorthand = "GGB", Keycombo = "strg+G", Path = "yolo.exe", Parameters="-yeah" });
+            original.Shortcuts.Add(new Shortcut { Name="Dingens1", Shorthand = "GGB", Keycombo = "strg+F", Path = "yolo.exe", Parameters="-yeah" });
             original.Shortcuts.Add(new Shortcut { Name="Dingens2", Shorthand = "FFX", Keycombo = "strg+G", Path = "lmao.exe" });
             original.Shortcuts.Add(new Shortcut { Name="Dingens3", Shorthand = "JKL", Keycombo = "strg+M", Path = "woopwoop.exe", IconLocation="Lalaland.wtf" });
+            original.LaunchOnSystemStartup = true;
             ListSerializer.Serialize(original, "test.xml");
             ListSerializer.DeSerialize(deserialized, "test.xml");
         }
@@ -52,6 +53,12 @@ namespace TooManyShortcutsTEST
                         && (deserialized.Shortcuts[2].Keycombo == original.Shortcuts[2].Keycombo)
                         && (deserialized.Shortcuts[2].Path == original.Shortcuts[2].Path)
                         && (deserialized.Shortcuts[2].IconLocation == original.Shortcuts[2].IconLocation));
+        }
+
+        [TestMethod]
+        public void test_Autostart()
+        {
+            Assert.IsTrue(deserialized.LaunchOnSystemStartup == true);
         }
 
     }

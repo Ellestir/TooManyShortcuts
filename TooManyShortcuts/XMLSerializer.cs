@@ -39,10 +39,7 @@ namespace TooManyShortcuts
                 // Aufräumarbeiten
                 WriteFileStream.Close();
             }
-            else
-            {
-                System.Windows.Forms.MessageBox.Show(ValidationResult); //Platzhalter
-            }
+            //Platzhalter um irgendetwas mit der Exception-Message zu tun
         }
 
         //Liest Shortcut-Liste aus XML aus
@@ -66,11 +63,6 @@ namespace TooManyShortcuts
                 // Aufräumarbeiten
                 ReadFileStream.Close();
             }
-            else
-            {
-                list.LaunchOnSystemStartup = false;
-            }
-
         }
         //Prüft, ob das gegebene XML dem gegebenen Schema entspricht
         public static string ValidateXML(string xml, string schema)
