@@ -31,6 +31,10 @@
             <xs:selector xpath="Shortcut" />
             <xs:field xpath="Keycombo" />
           </xs:unique>
+          <xs:unique name="uniqueName">
+            <xs:selector xpath="Shortcut" />
+            <xs:field xpath="Name" />
+          </xs:unique>
         </xs:element>
         <xs:element name ="LaunchOnSystemStartup" type="xs:boolean" />
       </xs:sequence>

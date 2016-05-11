@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using System.Xml.Serialization;
@@ -22,9 +24,11 @@ namespace TooManyShortcuts
             SerializerObj.Serialize(ValidationStream, list);
             ValidationStream.Close();
             string ValidationData = ValidationStream.ToString();
+            //Stream SchemaRessource = ;
+            string ValidationSchema = Assembly.GetExecutingAssembly().GetManifestResourceStream(list.Schema).ToString();
 
             //validiert das bei der Serialisierung entstandene XML gegen das Schema bevor es gespeichert wird
-            string ValidationResult = ValidateXML(ValidationData, list.SchemaLocation);
+            string ValidationResult = ValidateXML(ValidationData, ValidationSchema);
 
             if (ValidationResult == "ok")
             {
@@ -69,7 +73,7 @@ namespace TooManyShortcuts
 
             XDocument xdoc = XDocument.Parse(xml);
             XmlSchemaSet schemas = new XmlSchemaSet();
-            schemas.Add(null, schema);
+            schemas.Add(null, new XmlTextReader(schema));
 
             try
             {

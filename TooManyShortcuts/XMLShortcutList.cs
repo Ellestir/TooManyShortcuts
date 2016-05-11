@@ -9,12 +9,12 @@ namespace TooManyShortcuts
     [XmlRoot(ElementName ="ShortcutList")]
     public class XMLShortcutList
     {
-        [XmlAttribute(AttributeName = "noNamespaceSchemaLocation", Namespace = XmlSchema.InstanceNamespace)]
-        public string SchemaLocation = "SCM_Schema.xsd";
-
         public List<Shortcut> Shortcuts = new List<Shortcut>();
 
-        public bool LaunchOnSystemStartup = true;
+        public bool LaunchOnSystemStartup;
+
+        [XmlIgnore]
+        public string Schema = "SCM_Schema.xsd";
     }
 
     

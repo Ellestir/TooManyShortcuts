@@ -15,7 +15,7 @@ namespace TooManyShortcutsTEST
         public void init()
         {
             original.Shortcuts.Add(new Shortcut { Name="Dingens1", Shorthand = "GGB", Keycombo = "strg+G", Path = "yolo.exe", Parameters="-yeah" });
-            original.Shortcuts.Add(new Shortcut { Name="Dingens2", Shorthand = "FFX", Keycombo = "strg+F", Path = "lmao.exe" });
+            original.Shortcuts.Add(new Shortcut { Name="Dingens2", Shorthand = "FFX", Keycombo = "strg+G", Path = "lmao.exe" });
             original.Shortcuts.Add(new Shortcut { Name="Dingens3", Shorthand = "JKL", Keycombo = "strg+M", Path = "woopwoop.exe", IconLocation="Lalaland.wtf" });
             ListSerializer.Serialize(original, "test.xml");
             ListSerializer.DeSerialize(deserialized, "test.xml");
