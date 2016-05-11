@@ -13,8 +13,6 @@ namespace TooManyShortcuts
         public string SchemaLocation = "SCM_Schema.xsd";
 
         public List<Shortcut> Shortcuts = new List<Shortcut>();
-
-        public bool LaunchOnSystemStartup = true;
     }
 
 
