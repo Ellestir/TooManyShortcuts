@@ -26,6 +26,10 @@ namespace TooManyShortcuts
 
     public static class Functions
     {
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetWindowThreadProcessId(IntPtr hWnd, out uint ProcessId);
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
 
         static KeyMods KeyMod = new KeyMods();
         public static string DDFileName = ""; // DragDropFileName 
@@ -60,7 +64,7 @@ namespace TooManyShortcuts
             hook.RegisterHotKey(KeyMod, (Keys)Enum.Parse(typeof(Keys), tempstr));
 
         }
-        
+
 
         //Hotkeyausführung: Falls der Hotkey gedrückt wird müssen einige Zeichen umgewandelt werden 
         public static void hook_KeyPressed(object sender, KeyPressedEventArgs e)
@@ -86,17 +90,30 @@ namespace TooManyShortcuts
                 }
             }
 
-            foreach (Shortcut sc in XMLListTemp.Shortcuts)
-            { // Durchsuche die Erste Dimension (Alle Items ohne Subitem) 
-                ListViewItem item = new ListViewItem();
+            else if (Mod == "STRG" && e.Key.ToString() == "D1")
+            {
+                uint ptont;
+                GetWindowThreadProcessId(GetForegroundWindow(), out ptont);
 
-                if (Mod + " + " + e.Key.ToString() == sc.Keycombo)
-                { //Ist das 3 Subitem (gespeicherte Tastenkombi) mit der Tastenkombination gleich {
-                    StartProcess(sc);
+                Process p = Process.GetProcessById((int)ptont);
+                Clipboard.SetText(p.MainWindowTitle);
+            }
+
+            else
+            {
+                foreach (Shortcut sc in XMLListTemp.Shortcuts)
+                { // Durchsuche die Erste Dimension (Alle Items ohne Subitem) 
+                    ListViewItem item = new ListViewItem();
+
+                    if (Mod + " + " + e.Key.ToString() == sc.Keycombo)
+                    { //Ist das 3 Subitem (gespeicherte Tastenkombi) mit der Tastenkombination gleich {
+                        StartProcess(sc);
+
+                    }
 
                 }
-
             }
+          
 
         }
 

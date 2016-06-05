@@ -38,6 +38,16 @@ namespace TooManyShortcuts
         /// <param name="e"></param>
         private void Main_Load(object sender, EventArgs e)
         {
+            XMLList.Shortcuts.Add(new Shortcut
+            {
+                Name = "Give me acutal Window Title",
+                Path = "",
+                Parameters = "",
+                Keycombo = "STRG + D1",
+                Shorthand = "GIT"
+            });
+            ListSerializer.Serialize(XMLList, ShortCutList.XMLPath);
+
             // Initizalisierung des KeyPressEvents wie Registrieren von ShorthandWindows durch STRG + Space
             Functions.IntalizeKeyPressEvent(XMLList);
 
@@ -80,6 +90,7 @@ namespace TooManyShortcuts
         /// <param name="edt">Beim Systemstart nichts übergeben bei Änderungen die entsprechende Edt Form mit übergeben um XMLList zu überschreiben</param>
         public void UpdateShortcuts([Optional] Edit edt)
         {
+            Functions.RegisterHotKey("STRG + Space");
             bool stop = false;
             // Wenn edt mitgebenen wird  dann wird die jetzige XML List  von der edt List überschrieben.
             if (edt != null)
@@ -98,7 +109,8 @@ namespace TooManyShortcuts
 
             if (!stop)
             {
-                Functions.RegisterHotKey("STRG + Space");
+                
+
                 lvShortcuts.Items.Clear();
 
                 try
@@ -251,6 +263,7 @@ namespace TooManyShortcuts
 
         private void btnNew_Click(object sender, EventArgs e)
         {
+            Functions.hook.Dispose();
             Edit edt = new Edit(Functions.DDFileName, Functions.DDPath, "", "", "", XMLList);
             UpdateShortcuts(edt);
         }

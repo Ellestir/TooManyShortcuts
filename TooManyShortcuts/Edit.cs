@@ -141,7 +141,7 @@ namespace TooManyShortcuts
             this.txtPath.TextChanged += new EventHandler(CheckSaveButton);
             this.txtParameter.TextChanged += new EventHandler(CheckSaveButton);
 
-            Functions.hook.Dispose();
+         
 
             // Legt lediglich die TabIndex Reinfolge der Elemente fest
             // Somit ist einfaches durchtappen mit der Taptaste gegeben

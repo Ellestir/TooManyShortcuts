@@ -15,7 +15,7 @@ namespace TooManyShortcuts
     public partial class Main : Form
     {
         // Inition 
-        XMLShortcutList XMLTempList = new XMLShortcutList();
+      
         ShortCutList sclForm = new ShortCutList();
         public static ListViewItem selecteditem;
 
@@ -24,7 +24,7 @@ namespace TooManyShortcuts
         {
 
             InitializeComponent();
-            this.Text = "TooManyShortcuts " + Application.ProductVersion;
+            this.Text = "TooManyShortcuts " + "0.2";
             this.MinimizeBox = false;
             NIMain.Icon = Properties.Resources.Keyboard;
 
@@ -64,6 +64,9 @@ namespace TooManyShortcuts
             e.Cancel = true;
             this.Hide();
             this.ShowInTaskbar = false;
+            NIMain.BalloonTipText = "TooManyShortcuts bleibt aktiv";
+            NIMain.ShowBalloonTip(500);
+            
         }
 
 
